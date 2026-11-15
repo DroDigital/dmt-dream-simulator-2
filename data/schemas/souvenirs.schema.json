@@ -1,0 +1,81 @@
+{
+ "type": "object",
+ "properties": {
+  "$comment": {
+   "type": "string"
+  },
+  "souvenirs": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "tag": {
+      "enum": [
+       "water",
+       "light",
+       "paper",
+       "glass",
+       "flesh",
+       "glyph",
+       "machine"
+      ]
+     },
+     "influence": {
+      "type": "array",
+      "items": {
+       "enum": [
+        "bright",
+        "deep",
+        "still",
+        "alive"
+       ]
+      },
+      "minItems": 1,
+      "maxItems": 2
+     },
+     "motif": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "special": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "realms": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "tag",
+     "influence",
+     "motif",
+     "special",
+     "realms"
+    ],
+    "additionalProperties": false
+   },
+   "minItems": 1
+  }
+ },
+ "required": [
+  "souvenirs"
+ ],
+ "additionalProperties": false,
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/souvenirs.json"
+}

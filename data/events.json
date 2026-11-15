@@ -1,0 +1,296 @@
+{
+ "$comment": "Micro-event deck. Drawn per visit, weighted by realm, resonance, night and diary keywords.",
+ "events": [
+  {
+   "id": "bus-no-one",
+   "text": "A bus stops; nobody gets off.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "bus",
+    "wait",
+    "stop"
+   ],
+   "script": "bus",
+   "durationS": 20,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "vending-sings",
+   "text": "A vending machine hums a lullaby, then dispenses a moon.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "machine",
+    "moon"
+   ],
+   "script": "vending",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "laundry-wave",
+   "text": "All the laundry lines wave at once, though there is no wind.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "wind",
+    "cloth"
+   ],
+   "script": "laundry",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "lights-on-sequence",
+   "text": "Every window lights up in order, down the street.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "window",
+    "light"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "cat-parade",
+   "text": "Three cats cross the road in a perfect line.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "cat",
+    "line"
+   ],
+   "script": "cats",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "phone-rings",
+   "text": "A phone booth rings and rings.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "phone",
+    "call"
+   ],
+   "script": "phone",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "prism-chorus",
+   "text": "The prisms hum a chord together.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "song",
+    "glass"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "rainbow-walks",
+   "text": "A rainbow slides along the floor like a slow animal.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "rainbow",
+    "light"
+   ],
+   "script": "rainbow",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "candles-lean",
+   "text": "All the candles lean toward you.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "candle",
+    "watch"
+   ],
+   "script": "lean",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "figure-kneels",
+   "text": "A glass figure kneels, then is gone.",
+   "realm": "prism-cathedral",
+   "rarity": "rare",
+   "keywords": [
+    "glass",
+    "kneel"
+   ],
+   "script": "kneel",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "words-rain",
+   "text": "A sentence falls from the sky, letter by letter.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "letter",
+    "rain"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "dune-rewrites",
+   "text": "A dune rewrites itself into a different word.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "dune",
+    "word"
+   ],
+   "script": "dune",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "tablet-blinks",
+   "text": "The great tablet blinks.",
+   "realm": "glyph-desert",
+   "rarity": "rare",
+   "keywords": [
+    "eye",
+    "tablet"
+   ],
+   "script": "blink",
+   "durationS": 6,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "kite-crosses",
+   "text": "A red kite crosses the sky with no string.",
+   "realm": "*",
+   "rarity": "uncommon",
+   "keywords": [
+    "kite",
+    "red",
+    "sky"
+   ],
+   "script": "kite",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "two-moons-rise",
+   "text": "A second moon rises next to the first.",
+   "realm": "*",
+   "rarity": "rare",
+   "keywords": [
+    "moon",
+    "two"
+   ],
+   "script": "moons",
+   "durationS": 18,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "train-passes",
+   "text": "A night train passes overhead, lit and empty.",
+   "realm": "*",
+   "rarity": "rare",
+   "keywords": [
+    "train",
+    "night"
+   ],
+   "script": "train",
+   "durationS": 15,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "one-in-500",
+   "text": "Every object in the realm turns to face the same way.",
+   "realm": "*",
+   "rarity": "1-in-500",
+   "keywords": [
+    "turn",
+    "still"
+   ],
+   "script": "turn",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  }
+ ]
+}

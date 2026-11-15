@@ -1,0 +1,138 @@
+{
+ "$comment": "Dream Laws. Never announced in game; the morning journal names them.",
+ "laws": [
+  {
+   "id": "feather",
+   "name": "Feather",
+   "journal": "Gravity is 30%.",
+   "effects": {
+    "gravity": 0.3
+   },
+   "weight": 1,
+   "deep": false
+  },
+  {
+   "id": "mirror",
+   "name": "Mirror",
+   "journal": "The world is flipped left to right.",
+   "effects": {
+    "mirror": true
+   },
+   "weight": 1,
+   "deep": false
+  },
+  {
+   "id": "glass-night",
+   "name": "Glass night",
+   "journal": "Glass things are everywhere; the first one you notice counts.",
+   "effects": {
+    "tagBias": "glass",
+    "lawTag": "glass"
+   },
+   "weight": 1,
+   "deep": false
+  },
+  {
+   "id": "giant",
+   "name": "Giant",
+   "journal": "You are ten times larger.",
+   "effects": {
+    "scale": 10
+   },
+   "weight": 0.5,
+   "deep": false
+  },
+  {
+   "id": "tiny",
+   "name": "Tiny",
+   "journal": "You are a tenth of your size.",
+   "effects": {
+    "scale": 0.1
+   },
+   "weight": 0.5,
+   "deep": false
+  },
+  {
+   "id": "hush",
+   "name": "Hush",
+   "journal": "There is no music.",
+   "effects": {
+    "music": 0
+   },
+   "weight": 1,
+   "deep": false
+  },
+  {
+   "id": "backwards",
+   "name": "Backwards",
+   "journal": "Animations run in reverse.",
+   "effects": {
+    "timeSign": -1
+   },
+   "weight": 1,
+   "deep": true
+  },
+  {
+   "id": "watchers",
+   "name": "Watchers",
+   "journal": "Figures turn to face you.",
+   "effects": {
+    "figuresFace": true
+   },
+   "weight": 1,
+   "deep": true
+  },
+  {
+   "id": "glyph-night",
+   "name": "Glyph night",
+   "journal": "Everything is drawn in characters.",
+   "effects": {
+    "glyph": true
+   },
+   "weight": 0.8,
+   "deep": true
+  },
+  {
+   "id": "long-night",
+   "name": "Long night",
+   "journal": "Breath lasts twice as long.",
+   "effects": {
+    "breathMul": 2
+   },
+   "weight": 0.7,
+   "deep": false
+  },
+  {
+   "id": "sticky",
+   "name": "Sticky",
+   "journal": "Links need two seconds of contact.",
+   "effects": {
+    "stickyLinks": true
+   },
+   "weight": 1,
+   "deep": false
+  },
+  {
+   "id": "paper-night",
+   "name": "Paper night",
+   "journal": "Everything is folded paper.",
+   "effects": {
+    "tagBias": "paper",
+    "paper": true,
+    "lawTag": "paper"
+   },
+   "weight": 1,
+   "deep": false
+  },
+  {
+   "id": "indoor-rain",
+   "name": "Indoor rain",
+   "journal": "It rains everywhere, even inside.",
+   "effects": {
+    "rain": true
+   },
+   "weight": 1,
+   "deep": false
+  }
+ ]
+}

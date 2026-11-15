@@ -1,0 +1,89 @@
+{
+ "$comment": "Phrase tables for the journal poem and placeholder Dream Diary lines.",
+ "opening": {
+  "paper": [
+   "a folded street",
+   "the paper sky",
+   "creased evening"
+  ],
+  "machine": [
+   "a humming machine",
+   "the coin slot moon",
+   "a ringing nowhere"
+  ],
+  "glass": [
+   "the glass hush",
+   "coloured silence",
+   "a window of noon"
+  ],
+  "light": [
+   "lantern breath",
+   "a slow glow",
+   "light poured out"
+  ],
+  "glyph": [
+   "letters in the sand",
+   "a word on the wind",
+   "sentences of dune"
+  ],
+  "water": [
+   "the low tide",
+   "a sunken stair",
+   "two moons on water"
+  ],
+  "flesh": [
+   "a warm pulse",
+   "the coral hum",
+   "a breathing wall"
+  ]
+ },
+ "middle": [
+  "I walked without walking",
+  "nobody got off",
+  "it remembered my name",
+  "the door was already open",
+  "everything leaned toward me",
+  "I touched it and it folded",
+  "someone was there, then wasn't"
+ ],
+ "closing": [
+  "and then it was morning",
+  "the window kept the colour",
+  "I carried it home",
+  "I woke holding nothing",
+  "the clock was ringing softly",
+  "the room was a little brighter"
+ ],
+ "diary": {
+  "subjects": [
+   "a bus",
+   "the kite",
+   "my old school",
+   "a lantern",
+   "the sea",
+   "a red phone",
+   "the moon",
+   "my room",
+   "a cat",
+   "the train"
+  ],
+  "verbs": [
+   "was waiting",
+   "kept ringing",
+   "folded open",
+   "forgot me",
+   "was singing",
+   "was made of glass",
+   "turned into letters",
+   "followed me home"
+  ],
+  "places": [
+   "at the end of the street",
+   "under the stairs",
+   "inside the window",
+   "in the desert",
+   "at the bottom of the sea",
+   "on the seventh floor"
+  ]
+ }
+}

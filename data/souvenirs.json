@@ -1,0 +1,149 @@
+{
+ "$comment": "Souvenir designs. Influence vector pushes tomorrow's start position (bright/deep/still/alive).",
+ "souvenirs": [
+  {
+   "id": "paper-crane",
+   "name": "Paper crane",
+   "tag": "paper",
+   "influence": [
+    "bright",
+    "still"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "bike-bell",
+   "name": "Bike bell",
+   "tag": "machine",
+   "influence": [
+    "alive",
+    "bright"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "glass-bead",
+   "name": "Glass bead",
+   "tag": "glass",
+   "influence": [
+    "bright",
+    "still"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "candle-stub",
+   "name": "Candle stub",
+   "tag": "light",
+   "influence": [
+    "bright",
+    "still"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "sand-scroll",
+   "name": "Sand scroll",
+   "tag": "glyph",
+   "influence": [
+    "deep",
+    "still"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "ink-bottle",
+   "name": "Ink bottle",
+   "tag": "glyph",
+   "influence": [
+    "deep",
+    "alive"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "red-kite",
+   "name": "Red kite",
+   "tag": "paper",
+   "influence": [
+    "bright",
+    "alive"
+   ],
+   "motif": "red-kite",
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "kite-string",
+   "name": "Kite string",
+   "tag": "paper",
+   "influence": [
+    "alive",
+    "bright"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "phone-receiver",
+   "name": "Phone receiver",
+   "tag": "machine",
+   "influence": [
+    "deep",
+    "alive"
+   ],
+   "motif": "phone-receiver",
+   "special": "phoneStart",
+   "realms": []
+  },
+  {
+   "id": "moon-pebble",
+   "name": "Moon pebble",
+   "tag": "water",
+   "influence": [
+    "deep",
+    "still"
+   ],
+   "motif": "moon-pebble",
+   "special": "extraMoon",
+   "realms": []
+  },
+  {
+   "id": "lantern-shard",
+   "name": "Lantern shard",
+   "tag": "light",
+   "influence": [
+    "bright",
+    "alive"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  },
+  {
+   "id": "vhs-tape",
+   "name": "VHS tape",
+   "tag": "machine",
+   "influence": [
+    "deep",
+    "still"
+   ],
+   "motif": null,
+   "special": null,
+   "realms": []
+  }
+ ]
+}

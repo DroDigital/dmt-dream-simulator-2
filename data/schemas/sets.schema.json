@@ -1,0 +1,41 @@
+{
+ "type": "object",
+ "properties": {
+  "$comment": {
+   "type": "string"
+  },
+  "sets": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "members": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "minItems": 2
+     },
+     "night": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "members",
+     "night"
+    ],
+    "additionalProperties": false
+   }
+  }
+ },
+ "required": [
+  "sets"
+ ],
+ "additionalProperties": false,
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/sets.json"
+}

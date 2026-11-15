@@ -1,0 +1,51 @@
+{
+ "type": "object",
+ "properties": {
+  "$comment": {
+   "type": "string"
+  },
+  "laws": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "journal": {
+      "type": "string"
+     },
+     "effects": {
+      "type": "object"
+     },
+     "weight": {
+      "type": "number",
+      "minimum": 0
+     },
+     "deep": {
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "id",
+     "name",
+     "journal",
+     "effects",
+     "weight",
+     "deep"
+    ],
+    "additionalProperties": false
+   },
+   "minItems": 13
+  }
+ },
+ "required": [
+  "laws"
+ ],
+ "additionalProperties": false,
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/laws.json"
+}

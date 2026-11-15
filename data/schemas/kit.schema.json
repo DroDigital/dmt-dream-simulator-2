@@ -1,0 +1,143 @@
+{
+ "type": "object",
+ "properties": {
+  "realm": {
+   "type": "string"
+  },
+  "grid": {
+   "type": "integer",
+   "minimum": 4
+  },
+  "cell": {
+   "type": "number"
+  },
+  "levelHeight": {
+   "type": "number"
+  },
+  "linkTags": {
+   "type": "array",
+   "items": {
+    "enum": [
+     "water",
+     "light",
+     "paper",
+     "glass",
+     "flesh",
+     "glyph",
+     "machine"
+    ]
+   },
+   "minItems": 1
+  },
+  "tiles": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "weight",
+     "sockets",
+     "floor"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "weight": {
+      "type": "number",
+      "minimum": 0
+     },
+     "sockets": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "minItems": 4,
+      "maxItems": 4
+     },
+     "rotations": {
+      "enum": [
+       1,
+       2,
+       4
+      ]
+     },
+     "floor": {
+      "type": "object",
+      "required": [
+       "kind"
+      ],
+      "properties": {
+       "kind": {
+        "enum": [
+         "flat",
+         "ramp",
+         "solid"
+        ]
+       }
+      }
+     },
+     "tags": {
+      "type": "array",
+      "items": {
+       "enum": [
+        "water",
+        "light",
+        "paper",
+        "glass",
+        "flesh",
+        "glyph",
+        "machine"
+       ]
+      }
+     }
+    }
+   },
+   "minItems": 1
+  },
+  "props": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "tags",
+     "components",
+     "radius",
+     "height",
+     "spacing",
+     "density",
+     "on"
+    ],
+    "properties": {
+     "tags": {
+      "type": "array",
+      "items": {
+       "enum": [
+        "water",
+        "light",
+        "paper",
+        "glass",
+        "flesh",
+        "glyph",
+        "machine"
+       ]
+      }
+     }
+    }
+   }
+  }
+ },
+ "required": [
+  "realm",
+  "grid",
+  "cell",
+  "levelHeight",
+  "linkTags",
+  "tiles",
+  "props"
+ ],
+ "additionalProperties": false,
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/kit.json"
+}

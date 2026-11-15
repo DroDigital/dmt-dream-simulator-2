@@ -1,0 +1,21 @@
+{
+ "realm": "glyph-desert",
+ "landmark": {
+  "tile": "tablet-ground",
+  "cell": [
+   25,
+   25
+  ],
+  "clear": 1,
+  "clearTile": "sand",
+  "prop": "great-tablet"
+ },
+ "quiet": {
+  "tile": "tent-ground",
+  "cell": [
+   16,
+   17
+  ],
+  "prop": "shade-tent"
+ }
+}

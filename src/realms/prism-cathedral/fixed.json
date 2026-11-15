@@ -1,0 +1,21 @@
+{
+ "realm": "prism-cathedral",
+ "landmark": {
+  "tile": "altar",
+  "cell": [
+   25,
+   25
+  ],
+  "clear": 1,
+  "clearTile": "nave",
+  "prop": "great-prism"
+ },
+ "quiet": {
+  "tile": "chapel",
+  "cell": [
+   34,
+   16
+  ],
+  "prop": "kneeler"
+ }
+}

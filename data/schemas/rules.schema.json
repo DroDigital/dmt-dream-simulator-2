@@ -1,0 +1,28 @@
+{
+ "type": "object",
+ "required": [
+  "realm",
+  "compatible",
+  "spawnCount"
+ ],
+ "properties": {
+  "compatible": {
+   "type": "array",
+   "items": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    },
+    "minItems": 2,
+    "maxItems": 2
+   }
+  },
+  "spawnCount": {
+   "type": "integer",
+   "minimum": 1,
+   "maximum": 8
+  }
+ },
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/rules.json"
+}

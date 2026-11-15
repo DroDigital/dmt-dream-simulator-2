@@ -1,0 +1,78 @@
+{
+ "type": "object",
+ "properties": {
+  "$comment": {
+   "type": "string"
+  },
+  "events": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "text": {
+      "type": "string"
+     },
+     "realm": {
+      "type": "string"
+     },
+     "rarity": {
+      "enum": [
+       "common",
+       "uncommon",
+       "rare",
+       "1-in-500"
+      ]
+     },
+     "keywords": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "script": {
+      "type": "string"
+     },
+     "durationS": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 120
+     },
+     "resonance": {
+      "type": "array",
+      "items": {
+       "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+     },
+     "minNight": {
+      "type": "integer",
+      "minimum": 1
+     }
+    },
+    "required": [
+     "id",
+     "text",
+     "realm",
+     "rarity",
+     "keywords",
+     "script",
+     "durationS",
+     "resonance",
+     "minNight"
+    ],
+    "additionalProperties": false
+   },
+   "minItems": 1
+  }
+ },
+ "required": [
+  "events"
+ ],
+ "additionalProperties": false,
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/events.json"
+}

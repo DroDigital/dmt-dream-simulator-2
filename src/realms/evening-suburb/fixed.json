@@ -1,0 +1,21 @@
+{
+ "realm": "evening-suburb",
+ "landmark": {
+  "tile": "plaza",
+  "cell": [
+   25,
+   25
+  ],
+  "clear": 1,
+  "clearTile": "plaza",
+  "prop": "water-tower"
+ },
+ "quiet": {
+  "tile": "bench-yard",
+  "cell": [
+   14,
+   34
+  ],
+  "prop": "bench"
+ }
+}

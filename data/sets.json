@@ -1,0 +1,37 @@
+{
+ "$comment": "Hidden souvenir sets; displaying all members together unlocks a special night.",
+ "sets": [
+  {
+   "id": "kite-and-string",
+   "members": [
+    "red-kite",
+    "kite-string"
+   ],
+   "night": "kite-night"
+  },
+  {
+   "id": "ink-and-scroll",
+   "members": [
+    "ink-bottle",
+    "sand-scroll"
+   ],
+   "night": "letter-night"
+  },
+  {
+   "id": "bell-and-crane",
+   "members": [
+    "bike-bell",
+    "paper-crane"
+   ],
+   "night": "paper-parade"
+  },
+  {
+   "id": "moon-and-tape",
+   "members": [
+    "moon-pebble",
+    "vhs-tape"
+   ],
+   "night": "rerun-night"
+  }
+ ]
+}

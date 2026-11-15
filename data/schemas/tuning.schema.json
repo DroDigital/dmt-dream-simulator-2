@@ -1,0 +1,18 @@
+{
+ "type": "object",
+ "required": [
+  "sim",
+  "move",
+  "look",
+  "lucidity",
+  "link",
+  "breath",
+  "resonance",
+  "director",
+  "watcher",
+  "coop",
+  "render"
+ ],
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/tuning.json"
+}

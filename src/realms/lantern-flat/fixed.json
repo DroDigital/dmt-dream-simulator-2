@@ -1,0 +1,5 @@
+{
+ "realm": "lantern-flat",
+ "landmark": { "tile": "tatami", "cell": [2, 2] },
+ "quiet": { "tile": "tatami", "cell": [3, 3] }
+}

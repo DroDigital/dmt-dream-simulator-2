@@ -1,0 +1,18 @@
+@font-face { font-family: 'VT323'; src: url('../../node_modules/@fontsource/vt323/files/vt323-latin-400-normal.woff2') format('woff2'); font-display: block; }
+@font-face { font-family: 'Cormorant Garamond'; src: url('../../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-italic.woff2') format('woff2'); font-style: italic; }
+@font-face { font-family: 'Cormorant Garamond'; src: url('../../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2') format('woff2'); }
+:root { --ink: #f6efe4; --dim: #b9a9b6; --bg: #120e16; --accent: #ffd9a0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; }
+#view { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; image-rendering: pixelated; cursor: none; }
+#ui { position: fixed; inset: 0; pointer-events: none; }
+.overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4rem;
+  background: radial-gradient(ellipse at 50% 40%, rgba(60,40,70,.85), rgba(18,14,22,.97)); pointer-events: auto; text-align: center; transition: opacity 1.2s ease; }
+.overlay.hidden { opacity: 0; pointer-events: none; }
+.title { font-size: clamp(2.2rem, 6vw, 4.6rem); letter-spacing: .04em; font-style: italic; }
+.subtitle { font-family: 'VT323', monospace; font-size: 1.3rem; color: var(--dim); letter-spacing: .2em; }
+.warn { max-width: 34rem; font-size: 1.15rem; line-height: 1.5; color: var(--dim); }
+.btn { font-family: 'VT323', monospace; font-size: 1.5rem; color: var(--ink); background: transparent; border: 1px solid rgba(246,239,228,.4); padding: .5rem 2.2rem; cursor: pointer; letter-spacing: .15em; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.debug { position: absolute; left: 8px; top: 8px; font-family: 'VT323', monospace; font-size: 15px; color: #cfe; background: rgba(0,0,0,.45); padding: 4px 8px; white-space: pre; pointer-events: none; }
+.fade { position: absolute; inset: 0; background: #120e16; opacity: 0; transition: opacity .8s; }

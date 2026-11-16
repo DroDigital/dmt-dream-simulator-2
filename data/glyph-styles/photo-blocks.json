@@ -1,0 +1,9 @@
+{
+ "mode": "blocks",
+ "colourMode": "palette",
+ "backdropMode": "original",
+ "backdropStrength": 0.2,
+ "depthCells": false,
+ "cellPx": 10,
+ "ripples": false
+}

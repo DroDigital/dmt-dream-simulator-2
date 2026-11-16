@@ -1,0 +1,12 @@
+{
+ "mode": "ascii",
+ "colourMode": "mono",
+ "colourA": "#2B2138",
+ "backdropMode": "transparent",
+ "invert": true,
+ "depthCells": false,
+ "cellPx": 7,
+ "ripples": false,
+ "gazeSettle": false,
+ "contrast": 0.5
+}

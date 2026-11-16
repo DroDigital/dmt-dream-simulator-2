@@ -16,6 +16,9 @@
 import * as THREE from 'three/webgpu';
 import * as TSLNS from 'three/tsl';
 import { tuning } from '../core/tuning.ts';
+import { GlyphSuite } from './glyph/suite.ts';
+import { aberration } from './paper/aberration.ts';
+import { flutedGlass } from './paper/fluted-glass.ts';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type N = any;
@@ -25,7 +28,7 @@ const {
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => v / 16 - 0.5);
 
-const SCENE_MRT: N = mrt({ output, emissive: vec4(0, 0, 0, 1), normal: packNormalToRGB(normalView as N) });
+export const SCENE_MRT: N = mrt({ output, emissive: vec4(0, 0, 0, 1), normal: packNormalToRGB(normalView as N) });
 
 export const TRANSITION_IDS: Record<string, number> = {
   none: 0, bloom: 1, glyph: 2, fold: 3, pour: 4, shatter: 5, iris: 6, instant: 7, sleep: 8, wake: 9,
@@ -104,6 +107,10 @@ export class PanePipeline {
     transT: uniform(0),
     time: uniform(0),
     glyph: uniform(0),
+    /** Glyph Lab A/B split: left half raw, right half styled. */
+    abSplit: uniform(0),
+    /** Disable trails/lens/grade (lab + tests). */
+    clean: uniform(0),
     glyphCell: uniform(8),
     glyphWind: uniform(0),
     invert: uniform(0),
@@ -118,6 +125,9 @@ export class PanePipeline {
   };
   readonly palette = uniformArray(new Array(32).fill(0).map(() => new THREE.Color(1, 1, 1)), 'color');
   readonly glyphAtlas: THREE.Texture;
+  readonly glyph: GlyphSuite;
+  private glyphTex: N;
+  private lastTime = 0;
 
   private renderer: THREE.WebGPURenderer;
 
@@ -135,6 +145,8 @@ export class PanePipeline {
     this.snapRT = rt(4, 4);
     this.glyphAtlas = makeGlyphAtlas(' .:-=+*#%@');
 
+    this.glyph = new GlyphSuite(renderer, { colour: this.loRT.texture, depth: this.sceneRT.depthTexture!, normal: this.sceneRT.textures[2], palette: this.palette });
+    this.glyphTex = texture(this.glyph.output);
     this.quant = new THREE.QuadMesh(this.makeQuantMaterial());
     this.blurH = new THREE.QuadMesh(this.makeBlur(this.sceneRT.textures[1], true, 1));
     this.blurV = new THREE.QuadMesh(this.makeBlur(this.bloomA.texture, false, 0));
@@ -260,21 +272,14 @@ export class PanePipeline {
       const q: N = uv();
       const col: N = scene(q).toVar();
 
-      // ---- glyph pass (§9.2 step 6; expanded into the Glyph Suite at M2G) ----
-      const gAmt: N = u.glyph;
-      const cellPx: N = u.glyphCell;
+      // ---- realm effects: the Glyph Suite layer, seen through the Paper effects ----
       const px: N = q.mul(u.size);
-      const windOff: N = vec2(u.time.mul(u.glyphWind).mul(14), 0);
-      const cellId: N = floor(px.add(windOff).div(cellPx));
-      const centre: N = cellId.add(0.5).mul(cellPx).sub(windOff).div(u.size);
-      const src: N = scene(centre);
-      const lum: N = clamp(pow(luminance(src), 0.55), 0, 0.999);
-      const flick: N = hash21(cellId.add(floor(u.time.mul(u.glyphWind.mul(2))))).mul(u.glyphWind).mul(0.25);
-      const idx: N = floor(clamp(lum.add(flick), 0, 0.999).mul(RAMP_N));
-      const local: N = fract(px.add(windOff).div(cellPx));
-      const gmask: N = atlas.sample(vec2(idx.add(local.x).div(RAMP_N), float(1).sub(local.y))).r;
-      const glyphCol: N = src.mul(gmask).mul(1.5).add(src.mul(0.12));
-      col.assign(mix(col, glyphCol, gAmt));
+      const glT: N = this.glyphTex;
+      const sampleG = (p: N): N => glT.sample(p).rgb;
+      const g2: N = this.glyph.g;
+      const fluted = (p: N): N => select(g2.fluted.greaterThan(0.001), flutedGlass(sampleG, p, g2.fluted, u.size), sampleG(p));
+      const glyphRGB: N = select(g2.aberration.greaterThan(0.001), aberration((p: N) => fluted(p), q, g2.aberration, g2.aspect), fluted(q));
+      col.assign(mix(col, glyphRGB, u.glyph.mul(select(u.abSplit.greaterThan(0.5).and(q.x.lessThan(0.5)), float(0), float(1)))));
 
       // ---- feedback trails ----
       const pc: N = rot(q.sub(0.5), u.trailRot).mul(float(1).sub(u.trailZoom)).add(0.5);
@@ -287,7 +292,8 @@ export class PanePipeline {
       const ca: N = cos(u.hue), sa: N = sin(u.hue);
       col.assign(col.mul(ca).add(k.cross(col).mul(sa)).add(k.mul(dot(k, col)).mul(float(1).sub(ca))));
       const l: N = luminance(col);
-      col.assign(mix(vec3(l), col, u.saturation.mul(float(1).sub(u.desat))));
+      const keep: N = clamp(luminance(bloom.sample(q).rgb).mul(5), 0, 1);
+      col.assign(mix(vec3(l), col, u.saturation.mul(float(1).sub(u.desat.mul(float(1).sub(keep))))));
 
       // ---- dawn / warmth / low-breath ----
       col.assign(mix(col, col.mul(vec3(1.15, 1.02, 0.85)).add(vec3(0.08, 0.06, 0.03)), u.warm));
@@ -383,7 +389,15 @@ export class PanePipeline {
     this.blurH.render(r);
     r.setRenderTarget(this.bloomB);
     this.blurV.render(r);
-    // 6-10. composite into the ping-pong output
+    // 6. Glyph Suite (only when visible)
+    const now = (this.u.time.value as number);
+    const dt = Math.min(0.1, Math.max(1 / 240, now - this.lastTime));
+    this.lastTime = now;
+    if ((this.u.glyph.value as number) > 0.001 && (camera as THREE.PerspectiveCamera).isPerspectiveCamera) {
+      this.glyph.resize(this.out[0].width, this.out[0].height);
+      this.glyph.render(camera as THREE.PerspectiveCamera, now, dt);
+    } else this.glyph.needsReset = true;
+    // 7-10. composite into the ping-pong output
     const next = 1 - this.flip;
     this.prevTex.value = this.out[this.flip].texture;
     r.setRenderTarget(this.out[next]);

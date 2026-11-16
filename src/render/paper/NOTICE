@@ -1,0 +1,11 @@
+Paper Shaders
+Copyright 2026 Paper
+
+Powered by Paper Shaders:
+https://shaders.paper.design
+
+Fluted Glass (src/render/paper/fluted-glass.ts) is ported to TSL from @paper-design/shaders 0.0.82
+(Apache License 2.0, see licenses/Apache-2.0-paper-shaders.txt). Modifications: reduced to the
+"lines" pattern and distortion shapes 1-2, folded into the DMT per-pane post-process.
+Aberration (src/render/paper/aberration.ts) is an original implementation; @paper-design/shaders
+0.0.82 contains no aberration shader.

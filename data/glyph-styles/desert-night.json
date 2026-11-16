@@ -1,0 +1,17 @@
+{
+ "mode": "ascii",
+ "colourMode": "phosphor",
+ "phosphor": "amber",
+ "coverage": 0.6,
+ "backdropMode": "black",
+ "backdropStrength": 0.1,
+ "wind": {
+  "speed": 0.4,
+  "dir": [
+   1,
+   0
+  ]
+ },
+ "drift": 0.3,
+ "gamma": 0.7
+}

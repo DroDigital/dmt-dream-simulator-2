@@ -25,6 +25,7 @@ describe('determinism', () => {
     const b = new Game({ runSeed: 1234, players: 1 });
     for (const f of log) b.step(f);
     expect(b.linkLog).toEqual(a.linkLog);
+    expect(b.noticeLog).toEqual(a.noticeLog);
     expect(b.stateHash()).toBe(a.stateHash());
   });
   it('different seeds diverge', () => {
@@ -52,5 +53,7 @@ describe('M1 night loop', () => {
     expect(game.dreamers[0].visit.realm).toBe('lantern-flat');
     expect(game.night).toBe(2);
     expect([...seen].some((r) => r === 'prism-cathedral' || r === 'glyph-desert')).toBe(true);
+    expect(game.noticeLog.length).toBeGreaterThan(0);
+    console.log('notices', game.noticeLog.length, 'links', game.linkLog.length, 'maxLucidity', game.dreamers[0].maxLucidity.toFixed(1));
   });
 });

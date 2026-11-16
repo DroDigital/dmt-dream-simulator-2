@@ -1,0 +1,10 @@
+{
+ "mode": "ascii",
+ "colourMode": "duotone",
+ "colourA": "#120E16",
+ "colourB": "#F6EFE4",
+ "backdropMode": "black",
+ "depthCells": false,
+ "cellPx": 8,
+ "contrast": 0.6
+}

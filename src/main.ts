@@ -7,6 +7,10 @@ import { hashString } from './core/rng.ts';
 import { Game } from './director/game.ts';
 import { View } from './render/view.ts';
 import { showTitle } from './ui/title.ts';
+import { setupCapture } from './dev/capture.ts';
+import { DT } from './core/tuning.ts';
+import { score } from './audio/score.ts';
+import { Prewarmer } from './realms/prewarm.ts';
 
 const params = new URLSearchParams(location.search);
 
@@ -16,8 +20,13 @@ async function boot() {
   await initPhysics();
   const view = await View.create(canvas, params.has('webgl'));
   const runSeed = params.has('seed') ? Number(params.get('seed')) : hashString(new Date().toDateString());
-  const game = new Game({ runSeed, players: Number(params.get('players') ?? 1), startRealm: params.get('realm') ?? undefined, instantTransitions: params.has('instant') });
+  const capture = params.has('capture');
+  const game = new Game({
+    runSeed, players: Number(params.get('players') ?? 1), startRealm: capture ? 'evening-suburb' : params.get('realm') ?? undefined,
+    instantTransitions: params.has('instant'), drift: params.has('drift'),
+  });
   view.attach(game);
+  const prewarm = new Prewarmer(game);
   const input = new InputSystem();
   input.attach(canvas);
   for (let i = 0; i < game.dreamers.length; i++) input.addPlayer(i === 0 ? 'kbm' : `pad${i - 1}`);
@@ -41,6 +50,8 @@ async function boot() {
     render: (alpha, frameDt) => {
       first = true;
       view.render(game, alpha, frameDt);
+      score.update(game);
+      prewarm.update();
       if (debug.style.display !== 'none') {
         const d = game.dreamers[0];
         const s = view.stats();
@@ -58,13 +69,36 @@ async function boot() {
     setScript(fn: typeof script) { script = fn; },
   };
 
-  const start = () => { loop.start(); input.requestPointerLock(); telemetry.track('session_start', { seed: runSeed }); };
+  if (capture) script = setupCapture(game);
+  // join: in the Flat, any button on an unassigned device adds a dreamer (lie down on a free futon)
+  const joinCheck = () => {
+    if (game.mode !== 'morning') return;
+    for (const dev of input.joinRequests) {
+      if (dev === 'kbm') continue;
+      const d = game.addDreamer();
+      if (d) input.addPlayer(dev);
+    }
+  };
+  setInterval(joinCheck, 100);
+
+  // deterministic frame stepping for headless capture: advance n sim ticks then render one frame
+  (window as unknown as Record<string, unknown>).__advance = (ticks: number) => {
+    loop.stop();
+    for (let i = 0; i < ticks; i++) game.step(script ? script(game) : input.sample(DT, i === 0));
+    view.render(game, 1, ticks * DT);
+  };
+
+  const start = () => { score.attach(game); if (!params.has('mute')) score.start().catch(() => {}); loop.start(); input.requestPointerLock(); telemetry.track('session_start', { seed: runSeed }); };
   if (params.has('autostart')) start();
   else showTitle(ui, start);
   window.addEventListener('beforeunload', () => telemetry.track('session_end', {}));
 }
 
-boot().catch((e) => {
+const labRoute = location.pathname.endsWith('/glyph-lab') || new URLSearchParams(location.search).has('glyph-lab');
+const entry = labRoute && import.meta.env.DEV
+  ? import('./dev/glyphlab.ts').then((m) => m.bootGlyphLab(document.getElementById('view') as HTMLCanvasElement, document.getElementById('ui')!))
+  : boot();
+entry.catch((e) => {
   console.error(e);
   document.body.insertAdjacentHTML('beforeend', `<pre style="color:#f88;position:fixed;top:0;left:0;padding:1em">${String(e?.stack ?? e)}</pre>`);
 });

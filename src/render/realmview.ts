@@ -9,6 +9,11 @@ import { hash32 } from '../core/rng.ts';
 import { kitGeometry } from './kits.ts';
 import { ITINT, makeDetailTexture, makeLofiMaterial, U } from './lofi.ts';
 import { ATMOS, type Atmos } from '../realms/atmos.ts';
+import { Actor, Heading, Lanternfolk, Motif, MOTIF_KINDS, Pos, Vel, inVisit, type EcsWorld } from '../entities/ecs.ts';
+const Vel_x = (e: number) => Vel.x[e];
+const Vel_z = (e: number) => Vel.z[e];
+import { SCRIPT_IDS } from '../director/director.ts';
+import { actorMesh, lanternfolkMesh, motifMesh, souvenirMesh } from './entities.ts';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type N = any;
@@ -39,10 +44,14 @@ export class RealmView {
   private objRefs = new Map<number, InstanceRef>();
   private dirty = new Set<THREE.InstancedMesh>();
   readonly sky: THREE.Mesh;
+  skyU!: { top: N; hor: N; bot: N };
   /** Dynamic objects (entities, carried souvenirs) attach here. */
   readonly dynamic = new THREE.Group();
   drawCalls = 0;
   triangles = 0;
+  private entityMeshes = new Map<number, THREE.Object3D>();
+  private lastVariant = new Map<number, string>();
+  private dynamicObjs = new Map<number, THREE.Object3D>();
 
   constructor(visit: Visit) {
     this.visit = visit;
@@ -56,6 +65,7 @@ export class RealmView {
   private buildSky(): THREE.Mesh {
     const a = this.atmos;
     const top = uniform(new THREE.Color(a.skyTop)), hor = uniform(new THREE.Color(a.skyHorizon)), bot = uniform(new THREE.Color(a.skyBottom));
+    this.skyU = { top, hor, bot };
     const sunCol = uniform(new THREE.Color(a.sunDisc ?? a.sun));
     const sunDir = uniform(new THREE.Vector3(...a.sunDir).normalize());
     const stars = a.stars ? 1 : 0;
@@ -166,6 +176,91 @@ export class RealmView {
 
   objectMatrix(id: number): THREE.Matrix4 | null {
     return this.objRefs.get(id)?.matrix ?? null;
+  }
+
+  objectGeometry(id: number): THREE.BufferGeometry | null {
+    return this.objRefs.get(id)?.mesh.geometry ?? null;
+  }
+
+  /** Pull object + entity state from the sim (call once per frame before rendering any pane). */
+  sync(ecs: EcsWorld, time: number): void {
+    const v = this.visit;
+    for (const o of v.objects) {
+      if (o.src === -1) {
+        // dynamic (dropped souvenir)
+        let m = this.dynamicObjs.get(o.id);
+        if (!m) { m = souvenirMesh(o.defId); this.dynamicObjs.set(o.id, m); this.dynamic.add(m); }
+        m.visible = !o.hidden && o.carriedBy < 0;
+        m.position.set(o.x, o.y + Math.sin(time * 1.5 + o.id) * 0.04, o.z);
+        m.rotation.y = time * 0.5;
+        continue;
+      }
+      const ringing = o.variant === 1 && !!o.components.phone;
+      const key = `${o.variant}|${o.hidden}|${o.carriedBy}`;
+      if (!ringing && this.lastVariant.get(o.id) === key) continue;
+      this.lastVariant.set(o.id, key);
+      const r = this.objRefs.get(o.id);
+      if (!r) continue;
+      let tint: [number, number, number, number] = [1, 1, 1, 0];
+      if (ringing) tint = [1.3, 1.3, 1.0, 0.4 + 0.4 * Math.max(0, Math.sin(time * 18)) * (Math.sin(time * 2) > 0 ? 1 : 0)];
+      else if (o.variant === 1) tint = [1.5, 0.55, 0.6, 0.25];
+      else if (o.variant === 2) tint = [0.55, 1.25, 1.5, 0.25];
+      else if (o.variant === 3) tint = [1.35, 1.25, 0.4, 0.35];
+      const hidden = o.hidden || o.carriedBy >= 0;
+      const mat = hidden ? new THREE.Matrix4().makeScale(0, 0, 0)
+        : o.variant === 4 ? r.matrix.clone().multiply(new THREE.Matrix4().makeRotationY(Math.PI)) : r.matrix;
+      r.mesh.setMatrixAt(r.index, mat);
+      r.mesh.instanceMatrix.needsUpdate = true;
+      const attr = r.mesh.geometry.getAttribute(ITINT) as THREE.InstancedBufferAttribute;
+      attr.setXYZW(r.index, tint[0], tint[1], tint[2], tint[3]);
+      attr.needsUpdate = true;
+    }
+    // entities
+    const seen = new Set<number>();
+    for (const eid of inVisit(ecs, v.id, [Lanternfolk])) {
+      seen.add(eid);
+      let m = this.entityMeshes.get(eid);
+      if (!m) { m = lanternfolkMesh(Lanternfolk.hue[eid], Lanternfolk.size[eid]); this.entityMeshes.set(eid, m); this.dynamic.add(m); }
+      m.position.set(Pos.x[eid], Pos.y[eid], Pos.z[eid]);
+      m.rotation.y = -Heading.yaw[eid];
+    }
+    for (const eid of inVisit(ecs, v.id, [Motif])) {
+      seen.add(eid);
+      const kind = MOTIF_KINDS[Motif.kind[eid]];
+      let m = this.entityMeshes.get(eid);
+      if (!m) { m = motifMesh(kind); this.entityMeshes.set(eid, m); this.dynamic.add(m); }
+      m.position.set(Pos.x[eid], Pos.y[eid], Pos.z[eid]);
+      if (kind === 'kite') { m.rotation.set(0.3 * Math.sin(time), time * 0.2, 0.2 * Math.sin(time * 1.3)); }
+      if (kind === 'train') m.rotation.y = Math.atan2(Vel_x(eid), Vel_z(eid));
+    }
+    for (const eid of inVisit(ecs, v.id, [Actor])) {
+      seen.add(eid);
+      const script = SCRIPT_IDS[Actor.script[eid]] ?? 'halo';
+      let m = this.entityMeshes.get(eid);
+      if (!m) { m = actorMesh(script); this.entityMeshes.set(eid, m); this.dynamic.add(m); }
+      const t = Actor.t[eid], dur = Actor.dur[eid];
+      const k = Math.min(1, t / dur);
+      m.visible = t < dur;
+      const yaw = Heading.yaw[eid];
+      const dx = Math.cos(yaw), dz = Math.sin(yaw);
+      if (script === 'bus') {
+        // drive in, stop with doors open, nobody gets off, drive away
+        const p = k < 0.3 ? (k / 0.3) ** 0.5 * 30 - 30 : k < 0.7 ? 0 : ((k - 0.7) / 0.3) ** 2 * 40;
+        m.position.set(Pos.x[eid] + dx * p, Pos.y[eid], Pos.z[eid] + dz * p);
+        m.rotation.y = Math.atan2(dx, dz);
+      } else if (script === 'rainbow') {
+        m.position.set(Pos.x[eid] + dx * (k - 0.5) * 16, Pos.y[eid], Pos.z[eid] + dz * (k - 0.5) * 16);
+        m.rotation.y = Math.atan2(dx, dz) + Math.sin(time * 0.5) * 0.3;
+      } else if (script === 'letters' || script === 'dune') {
+        m.position.set(Pos.x[eid], Pos.y[eid] + 12 - ((t * 1.2) % 12), Pos.z[eid]);
+        m.rotation.y = time * 0.2;
+      } else {
+        m.position.set(Pos.x[eid], Pos.y[eid] + Math.sin(time * 2) * 0.2, Pos.z[eid]);
+        m.rotation.y = time;
+        m.scale.setScalar(Math.sin(Math.PI * k));
+      }
+    }
+    for (const [eid, m] of this.entityMeshes) if (!seen.has(eid)) { this.dynamic.remove(m); this.entityMeshes.delete(eid); }
   }
 
   /** Write this realm's atmosphere into the shared material uniforms (call before each pane render). */

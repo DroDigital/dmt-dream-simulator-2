@@ -19,6 +19,11 @@ import { MorningMenu, encodeDreamCode } from './ui/morning.ts';
 import { diaryFragment, makePoem } from './ui/poem.ts';
 import { AfterimagePlayer } from './director/afterimage.ts';
 import { AtlasUI } from './ui/atlas.ts';
+import { SettingsUI, CB_SAFE_COLORS } from './ui/settings.ts';
+import { showCredits } from './ui/credits.ts';
+import { installPlatform } from './core/steam-platform.ts';
+import { platform } from './core/platform.ts';
+import { FIGURE_COLORS } from './director/game.ts';
 import { tuning as tuningLive } from './core/tuning.ts';
 import type { InputFrame } from './core/input.ts';
 
@@ -107,6 +112,34 @@ async function boot() {
   // ---- journal, morning menu, saves ----
   const journalUI = new JournalUI(ui);
   const atlasUI = new AtlasUI(ui);
+  installPlatform();
+  const cbSafe = { value: false }, phoneIcons = { value: true };
+  const applyProfiles = () => {
+    while (profiles.length < game.dreamers.length) profiles.push(structuredClone(DEFAULT_PROFILE));
+    game.dreamers.forEach((d, i) => {
+      const p = profiles[i];
+      view.gentlePane[i] = p.gentle;
+      view.fovPane[i] = p.fov;
+      if (input.bindings[i]) { input.bindings[i].lookSens = p.lookSens; input.bindings[i].invertY = p.invertY; input.bindings[i].rumble = p.rumble; }
+      d.color = (cbSafe.value ? CB_SAFE_COLORS : FIGURE_COLORS)[i];
+    });
+    game.instant = profiles.some((p) => p.instant);
+    game.gentleFade = profiles.some((p) => p.gentle);
+    game.drift = profiles.some((p) => p.drift);
+  };
+  const settingsUI = new SettingsUI(ui, { profiles, apply: () => { applyProfiles(); void persist(); }, credits: () => showCredits(ui), cbSafe, phoneIcons });
+  applyProfiles();
+  // telephone subtitle: an icon (no words) while a phone rings near a dreamer
+  const phoneIcon = Object.assign(document.createElement('div'), { className: 'phone-icon', textContent: '\u260E' });
+  phoneIcon.style.opacity = '0';
+  ui.appendChild(phoneIcon);
+  setInterval(() => {
+    const ringing = phoneIcons.value && game.mode === 'night' && game.dreamers.some((d) => d.visit.objects.some((o) => o.components.phone && o.variant === 1 && Math.hypot(o.x - d.body.x, o.z - d.body.z) < 40));
+    phoneIcon.style.opacity = ringing ? '1' : '0';
+  }, 250);
+  game.events.on('nightStart', () => platform.setRichPresence('Dreaming'));
+  game.events.on('nightEnd', () => { platform.setRichPresence('In the Lantern Flat'); if (game.night >= 10) platform.unlockAchievement('NIGHT_10'); });
+  game.events.on('level', (e) => { if (e.level === 3) platform.unlockAchievement('CLEAR'); });
   const morning = new MorningMenu(ui, {
     code: (c) => { game.codeNight = c; telemetry.track('dream_code_entered', {}); },
     afterimage: () => { location.search = `?afterimage&slot=${slot}`; },
@@ -140,6 +173,8 @@ async function boot() {
   window.addEventListener('keydown', (e) => {
     if (journalUI.open && e.code !== 'F3') { journalUI.hide(); return; }
     if (atlasUI.open) { atlasUI.hide(); return; }
+    if (settingsUI.open) return;
+    if (e.code === 'KeyO' && game.mode === 'morning') { settingsUI.show(); return; }
     if (e.code === 'KeyA' && game.mode === 'morning' && e.shiftKey) { atlasUI.show(game.household.atlas ?? {}); document.exitPointerLock?.(); }
     if (e.code === 'Tab' && game.mode === 'morning') { e.preventDefault(); morning.toggle(); }
     if (e.code === 'KeyJ' && game.mode === 'morning' && journal.length) {

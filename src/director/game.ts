@@ -183,6 +183,8 @@ export class Game {
   resonance: Vec2 = [0, 0];
   startRealmOverride: string | undefined;
   instant: boolean;
+  /** Gentle mode: Instant transitions become slow fades. */
+  gentleFade = false;
   drift: boolean;
   /** Event cooldowns: event id -> night last drawn. */
   eventCooldown = new Map<string, number>();
@@ -611,7 +613,7 @@ export class Game {
     this.placeDreamer(d, to, d.index);
     d.links.push(dest);
     d.state = 'linking';
-    d.transition = { kind, t: 0, dur: kind === 'instant' ? tuning.link.instantS : tuning.link.transitionS, from: from.realm, to: dest };
+    d.transition = { kind, t: 0, dur: kind === 'instant' ? (this.gentleFade ? 1.2 : tuning.link.instantS) : tuning.link.transitionS, from: from.realm, to: dest };
     this.events.emit('link', { dreamer: d.index, from, to, kind, object: objectId, mode });
     // holding hands: links carry both
     if (d.hand >= 0) {

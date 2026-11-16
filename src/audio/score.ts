@@ -21,6 +21,16 @@ const MODES: Record<string, number[]> = {
 
 function midiToHz(m: number): number { return 440 * Math.pow(2, (m - 69) / 12); }
 
+const lastStart = new WeakMap<object, number>();
+/** Tone requires strictly increasing start times per synth; nudge cues that land in the same tick. */
+function at(synth: object, t?: number): number {
+  const want = t ?? Tone.now();
+  const prev = lastStart.get(synth) ?? -1;
+  const v = want <= prev ? prev + 0.002 : want;
+  lastStart.set(synth, v);
+  return v;
+}
+
 export class Score {
   private started = false;
   private master!: Tone.Volume;
@@ -81,9 +91,9 @@ export class Score {
 
     const transport = Tone.getTransport();
     transport.bpm.value = 64;
-    this.loops.push(new Tone.Loop((time) => this.onBar(time), '2m').start(0));
-    this.loops.push(new Tone.Loop((time) => this.onArp(time), '8n').start(0));
-    this.loops.push(new Tone.Loop((time) => this.onBell(time), '2n').start('1m'));
+    this.loops.push(new Tone.Loop((time) => { try { this.onBar(time); } catch { /* skip a beat */ } }, '2m').start(0));
+    this.loops.push(new Tone.Loop((time) => { try { this.onArp(time); } catch { /* skip a beat */ } }, '8n').start(0));
+    this.loops.push(new Tone.Loop((time) => { try { this.onBell(time); } catch { /* skip a beat */ } }, '2n').start('1m'));
     transport.start();
     if (this.game) this.attach(this.game);
   }
@@ -99,21 +109,21 @@ export class Score {
   private onBar(time: number): void {
     this.bar++;
     const chordRoot = [0, 3, 4, 1][this.bar % 4];
-    this.drone.triggerAttackRelease([this.note(chordRoot, -1), this.note(chordRoot + 2, -1), this.note(chordRoot + 4, -1)], '2m', time);
-    this.shimmer.triggerAttackRelease([this.note(chordRoot + 4, 2), this.note(chordRoot + 6, 2)], '2m', time);
+    this.drone.triggerAttackRelease([this.note(chordRoot, -1), this.note(chordRoot + 2, -1), this.note(chordRoot + 4, -1)], '2m', at(this.drone, time));
+    this.shimmer.triggerAttackRelease([this.note(chordRoot + 4, 2), this.note(chordRoot + 6, 2)], '2m', at(this.shimmer, time));
   }
   private arpStep = 0;
   private onArp(time: number): void {
     this.arpStep++;
     if (this.arpStep % 2 && this.rng.next() < 0.4) return; // breathing gaps
     const pat = [0, 2, 4, 6, 4, 2];
-    this.arp.triggerAttackRelease(this.note(pat[this.arpStep % pat.length] + [0, 3, 4, 1][this.bar % 4], 1), '16n', time);
+    this.arp.triggerAttackRelease(this.note(pat[this.arpStep % pat.length] + [0, 3, 4, 1][this.bar % 4], 1), '16n', at(this.arp, time));
   }
   private bellStep = 0;
   private onBell(time: number): void {
     const deg = this.theme[this.bellStep++ % this.theme.length];
     if (this.bellStep % (this.theme.length + 2) >= this.theme.length) return;
-    this.bells.triggerAttackRelease(this.note(deg, 1), '4n', time);
+    this.bells.triggerAttackRelease(this.note(deg, 1), '4n', at(this.bells, time));
   }
 
   attach(game: Game): void {
@@ -128,41 +138,41 @@ export class Score {
     game.events.on('notice', (e) => {
       if (!this.started) return;
       const deg = this.theme[Math.floor(e.value) % this.theme.length];
-      this.chime.triggerAttackRelease([this.note(deg, 2), this.note(deg + 4, 2)], '8n');
+      this.chime.triggerAttackRelease([this.note(deg, 2), this.note(deg + 4, 2)], '8n', at(this.chime));
     });
     game.events.on('link', (e) => this.linkSound(e.kind));
     game.events.on('blink', () => {
       const now = Tone.now();
-      this.thump.triggerAttackRelease('C1', '16n', now);
-      this.thump.triggerAttackRelease('C1', '16n', now + 0.22);
+      this.thump.triggerAttackRelease('C1', '16n', at(this.thump, now));
+      this.thump.triggerAttackRelease('C1', '16n', at(this.thump, now + 0.22));
     });
-    game.events.on('pickup', () => this.chime.triggerAttackRelease([this.note(0, 2), this.note(2, 2), this.note(4, 2)], '16n'));
+    game.events.on('pickup', () => this.chime.triggerAttackRelease([this.note(0, 2), this.note(2, 2), this.note(4, 2)], '16n', at(this.chime)));
     game.events.on('doors', (e) => {
       Tone.getTransport().bpm.rampTo(e.open ? 22 : 64, e.open ? 0.6 : 0.4);
     });
     game.events.on('reunion', () => {
       // the dreamers' trail sounds harmonise
       const now = Tone.now();
-      [0, 2, 4, 7].forEach((d, i) => this.chime.triggerAttackRelease(this.note(d, 1), '2n', now + i * 0.12));
+      [0, 2, 4, 7].forEach((d, i) => this.chime.triggerAttackRelease(this.note(d, 1), '2n', at(this.chime, now + i * 0.12)));
     });
-    game.events.on('hands', () => this.chime.triggerAttackRelease([this.note(0, 1), this.note(4, 1)], '4n'));
-    game.events.on('lantern', () => this.bells.triggerAttackRelease(this.note(2, 2), '8n'));
+    game.events.on('hands', () => this.chime.triggerAttackRelease([this.note(0, 1), this.note(4, 1)], '4n', at(this.chime)));
+    game.events.on('lantern', () => this.bells.triggerAttackRelease(this.note(2, 2), '8n', at(this.bells)));
     game.events.on('call', () => {
       const now = Tone.now();
-      for (let i = 0; i < 4; i++) this.chime.triggerAttackRelease([this.note(5, 2), this.note(7, 2)], '16n', now + i * 0.18);
+      for (let i = 0; i < 4; i++) this.chime.triggerAttackRelease([this.note(5, 2), this.note(7, 2)], '16n', at(this.chime, now + i * 0.18));
     });
     game.events.on('wake', (e) => {
       if (e.reason === 'watcher') {
         // 1 s of silence, then the wake chime
         this.master.volume.rampTo(-80, 0.05);
         this.master.volume.rampTo(-6, 0.3, Tone.now() + 1);
-        this.chime.triggerAttackRelease([this.note(0, 1), this.note(4, 1), this.note(7, 1)], '1n', Tone.now() + 1.05);
+        this.chime.triggerAttackRelease([this.note(0, 1), this.note(4, 1), this.note(7, 1)], '1n', at(this.chime, Tone.now() + 1.05));
       }
     });
     game.events.on('nightEnd', () => {
       // wake: clock ticks in the room
       const now = Tone.now();
-      for (let i = 0; i < 6; i++) this.tick.triggerAttackRelease('C6', '64n', now + 1 + i);
+      for (let i = 0; i < 6; i++) this.tick.triggerAttackRelease('C6', '64n', at(this.tick, now + 1 + i));
     });
   }
 
@@ -170,12 +180,12 @@ export class Score {
     if (!this.started) return;
     const now = Tone.now();
     switch (kind) {
-      case 'pour': this.noiseFilter.frequency.setValueAtTime(3000, now); this.noiseFilter.frequency.exponentialRampToValueAtTime(200, now + 0.6); this.noise.triggerAttackRelease(0.6, now); break;
-      case 'fold': this.noiseFilter.frequency.setValueAtTime(2500, now); this.noise.triggerAttackRelease(0.08, now); this.noise.triggerAttackRelease(0.08, now + 0.15); break;
-      case 'shatter': [0, 0.05, 0.11, 0.18].forEach((t, i) => this.chime.triggerAttackRelease(this.note(7 + i * 2, 2), '32n', now + t)); break;
-      case 'bloom': this.chime.triggerAttackRelease([this.note(0, 1), this.note(4, 1), this.note(7, 1)], '2n', now); break;
-      case 'glyph': [0, 0.07, 0.14, 0.21, 0.28].forEach((t, i) => this.arp.triggerAttackRelease(this.note((i * 3) % 7, 2), '64n', now + t)); break;
-      default: this.thump.triggerAttackRelease('G1', '8n', now); break;
+      case 'pour': this.noiseFilter.frequency.setValueAtTime(3000, now); this.noiseFilter.frequency.exponentialRampToValueAtTime(200, now + 0.6); this.noise.triggerAttackRelease(0.6, at(this.noise, now)); break;
+      case 'fold': this.noiseFilter.frequency.setValueAtTime(2500, now); this.noise.triggerAttackRelease(0.08, at(this.noise, now)); this.noise.triggerAttackRelease(0.08, at(this.noise, now + 0.15)); break;
+      case 'shatter': [0, 0.05, 0.11, 0.18].forEach((t, i) => this.chime.triggerAttackRelease(this.note(7 + i * 2, 2), '32n', at(this.chime, now + t))); break;
+      case 'bloom': this.chime.triggerAttackRelease([this.note(0, 1), this.note(4, 1), this.note(7, 1)], '2n', at(this.chime, now)); break;
+      case 'glyph': [0, 0.07, 0.14, 0.21, 0.28].forEach((t, i) => this.arp.triggerAttackRelease(this.note((i * 3) % 7, 2), '64n', at(this.arp, now + t))); break;
+      default: this.thump.triggerAttackRelease('G1', '8n', at(this.thump, now)); break;
     }
   }
 
@@ -193,6 +203,12 @@ export class Score {
   /** Per-frame update: layers follow the highest lucidity; Watcher low-pass; breath thinning. */
   update(game: Game): void {
     if (!this.started) return;
+    try { this.updateInner(game); } catch (e) { console.warn('[audio]', (e as Error).message); }
+  }
+
+  private lastLp = -1;
+  private lastThin = -1;
+  private updateInner(game: Game): void {
     const night = game.mode === 'night';
     const level = night ? Math.max(0, ...game.dreamers.map((d) => d.level)) : 0;
     if (level !== this.lastLevel) {
@@ -205,12 +221,14 @@ export class Score {
     const wd = night ? Math.min(...game.dreamers.map((d) => game.watcherNear(d))) : Infinity;
     const near = Math.max(0, Math.min(1, (10 - wd) / 10));
     const doors = game.dreamers.some((d) => d.doors);
-    this.lowpass.frequency.rampTo(doors ? 2200 : 18000 * Math.pow(0.02, near), 0.25);
+    const lp = Math.round(doors ? 2200 : 18000 * Math.pow(0.02, near));
+    if (Math.abs(lp - this.lastLp) > 50) { this.lastLp = lp; this.lowpass.frequency.rampTo(lp, 0.25); }
     const hush = (night && game.hasLaw('hush')) || this.muted;
     this.music.mute = hush;
     // last 30 s of breath: thin out
     const thin = night && game.breath < 30 ? 1 - game.breath / 30 : 0;
-    this.layers[0]?.volume.rampTo(level >= 0 ? -2 - thin * 18 : -60, 0.5);
+    const tv = Math.round((-2 - thin * 18) * 2) / 2;
+    if (tv !== this.lastThin) { this.lastThin = tv; this.layers[0]?.volume.rampTo(tv, 0.5); }
     void ATMOS[realm];
   }
 }

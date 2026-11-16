@@ -11,6 +11,10 @@ export class EventBus<M extends Record<string, unknown>> {
   }
   emit<K extends keyof M>(type: K, payload: M[K]): void {
     const set = this.handlers.get(type);
-    if (set) for (const h of set) (h as Handler<M[K]>)(payload);
+    if (!set) return;
+    // listeners are view/audio/UI: one failing must never stop the simulation
+    for (const h of set) {
+      try { (h as Handler<M[K]>)(payload); } catch (e) { console.warn(`[events] ${String(type)} handler failed:`, (e as Error).message); }
+    }
   }
 }

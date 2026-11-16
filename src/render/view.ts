@@ -79,6 +79,10 @@ export class View {
   private fpsAcc = 0;
   private fpsN = 0;
   gentle = false;
+  /** Per-dreamer comfort settings (index = dreamer). */
+  gentlePane: boolean[] = [false, false, false, false];
+  fovPane: number[] = [75, 75, 75, 75];
+  private get g(): boolean { return this.gentle; }
   /** Photo mode: the style shown in the frozen pane. */
   photoStyle: GlyphStyle | null = null;
   photoPane: PaneState | null = null;
@@ -421,7 +425,7 @@ export class View {
     cam.aspect = p.rect.w / p.rect.h;
     const k = 1 - Math.exp(-frameDt * 2);
     p.ease.lucidity += (d.lucidity / 100 - p.ease.lucidity) * k;
-    p.ease.fov += (tuning.look.fov + (game.mode === 'night' ? game.lawEffect('fovAdd', 0) : 0) - p.ease.fov) * (1 - Math.exp(-frameDt * 3));
+    p.ease.fov += (this.fovPane[d.index] + (game.mode === 'night' ? game.lawEffect('fovAdd', 0) : 0) - p.ease.fov) * (1 - Math.exp(-frameDt * 3));
     cam.fov = p.ease.fov;
     cam.updateProjectionMatrix();
     if (game.mode === 'night' && game.hasLaw('mirror')) cam.projectionMatrix.elements[0] *= -1;
@@ -459,9 +463,11 @@ export class View {
     u.saturation.value = (0.72 + 0.55 * luc) * [1, 0.82, 1.05, 1.25][game.era] * (game.mode === 'night' ? game.lawEffect('satMul', 1) : 1);
     u.soften.value = 1 - luc;
     u.bloom.value = atmos.bloom * tuning.render.bloomStrength;
-    u.trail.value = this.gentle ? 0.04 : 0.2 + 0.18 * (1 - luc);
-    u.fringe.value = this.gentle ? 0.1 : 0.7;
-    u.grain.value = this.gentle ? 0.02 : 0.045;
+    const gentle = this.gentle || this.gentlePane[d.index];
+    u.trail.value = gentle ? 0.04 : 0.2 + 0.18 * (1 - luc);
+    u.fringe.value = gentle ? 0.1 : 0.7;
+    u.grain.value = gentle ? 0.02 : 0.045;
+    u.vignette.value = gentle ? 0.2 : 0.35;
     // ---- Glyph Suite: Glyph Desert (desert-* by quadrant), Glyph night (seeded preset), glyph link, photo mode ----
     let style: GlyphStyle | null = null;
     let amount = 0;
@@ -487,7 +493,7 @@ export class View {
       const prevStyle = (p as N).lastStyle as GlyphStyle | undefined;
       const blendT = (p as N).styleBlend ?? 1;
       const s0 = prevStyle && prevStyle.id !== style.id && blendT < 1 ? blendStyles(prevStyle, style, blendT) : style;
-      pipe.glyph.applyStyle(s0, d.level, this.gentle, prevStyle && blendT < 1 ? style : null, blendT);
+      pipe.glyph.applyStyle(s0, d.level, this.gentle || this.gentlePane[d.index], prevStyle && blendT < 1 ? style : null, blendT);
       if (!prevStyle || prevStyle.id !== style.id) { (p as N).styleBlend = prevStyle ? 0 : 1; (p as N).lastStyle = style; }
       (p as N).styleBlend = Math.min(1, ((p as N).styleBlend ?? 1) + frameDt / 0.6);
       // footstep ripples from every dreamer in this realm
@@ -524,7 +530,7 @@ export class View {
     const wd = game.mode === 'night' ? game.watcherNear(d) : Infinity;
     const nearAmt = Math.max(0, Math.min(1, (tuning.watcher.nearM - wd) / tuning.watcher.nearM));
     p.ease.staticAmt += (nearAmt - p.ease.staticAmt) * (1 - Math.exp(-frameDt * 3));
-    u.staticAmt.value = p.ease.staticAmt * (this.gentle ? 0.4 : 1);
+    u.staticAmt.value = p.ease.staticAmt * (this.gentle || this.gentlePane[d.index] ? 0.4 : 1);
     if (d.wokeReason === 'watcher' && p.ease.invert === 0) p.ease.invert = 0.5;
     if (d.wokeReason !== 'watcher') p.ease.invert = 0;
     const inv = p.ease.invert > 0 ? Math.max(0, p.ease.invert) : 0;

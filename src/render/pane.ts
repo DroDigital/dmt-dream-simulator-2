@@ -130,6 +130,8 @@ export class PanePipeline {
   private glyphTex: N;
   private insetTex: N;
   private lastTime = 0;
+  /** Scene-pass stats of the last frame (draw calls, triangles) for the per-pane budget. */
+  stats = { drawCalls: 0, triangles: 0 };
 
   private renderer: THREE.WebGPURenderer;
 
@@ -362,7 +364,12 @@ export class PanePipeline {
       col.assign(select(inR, select(frame, vec3(0.95, 0.85, 0.7), this.insetTex.sample(il).rgb), col));
       // blink: warm black
       col.assign(mix(col, warmBlack, u.blink));
-      // photosensitivity guard: clamp overall brightness (flashes handled by easing upstream)
+      // photosensitivity guard: no pixel may jump more than 0.3 in brightness in one frame, so no
+      // full-screen flash can happen faster than ~3 per second
+      const prevC: N = prev.sample(q).rgb;
+      const dl: N = luminance(col).sub(luminance(prevC));
+      const lim: N = clamp(dl, -0.3, 0.3);
+      col.assign(select(abs(dl).greaterThan(0.3), col.add(vec3(lim.sub(dl))), col));
       col.assign(clamp(col, 0.008, 1.6));
       void depth; void exp; void pow; void min; void abs;
       return vec4(col, 1);
@@ -393,7 +400,10 @@ export class PanePipeline {
     // 1. scene pass (MRT)
     r.setRenderTarget(this.sceneRT);
     r.setMRT(SCENE_MRT);
+    r.info.reset();
     r.render(scene, camera);
+    const info = r.info.render as unknown as { drawCalls?: number; calls?: number; triangles?: number };
+    this.stats = { drawCalls: info.drawCalls ?? info.calls ?? 0, triangles: info.triangles ?? 0 };
     // 3. quantise + dither (low res)
     r.setMRT(null);
     r.setRenderTarget(this.loRT);

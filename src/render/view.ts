@@ -52,6 +52,7 @@ interface Overlays {
   ringKey: string;
   carried: THREE.Object3D | null;
   carriedId: string | null;
+  rain: THREE.InstancedMesh | null;
 }
 
 export interface PaneState {
@@ -81,7 +82,16 @@ export class View {
   /** Photo mode: the style shown in the frozen pane. */
   photoStyle: GlyphStyle | null = null;
   photoPane: PaneState | null = null;
+  photoCamera: { pos: THREE.Vector3; yaw: number; pitch: number } | null = null;
   private figures = new Map<number, THREE.Object3D>();
+  // ---- journal polaroid: best frame (contrast + saturation + motion), sampled at 1 Hz ----
+  private polRT = new THREE.RenderTarget(192, 108, { depthBuffer: false });
+  private polQuad: THREE.QuadMesh | null = null;
+  private polTex: N = null;
+  private polTimer = 0;
+  private polPrev: Uint8Array | null = null;
+  private polBusy = false;
+  bestFrames: ({ px: Uint8Array; score: number } | null)[] = [null, null, null, null];
   private game: Game | null = null;
 
   private constructor(renderer: THREE.WebGPURenderer) {
@@ -104,6 +114,8 @@ export class View {
     this.game = game;
     game.events.on('link', (e) => { const p = this.panes[e.dreamer]; if (p) { p.pipe.snapshot(); p.pipe.glyph.needsReset = true; } });
     game.events.on('nightStart', () => {
+      this.bestFrames = [null, null, null, null];
+      this.polPrev = null;
       for (const p of this.panes) p.pipe.snapshot();
       this.postcards.build(this.renderer, game);
     });
@@ -140,7 +152,7 @@ export class View {
       this.panes.push({
         pipe, camera: cam, rect: { x: 0, y: 0, w: 1, h: 1 }, lastVisit: -1,
         ease: { lucidity: 0, blink: 0, fov: tuning.look.fov, desat: 0, invert: 0, staticAmt: 0 }, tex: texture(pipe.output),
-        ov: { group, hand, tint, shimmer, doors: null, doorsKey: '', ring: null, ringKey: '', carried: null, carriedId: null },
+        ov: { group, hand, tint, shimmer, doors: null, doorsKey: '', ring: null, ringKey: '', carried: null, carriedId: null, rain: null },
       });
     }
     while (this.panes.length > n) this.panes.pop()!.pipe.dispose();
@@ -181,7 +193,16 @@ export class View {
 
     // sync every resident realm once per frame
     const active = new Set(game.dreamers.map((d) => d.visit.id));
-    for (const v of game.visits.values()) if (active.has(v.id)) this.realmView(v).sync(game.ecs, this.time);
+    for (const v of game.visits.values()) if (active.has(v.id)) {
+      const rv = this.realmView(v);
+      const watcherLaw = game.mode === 'night' && game.hasLaw('watchers');
+      const someone = game.dreamers.find((d) => d.visit === v);
+      rv.faceTarget = watcherLaw && someone ? { x: someone.body.x, z: someone.body.z } : null;
+      rv.sync(game.ecs, this.time);
+      rv.syncWatcher(game.watchers.get(v.id), this.time);
+      const viewer = game.dreamers.find((d) => d.visit === v && d.vision);
+      rv.syncVision(viewer?.vision?.id ?? null, viewer?.vision?.t ?? 0, viewer?.body.x ?? 0, viewer?.body.y ?? 0, viewer?.body.z ?? 0);
+    }
     if (active.has(game.flat.id)) {
       this.flatExtras.sync(game.household, this.time);
       const flat = this.realmView(game.flat);
@@ -199,6 +220,43 @@ export class View {
     });
     this.renderer.setRenderTarget(null);
     this.pipeline.render();
+    if (game.mode === 'night') { this.polTimer += frameDt; if (this.polTimer >= 1) { this.polTimer = 0; this.samplePolaroids(game); } }
+  }
+
+  private samplePolaroids(game: Game): void {
+    if (this.polBusy) return;
+    if (!this.polQuad) {
+      this.polTex = texture(this.panes[0].pipe.output);
+      const m = new THREE.MeshBasicNodeMaterial();
+      m.colorNode = this.polTex.sample((TSLNS as N).uv());
+      this.polQuad = new THREE.QuadMesh(m);
+    }
+    const i = game.tick % game.dreamers.length; // rotate between dreamers
+    const d = game.dreamers[i];
+    if (!d || d.state !== 'dreaming' || d.transition || !this.panes[i]) return;
+    this.polTex.value = this.panes[i].pipe.output;
+    this.renderer.setRenderTarget(this.polRT);
+    this.polQuad.render(this.renderer);
+    this.renderer.setRenderTarget(null);
+    this.polBusy = true;
+    this.renderer.readRenderTargetPixelsAsync(this.polRT, 0, 0, 192, 108).then((raw) => {
+      this.polBusy = false;
+      const px = new Uint8Array(raw as ArrayLike<number> as Uint8Array);
+      let sum = 0, sum2 = 0, sat = 0, motion = 0;
+      const n = px.length / 4;
+      for (let k = 0; k < px.length; k += 4) {
+        const r = px[k], g = px[k + 1], b = px[k + 2];
+        const l = 0.3 * r + 0.59 * g + 0.11 * b;
+        sum += l; sum2 += l * l;
+        sat += Math.max(r, g, b) - Math.min(r, g, b);
+        if (this.polPrev) motion += Math.abs(l - (0.3 * this.polPrev[k] + 0.59 * this.polPrev[k + 1] + 0.11 * this.polPrev[k + 2]));
+      }
+      const mean = sum / n;
+      const score = Math.sqrt(Math.max(0, sum2 / n - mean * mean)) / 64 + sat / n / 128 + (this.polPrev ? motion / n / 32 : 0);
+      this.polPrev = px;
+      const cur = this.bestFrames[i];
+      if (!cur || score > cur.score) this.bestFrames[i] = { px, score };
+    }).catch(() => { this.polBusy = false; });
   }
 
   private syncFigures(game: Game, alpha: number): void {
@@ -296,6 +354,28 @@ export class View {
     }
     if (ov.ring && d.ring) ov.ring.children.forEach((c, i) => { const look = d.ring!.options[i].look; c.scale.setScalar(1 + look * 0.4); c.position.y = d.ring!.options[i].y + Math.sin(this.time * 1.5 + i) * 0.05; });
 
+    // Indoor rain (Dream Law): streaks falling around the dreamer, even under roofs
+    const raining = game.mode === 'night' && game.hasLaw('indoor-rain');
+    if (raining && !ov.rain) {
+      const g = new THREE.BoxGeometry(0.012, 0.5, 0.012);
+      ov.rain = new THREE.InstancedMesh(g, new THREE.MeshBasicNodeMaterial({ color: 0xbde7ff, transparent: true, opacity: 0.55 }), 600);
+      ov.rain.frustumCulled = false;
+      ov.rain.layers.set(OVERLAY_LAYER(d.index));
+      ov.group.add(ov.rain);
+    }
+    if (ov.rain) {
+      ov.rain.visible = raining;
+      if (raining) {
+        const m = new THREE.Matrix4();
+        for (let i = 0; i < ov.rain.count; i++) {
+          const a = i * 2.399, r = 1 + (i % 37) * 0.33;
+          const y = 8 - ((this.time * 9 + i * 0.731) % 10);
+          m.makeTranslation(d.body.x + Math.cos(a) * r, d.body.y + y, d.body.z + Math.sin(a) * r);
+          ov.rain.setMatrixAt(i, m);
+        }
+        ov.rain.instanceMatrix.needsUpdate = true;
+      }
+    }
     // carried souvenir floats lower-right of view
     if (d.souvenir !== ov.carriedId) {
       if (ov.carried) ov.group.remove(ov.carried);
@@ -336,6 +416,7 @@ export class View {
     const eye = tuning.move.eyeHeight * scale * (d.state === 'lying' ? 0.2 : 1);
     cam.position.set(lerp(pr.x, b.x), lerp(pr.y, b.y) + eye, lerp(pr.z, b.z));
     cam.rotation.set(lerp(pr.pitch, b.pitch), -lerp(pr.yaw, b.yaw), lerp(pr.roll, b.roll));
+    if (this.photoCamera && this.photoPane === p) { cam.position.copy(this.photoCamera.pos); cam.rotation.set(this.photoCamera.pitch, -this.photoCamera.yaw, 0); }
     cam.near = 0.08 * scale;
     cam.aspect = p.rect.w / p.rect.h;
     const k = 1 - Math.exp(-frameDt * 2);
@@ -428,6 +509,20 @@ export class View {
       u.warm.value = game.breath < tuning.breath.thinAtS ? 1 - game.breath / tuning.breath.thinAtS : 0;
       u.motes.value = game.breath < tuning.breath.dissolveAtS ? (1 - game.breath / tuning.breath.dissolveAtS) * 0.6 : 0;
     } else { u.dawn.value = 0; u.warm.value = 0; u.motes.value = 0; }
+    // the Watcher: static at the edges when near, invert + static for 0.5 s on contact (no flicker)
+    const wd = game.mode === 'night' ? game.watcherNear(d) : Infinity;
+    const nearAmt = Math.max(0, Math.min(1, (tuning.watcher.nearM - wd) / tuning.watcher.nearM));
+    p.ease.staticAmt += (nearAmt - p.ease.staticAmt) * (1 - Math.exp(-frameDt * 3));
+    u.staticAmt.value = p.ease.staticAmt * (this.gentle ? 0.4 : 1);
+    if (d.wokeReason === 'watcher' && p.ease.invert === 0) p.ease.invert = 0.5;
+    if (d.wokeReason !== 'watcher') p.ease.invert = 0;
+    const inv = p.ease.invert > 0 ? Math.max(0, p.ease.invert) : 0;
+    u.invert.value = inv > 0 ? 1 : 0;
+    if (p.ease.invert > 0) p.ease.invert = Math.max(-1, p.ease.invert - frameDt);
+    if (nearAmt > 0) cam.rotation.z += (1 * Math.PI / 180) * nearAmt;
+    // sleeping window: an early waker watches a partner who is still dreaming
+    const watching = d.state === 'awake' && game.mode === 'night' ? game.dreamers.find((o) => o.state !== 'awake' && o !== d) : undefined;
+    pipe.setInset(watching ? this.panes[watching.index]?.pipe.output ?? null : null);
     // transitions
     if (tr) {
       u.transition.value = TRANSITION_IDS[tr.kind] ?? 7;

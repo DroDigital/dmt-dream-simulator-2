@@ -29,6 +29,8 @@ export interface WorldObject {
   variant: number;
   /** Carried by a dreamer (index) or -1. */
   carriedBy: number;
+  /** Ringing because this dreamer called (co-op). */
+  callFrom?: number;
 }
 
 let visitCounter = 0;
@@ -90,6 +92,9 @@ export class Visit {
         tags: p.tags, components: p.components, hidden: false, variant: 0, carriedBy: -1,
       });
     });
+    // the landmark is a chorus object: 2-4 dreamers touching it together link to a co-op room
+    const lm = layout.landmark;
+    for (const o of this.objects) if (o.kind === 'prop' && Math.abs(o.x - lm.x) < 0.01 && Math.abs(o.z - lm.z) < 0.01 && o.components.linkable) o.components = { ...o.components, chorus: true };
     for (const o of this.objects) if (o.components.linkable) this.linkables.push(o.id);
   }
 

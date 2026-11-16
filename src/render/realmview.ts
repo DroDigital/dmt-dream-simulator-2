@@ -13,7 +13,12 @@ import { Actor, Heading, Lanternfolk, Motif, MOTIF_KINDS, Pos, Vel, inVisit, typ
 const Vel_x = (e: number) => Vel.x[e];
 const Vel_z = (e: number) => Vel.z[e];
 import { SCRIPT_IDS } from '../director/director.ts';
-import { actorMesh, lanternfolkMesh, motifMesh, souvenirMesh } from './entities.ts';
+import { actorMesh, figureMesh, lanternfolkMesh, motifMesh, souvenirMesh } from './entities.ts';
+import { Echo } from '../entities/ecs.ts';
+import { watcherMesh } from './watcherview.ts';
+import { VisionStage } from './visions.ts';
+import type { Watcher } from '../entities/watcher.ts';
+import { FIGURES, FIGURE_COLORS } from '../director/game.ts';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type N = any;
@@ -52,6 +57,8 @@ export class RealmView {
   private entityMeshes = new Map<number, THREE.Object3D>();
   private lastVariant = new Map<number, string>();
   private dynamicObjs = new Map<number, THREE.Object3D>();
+  private watcherObj: THREE.Object3D | null = null;
+  vision: VisionStage | null = null;
 
   constructor(visit: Visit) {
     this.visit = visit;
@@ -183,6 +190,9 @@ export class RealmView {
   }
 
   /** Pull object + entity state from the sim (call once per frame before rendering any pane). */
+  /** Watchers law: figures turn to face this point. */
+  faceTarget: { x: number; z: number } | null = null;
+
   sync(ecs: EcsWorld, time: number): void {
     const v = this.visit;
     for (const o of v.objects) {
@@ -222,7 +232,7 @@ export class RealmView {
       let m = this.entityMeshes.get(eid);
       if (!m) { m = lanternfolkMesh(Lanternfolk.hue[eid], Lanternfolk.size[eid]); this.entityMeshes.set(eid, m); this.dynamic.add(m); }
       m.position.set(Pos.x[eid], Pos.y[eid], Pos.z[eid]);
-      m.rotation.y = -Heading.yaw[eid];
+      m.rotation.y = this.faceTarget ? Math.atan2(this.faceTarget.x - Pos.x[eid], this.faceTarget.z - Pos.z[eid]) : -Heading.yaw[eid];
     }
     for (const eid of inVisit(ecs, v.id, [Motif])) {
       seen.add(eid);
@@ -260,7 +270,32 @@ export class RealmView {
         m.scale.setScalar(Math.sin(Math.PI * k));
       }
     }
+    for (const eid of inVisit(ecs, v.id, [Echo])) {
+      seen.add(eid);
+      let m = this.entityMeshes.get(eid);
+      if (!m) { const k = Echo.partner[eid]; m = figureMesh(FIGURES[k], FIGURE_COLORS[k]); this.entityMeshes.set(eid, m); this.dynamic.add(m); }
+      m.position.set(Pos.x[eid], Pos.y[eid], Pos.z[eid]);
+      m.visible = Math.sin(time * 7 + eid) > -0.6; // an echo flickers like a reflection
+      m.rotation.y = time * 0.15;
+    }
     for (const [eid, m] of this.entityMeshes) if (!seen.has(eid)) { this.dynamic.remove(m); this.entityMeshes.delete(eid); }
+  }
+
+  syncWatcher(w: Watcher | undefined, time: number): void {
+    if (!w || w.state === 'gone') { if (this.watcherObj) this.watcherObj.visible = false; return; }
+    if (!this.watcherObj) { this.watcherObj = watcherMesh(); this.dynamic.add(this.watcherObj); }
+    const o = this.watcherObj;
+    o.visible = true;
+    o.position.set(w.x, w.y + Math.abs(Math.sin(time * 3.4)) * 0.03, w.z);
+    o.rotation.y = Math.atan2(w.dirX, w.dirZ);
+    o.scale.setScalar(1.0);
+  }
+
+  syncVision(id: string | null, t: number, x: number, y: number, z: number): void {
+    if (!id) { if (this.vision) this.vision.group.visible = false; return; }
+    if (!this.vision) { this.vision = new VisionStage(); this.scene.add(this.vision.group); }
+    this.vision.group.visible = true;
+    this.vision.update(id, t, x, y, z);
   }
 
   /** Write this realm's atmosphere into the shared material uniforms (call before each pane render). */

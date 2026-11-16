@@ -291,6 +291,318 @@
     0
    ],
    "minNight": 1
+  },
+  {
+   "id": "ice-cream-van",
+   "text": "An ice-cream van plays a tune you almost know, very slowly.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "song",
+    "van",
+    "slow"
+   ],
+   "script": "vending",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "doors-open-street",
+   "text": "Every front door on the street opens at once.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "door",
+    "open"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "swings-move",
+   "text": "A swing moves by itself in a yard with no swing set.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "swing",
+    "empty"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "streetlights-breathe",
+   "text": "The streetlights dim and brighten like breathing.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "light",
+    "breath"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "mail-flies",
+   "text": "Letters fly out of a mailbox and settle like birds.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "letter",
+    "bird",
+    "paper"
+   ],
+   "script": "letters",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "organ-note",
+   "text": "One long organ note with no organ.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "song",
+    "organ"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "pews-rearrange",
+   "text": "The pews have quietly turned to face you.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "turn",
+    "watch"
+   ],
+   "script": "lean",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "light-shafts-swim",
+   "text": "Light shafts swim across the floor like slow fish.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "light",
+    "fish",
+    "swim"
+   ],
+   "script": "rainbow",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "glass-rain",
+   "text": "Coloured glass falls upward from the floor.",
+   "realm": "prism-cathedral",
+   "rarity": "rare",
+   "keywords": [
+    "glass",
+    "rain",
+    "up"
+   ],
+   "script": "letters",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "bell-without-bell",
+   "text": "A bell rings somewhere above the windows.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "bell",
+    "ring"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "cactus-blooms",
+   "text": "A letter-cactus blooms into a whole sentence.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "flower",
+    "word"
+   ],
+   "script": "dune",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "wind-spells",
+   "text": "The wind spells your figure's name in sand.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "name",
+    "wind"
+   ],
+   "script": "letters",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "mirage-house",
+   "text": "A house from the suburb stands in the dunes, then is gone.",
+   "realm": "glyph-desert",
+   "rarity": "rare",
+   "keywords": [
+    "house",
+    "mirage"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "ink-oasis",
+   "text": "A pool of ink reflects a daytime sky.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "ink",
+    "sky",
+    "water"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "tablet-erases",
+   "text": "A line of the great tablet erases itself.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "tablet",
+    "erase"
+   ],
+   "script": "blink",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "folk-procession",
+   "text": "A line of lantern-folk walks past, single file, not looking at you.",
+   "realm": "*",
+   "rarity": "uncommon",
+   "keywords": [
+    "lantern",
+    "line",
+    "walk"
+   ],
+   "script": "halo",
+   "durationS": 18,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "clock-strikes",
+   "text": "A clock strikes thirteen somewhere.",
+   "realm": "*",
+   "rarity": "rare",
+   "keywords": [
+    "clock",
+    "time"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "snow-indoors",
+   "text": "Three snowflakes fall, then stop.",
+   "realm": "*",
+   "rarity": "common",
+   "keywords": [
+    "snow",
+    "quiet"
+   ],
+   "script": "letters",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
   }
  ]
 }

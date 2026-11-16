@@ -1,0 +1,17 @@
+{
+ "realm": "special",
+ "grid": 8, "cell": 2, "levelHeight": 2,
+ "linkTags": [],
+ "tiles": [
+  { "id": "veil-floor", "weight": 1, "sockets": ["*", "*", "*", "*"], "floor": { "kind": "flat", "level": 0 }, "spawnable": true, "mesh": { "proc": "veilfloor" } },
+  { "id": "veil-wall", "weight": 0, "sockets": ["*", "*", "*", "*"], "floor": { "kind": "solid", "level": 0, "height": 4 }, "tags": ["light"], "components": { "linkable": true }, "scatter": false, "mesh": { "proc": "veilwall" } },
+  { "id": "void-floor", "weight": 1, "sockets": ["*", "*", "*", "*"], "floor": { "kind": "flat", "level": 0 }, "spawnable": true, "mesh": { "proc": "voidfloor" } }
+ ],
+ "props": [
+  { "id": "pedestal", "tags": ["light"], "components": {}, "radius": 0.35, "height": 1.0, "spacing": 1, "density": 0, "on": [], "mesh": { "proc": "pedestal" } },
+  { "id": "moon-pebble", "tags": ["water"], "components": { "carryable": true, "veiled": true }, "radius": 0, "height": 0.2, "spacing": 1, "density": 0, "on": [], "hover": 1.15, "mesh": { "proc": "bead" } },
+  { "id": "lantern-shard", "tags": ["light"], "components": { "carryable": true, "veiled": true }, "radius": 0, "height": 0.2, "spacing": 1, "density": 0, "on": [], "hover": 1.15, "mesh": { "proc": "candlestub" } },
+  { "id": "vhs-tape", "tags": ["machine"], "components": { "carryable": true, "veiled": true }, "radius": 0, "height": 0.2, "spacing": 1, "density": 0, "on": [], "hover": 1.15, "mesh": { "proc": "scroll" } },
+  { "id": "chorus-bell", "tags": ["light", "glass"], "components": { "linkable": true }, "radius": 0.5, "height": 2.2, "spacing": 1, "density": 0, "on": [], "mesh": { "proc": "prism" } }
+ ]
+}

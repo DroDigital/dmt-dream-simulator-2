@@ -16,3 +16,19 @@ html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; c
 .btn:hover { border-color: var(--accent); color: var(--accent); }
 .debug { position: absolute; left: 8px; top: 8px; font-family: 'VT323', monospace; font-size: 15px; color: #cfe; background: rgba(0,0,0,.45); padding: 4px 8px; white-space: pre; pointer-events: none; }
 .fade { position: absolute; inset: 0; background: #120e16; opacity: 0; transition: opacity .8s; }
+.journal { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(18,14,22,.55); pointer-events: auto; transition: opacity .8s; }
+.journal.hidden, .morning.hidden { opacity: 0; pointer-events: none; }
+.journal .page { width: min(760px, 92vw); background: #EFE3CC; color: #2B2138; padding: 28px 34px; box-shadow: 0 20px 60px rgba(0,0,0,.5); transform: rotate(-.6deg); }
+.journal .page.spread { width: min(1100px, 96vw); }
+.journal .night { font-style: italic; font-size: 2rem; margin-bottom: 12px; }
+.journal .photos { display: flex; gap: 18px; justify-content: center; }
+.journal .polaroid { margin: 0; background: #FBF7EE; padding: 10px 10px 34px; box-shadow: 0 6px 16px rgba(0,0,0,.25); transform: rotate(1.2deg); }
+.journal .polaroid img { display: block; width: min(384px, 40vw); image-rendering: auto; }
+.journal .poem { font-style: italic; font-size: 1.45rem; line-height: 1.5; margin: 18px 4px; }
+.journal .meta { display: flex; gap: 22px; align-items: center; }
+.journal .facts { font-family: 'VT323', monospace; font-size: 1.1rem; display: grid; gap: 4px; }
+.journal .laws.quiet { opacity: .55; }
+.journal .btn.export { color: #2B2138; border-color: #2B213855; margin-top: 14px; font-size: 1.1rem; }
+.morning { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; pointer-events: auto; transition: opacity .5s; }
+.morning input { font-family: 'VT323', monospace; font-size: 1.4rem; background: rgba(18,14,22,.7); color: var(--ink); border: 1px solid rgba(246,239,228,.4); padding: .3rem .6rem; width: 13ch; letter-spacing: .12em; text-transform: uppercase; }
+.morning .btn { font-size: 1.15rem; padding: .3rem 1rem; background: rgba(18,14,22,.6); }

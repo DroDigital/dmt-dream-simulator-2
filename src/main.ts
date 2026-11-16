@@ -11,6 +11,15 @@ import { setupCapture } from './dev/capture.ts';
 import { DT } from './core/tuning.ts';
 import { score } from './audio/score.ts';
 import { Prewarmer } from './realms/prewarm.ts';
+import { PhotoMode } from './ui/photo.ts';
+import { loadGlyphFonts } from './render/glyph/atlas.ts';
+import { loadSlot, saveSlot, DEFAULT_PROFILE, type JournalPage, type SaveData } from './core/saves.ts';
+import { JournalUI, polaroidFromPixels } from './ui/journal.ts';
+import { MorningMenu, encodeDreamCode } from './ui/morning.ts';
+import { diaryFragment, makePoem } from './ui/poem.ts';
+import { AfterimagePlayer } from './director/afterimage.ts';
+import { tuning as tuningLive } from './core/tuning.ts';
+import type { InputFrame } from './core/input.ts';
 
 const params = new URLSearchParams(location.search);
 
@@ -21,12 +30,32 @@ async function boot() {
   const view = await View.create(canvas, params.has('webgl'));
   const runSeed = params.has('seed') ? Number(params.get('seed')) : hashString(new Date().toDateString());
   const capture = params.has('capture');
-  const game = new Game({
-    runSeed, players: Number(params.get('players') ?? 1), startRealm: capture ? 'evening-suburb' : params.get('realm') ?? undefined,
-    instantTransitions: params.has('instant'), drift: params.has('drift'),
+  const slot = Number(params.get('slot') ?? 0);
+  const save: SaveData | null = params.has('fresh') || capture ? null : await loadSlot(slot);
+  let afterimage: AfterimagePlayer | null = null;
+  let game: Game;
+  if (params.has('afterimage') && save?.lastNight && !save.lastNight.erased) {
+    afterimage = new AfterimagePlayer(save.lastNight);
+    game = afterimage.game;
+  } else {
+    game = new Game({
+      runSeed: save?.household.runSeed ?? runSeed, household: save ? structuredClone(save.household) : undefined,
+      players: Number(params.get('players') ?? 1), startRealm: capture ? 'evening-suburb' : params.get('realm') ?? undefined,
+      instantTransitions: params.has('instant'), drift: params.has('drift'),
+    });
+    if (save) game.eventCooldown = new Map(save.eventCooldown);
+  }
+  const journal: JournalPage[] = save?.journal ?? [];
+  let lastNight = save?.lastNight ?? null;
+  const profiles = save?.profiles ?? [structuredClone(DEFAULT_PROFILE)];
+  const persist = () => saveSlot(slot, {
+    household: game.household, eventCooldown: [...game.eventCooldown.entries()], profiles, lastNight, journal, unlocked: [],
   });
+  game.diaryKeywords = diaryFragment(game.runSeed, game.night).keywords;
   view.attach(game);
   const prewarm = new Prewarmer(game);
+  await loadGlyphFonts();
+  const photo = new PhotoMode(game, view, ui, canvas);
   const input = new InputSystem();
   input.attach(canvas);
   for (let i = 0; i < game.dreamers.length; i++) input.addPlayer(i === 0 ? 'kbm' : `pad${i - 1}`);
@@ -43,13 +72,16 @@ async function boot() {
   let script: ((g: Game) => import('./core/input.ts').InputFrame[]) | null = null;
   const loop = new FixedLoop({
     step: (dt) => {
+      if (photo.active) return; // the dream is frozen
       const frames = script ? script(game) : input.sample(dt, first);
       first = false;
       game.step(frames);
     },
     render: (alpha, frameDt) => {
       first = true;
-      view.render(game, alpha, frameDt);
+      photo.update(frameDt);
+      view.render(game, photo.active ? 1 : alpha, frameDt);
+      photo.afterRender();
       score.update(game);
       prewarm.update();
       if (debug.style.display !== 'none') {
@@ -65,11 +97,70 @@ async function boot() {
 
   // test hook
   (window as unknown as Record<string, unknown>).__dmt = {
-    game, view, loop, input, telemetry,
+    game, view, loop, input, telemetry, tuning: tuningLive,
     setScript(fn: typeof script) { script = fn; },
   };
 
   if (capture) script = setupCapture(game);
+
+  // ---- journal, morning menu, saves ----
+  const journalUI = new JournalUI(ui);
+  const morning = new MorningMenu(ui, {
+    code: (c) => { game.codeNight = c; telemetry.track('dream_code_entered', {}); },
+    afterimage: () => { location.search = `?afterimage&slot=${slot}`; },
+    canAfterimage: () => game.night >= 20 && !!lastNight && !lastNight.erased,
+    currentCode: () => encodeDreamCode(game.codeNight ?? { runSeed: game.runSeed, night: game.night, laws: [] }),
+  });
+  game.events.on('nightEnd', () => {
+    if (afterimage) return; // reliving a night writes nothing
+    const night = game.night; // still tonight's number at this moment
+    const h = game.household;
+    const photos = game.dreamers.map((d) => view.bestFrames[d.index]).filter((x): x is NonNullable<typeof x> => !!x).map((b) => polaroidFromPixels(b.px, 192, 108));
+    const dots = game.dreamers.map((d) => ({ dreamer: d.index, x: d.chart[0], y: d.chart[1] }));
+    const gx = dots.reduce((a, d) => a + d.x, 0) / dots.length, gy = dots.reduce((a, d) => a + d.y, 0) / dots.length;
+    const page: JournalPage = {
+      night, photos, poem: makePoem(game.nightSeed, game.tagsTonight), laws: [...game.laws], dots, group: [gx, gy],
+      realms: [...new Set(game.dreamers.flatMap((d) => d.links))], diary: diaryFragment(game.runSeed, night).text,
+    };
+    queueMicrotask(() => {
+      journal.push(page);
+      lastNight = game.lastNight;
+      game.diaryKeywords = diaryFragment(game.runSeed, game.night).keywords;
+      void persist();
+      setTimeout(() => {
+        const hist = h.groupDots.map(([x, y], i) => ({ x, y, age: h.groupDots.length - 1 - i }));
+        journalUI.show(page, hist);
+        document.exitPointerLock?.();
+      }, 1600);
+    });
+  });
+  game.events.on('place', () => { if (game.mode === 'morning' && !afterimage) void persist(); });
+  window.addEventListener('keydown', (e) => {
+    if (journalUI.open && e.code !== 'F3') { journalUI.hide(); return; }
+    if (e.code === 'Tab' && game.mode === 'morning') { e.preventDefault(); morning.toggle(); }
+    if (e.code === 'KeyJ' && game.mode === 'morning' && journal.length) {
+      const h = game.household;
+      journalUI.show(journal[journal.length - 1], h.groupDots.map(([x, y], i) => ({ x, y, age: h.groupDots.length - 1 - i })));
+    }
+    if (e.code === 'F4') {
+      // playtest export: local telemetry ring buffer as JSON (never sent anywhere)
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([telemetry.exportJson()], { type: 'application/json' }));
+      a.download = `dmt-telemetry-${new Date().toISOString().slice(0, 19)}.json`;
+      a.click();
+      e.preventDefault();
+    }
+  });
+  if (afterimage) {
+    view.postcards.build(view.renderer, game);
+    const player = afterimage;
+    script = (g) => {
+      const live: InputFrame[] = input.sample(1 / 60, false);
+      return player.frames(live.length ? live : undefined).slice(0, g.dreamers.length);
+    };
+    telemetry.track('afterimage_start', {});
+  }
+  void tuningLive;
   // join: in the Flat, any button on an unassigned device adds a dreamer (lie down on a free futon)
   const joinCheck = () => {
     if (game.mode !== 'morning') return;

@@ -139,7 +139,25 @@ export class Score {
     game.events.on('pickup', () => this.chime.triggerAttackRelease([this.note(0, 2), this.note(2, 2), this.note(4, 2)], '16n'));
     game.events.on('doors', (e) => {
       Tone.getTransport().bpm.rampTo(e.open ? 22 : 64, e.open ? 0.6 : 0.4);
-      this.lowpass.frequency.rampTo(e.open ? 2200 : 18000, 0.5);
+    });
+    game.events.on('reunion', () => {
+      // the dreamers' trail sounds harmonise
+      const now = Tone.now();
+      [0, 2, 4, 7].forEach((d, i) => this.chime.triggerAttackRelease(this.note(d, 1), '2n', now + i * 0.12));
+    });
+    game.events.on('hands', () => this.chime.triggerAttackRelease([this.note(0, 1), this.note(4, 1)], '4n'));
+    game.events.on('lantern', () => this.bells.triggerAttackRelease(this.note(2, 2), '8n'));
+    game.events.on('call', () => {
+      const now = Tone.now();
+      for (let i = 0; i < 4; i++) this.chime.triggerAttackRelease([this.note(5, 2), this.note(7, 2)], '16n', now + i * 0.18);
+    });
+    game.events.on('wake', (e) => {
+      if (e.reason === 'watcher') {
+        // 1 s of silence, then the wake chime
+        this.master.volume.rampTo(-80, 0.05);
+        this.master.volume.rampTo(-6, 0.3, Tone.now() + 1);
+        this.chime.triggerAttackRelease([this.note(0, 1), this.note(4, 1), this.note(7, 1)], '1n', Tone.now() + 1.05);
+      }
     });
     game.events.on('nightEnd', () => {
       // wake: clock ticks in the room
@@ -183,6 +201,11 @@ export class Score {
     }
     if (night) this.setQuadrant(quadrantOf(game.resonance));
     const realm = game.dreamers[0]?.visit.realm ?? 'lantern-flat';
+    // the Watcher: low-pass closes progressively as he nears
+    const wd = night ? Math.min(...game.dreamers.map((d) => game.watcherNear(d))) : Infinity;
+    const near = Math.max(0, Math.min(1, (10 - wd) / 10));
+    const doors = game.dreamers.some((d) => d.doors);
+    this.lowpass.frequency.rampTo(doors ? 2200 : 18000 * Math.pow(0.02, near), 0.25);
     const hush = (night && game.hasLaw('hush')) || this.muted;
     this.music.mute = hush;
     // last 30 s of breath: thin out

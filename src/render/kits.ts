@@ -349,6 +349,23 @@ const P: Record<string, Proc> = {
     for (const [x, z] of [[-0.5, -0.35], [0.5, -0.35], [-0.5, 0.35], [0.5, 0.35]]) b.cbox(x, 0, z, 0.06, 0.32, 0.06, C.woodDk);
     b.cyl(0.2, 0.38, 0.1, 0.06, 0.05, 0.08, 6, C.white);
   },
+  veilfloor(b, c) {
+    const h = c.cell / 2;
+    b.box(-h, -0.3, -h, h, 0, h, hex('#2A2440'), { top: c.v % 2 ? hex('#3A2C50', 0.15) : hex('#33284A', 0.1) });
+  },
+  veilwall(b, c) {
+    const h = c.cell / 2;
+    b.box(-h, -0.3, -h, h, 4, h, hex('#1F1A30', 0.05), { top: hex('#1F1A30') });
+    b.box(-0.05, 0.6, h, 0.05, 3.4, h + 0.02, hex('#D9C8FF', 0.9));
+  },
+  voidfloor(b, c) {
+    const h = c.cell / 2;
+    b.box(-h, -0.3, -h, h, 0, h, hex('#0E0A14', 0.02), { top: hex('#120E1A', 0.03) });
+  },
+  pedestal(b) {
+    b.cyl(0, 0, 0, 0.3, 0.22, 1.0, 8, hex('#E8E0F0', 0.1));
+    b.cyl(0, 1.0, 0, 0.32, 0.32, 0.05, 8, hex('#FFD9A0', 0.8));
+  },
   ceiling(b) {
     b.box(0, 2.8, 0, 12, 3.0, 12, C.plaster, { bottom: true });
     for (let i = 1; i < 6; i++) { b.box(i * 2 - 0.05, 2.72, 2, i * 2 + 0.05, 2.8, 10, C.wood); b.box(2, 2.72, i * 2 - 0.05, 10, 2.8, i * 2 + 0.05, C.wood); }

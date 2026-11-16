@@ -34,7 +34,7 @@ export interface EventDef { id: string; text: string; realm: string; rarity: str
 export const EVENTS: EventDef[] = eventsJson.events as EventDef[];
 const RARITY_W: Record<string, number> = { common: 1, uncommon: 0.45, rare: 0.15, '1-in-500': 0.002 };
 
-export const SCRIPT_IDS = ['bus', 'rainbow', 'letters', 'vending', 'laundry', 'windows', 'cats', 'phone', 'chord', 'lean', 'kneel', 'dune', 'blink', 'turn', 'kite', 'moons', 'train'];
+export const SCRIPT_IDS = ['bus', 'rainbow', 'letters', 'vending', 'laundry', 'windows', 'cats', 'phone', 'chord', 'lean', 'kneel', 'dune', 'blink', 'turn', 'kite', 'moons', 'train', 'halo'];
 
 export interface VisitDirector {
   rng: PCG32;

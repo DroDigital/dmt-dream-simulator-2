@@ -2,7 +2,8 @@
  * The deterministic game simulation. Headless: no rendering, no DOM, no wall clock.
  * Same run seed + same input frames => identical link log, notice log and state hash.
  */
-import { BTN, EMPTY_FRAME, type InputFrame } from '../core/input.ts';
+import { BTN, EMPTY_FRAME, packFrame, quantiseFrame, type InputFrame } from '../core/input.ts';
+import type { DreamCode } from './codes.ts';
 import { EventBus } from '../core/events.ts';
 import { PCG32, hash, hashString } from '../core/rng.ts';
 import { DT, DEG, breathBase, tuning } from '../core/tuning.ts';
@@ -15,11 +16,14 @@ import type { Layout, Tag } from '../realms/types.ts';
 import { rollDestination, rollGrammar, type Grammar } from '../gameplay/linking.ts';
 import { makeBody, stepBody, type Body } from '../gameplay/movement.ts';
 import { clampL, floatLimit, levelOf, noticeValue, type LucidityLevel } from '../gameplay/lucidity.ts';
-import { createEcs, despawnVisit, inVisit, Lanternfolk, Pos, Touched, type EcsWorld } from '../entities/ecs.ts';
+import { createEcs, despawnVisit, Echo, inVisit, Lanternfolk, Pos, Touched, spawn, type EcsWorld } from '../entities/ecs.ts';
 import { Visit } from './visit.ts';
 import { blinkReveal, createVisitDirector, directVisit, populateVisit, stepLanternfolk, type Anomaly, type DirectorCtx, type VisitDirector } from './director.ts';
 import { newHousehold, planNight, SOUVENIR, type Household, type NightPlan } from './household.ts';
-import { push, type Vec2 } from './resonance.ts';
+import { depthOf, push, type Vec2 } from './resonance.ts';
+import { spawnWatcher, stepWatcher, watcherChance, type Watcher } from '../entities/watcher.ts';
+import { buildSpecialLayout, SPECIAL_REALMS, type SpecialRealm } from '../realms/special/special.ts';
+import { VISIONS, type VisionDef } from './visions.ts';
 
 export type DreamerFigure = 'moth' | 'kite' | 'bell' | 'crane';
 export const FIGURES: DreamerFigure[] = ['moth', 'kite', 'bell', 'crane'];
@@ -79,7 +83,33 @@ export interface Dreamer {
   chart: Vec2;
   /** Last notice for the view (shimmer): anomaly + tick. */
   lastNotice: { x: number; y: number; z: number; tick: number; kind: string } | null;
+  /** A Vision set piece in progress (§3.12). */
+  vision: { id: string; t: number; dur: number; dest: string } | null;
+  /** Holding hands with this dreamer index, or -1. */
+  hand: number;
+  /** Tick this dreamer last pressed Interact (hand-holding handshake). */
+  interactTick: number;
+  interactHoldT: number;
+  /** Pull (Clear): the next link goes into this visit id. */
+  pullTo: number;
 }
+
+/** Everything needed to replay a night bit-exactly (Afterimage). */
+export interface NightSnapshot {
+  version: 1;
+  tick: number;
+  household: Household;
+  lucidity: number[];
+  players: number;
+  eventCooldown: [string, number][];
+  diaryKeywords: string[];
+  drift: boolean;
+  instant: boolean;
+  startRealm?: string;
+  code: DreamCode | null;
+}
+
+export interface NightRecord { snapshot: NightSnapshot; log: number[]; linkLog: LinkRecord[]; noticeLog: NoticeRecord[]; finalHash: number; erased: boolean }
 
 export interface LinkRecord { tick: number; dreamer: number; from: string; to: string; linkIndex: number; object: string; mode: string }
 export interface NoticeRecord { tick: number; dreamer: number; kind: string; label: string; value: number }
@@ -99,6 +129,10 @@ export interface GameEvents extends Record<string, unknown> {
   ring: { dreamer: number; open: boolean };
   blink: { dreamer: number };
   touchFolk: { dreamer: number; eid: number };
+  reunion: { a: number; b: number };
+  hands: { a: number; b: number };
+  call: { from: number };
+  lantern: { from: number; to: number };
 }
 
 const TAG_TRANSITION: Record<Tag, TransitionKind> = {
@@ -150,6 +184,29 @@ export class Game {
   eventCooldown = new Map<string, number>();
   diaryKeywords: string[] = [];
   private layoutCache = new Map<string, Layout>();
+  /** Watchers by visit id (at most one spawn per night). */
+  readonly watchers = new Map<number, Watcher>();
+  watcherTonight = false;
+  /** Watcher contact erases tonight's Afterimage for everyone. */
+  afterimageErased = false;
+  /** Follow window: object -> where its last link went (others may follow within 10 s). */
+  private linkMemo = new Map<string, { visit: number; tick: number }>();
+  private chorusTouches: { key: string; dreamer: number; tick: number }[] = [];
+  private apartSince = new Map<string, number>();
+  /** Night-start snapshot + per-tick input log of the current night (Afterimage). */
+  nightSnapshot: NightSnapshot | null = null;
+  inputLog: number[] = [];
+  /** The last completed night, ready to replay. */
+  lastNight: NightRecord | null = null;
+  /** A dream code / Daily Dream night (does not advance the night count). */
+  codeNight: DreamCode | null = null;
+  private savedGrammar: Grammar | null = null;
+  private linkOffset = 0;
+  /** Tags touched tonight (journal poem). */
+  tagsTonight: Record<string, number> = {};
+  private noticeOffset = 0;
+  /** Force a Vision on the next link (tests / Atlas preview). */
+  forceVision: string | null = null;
   /** Forced ghost-door pair for capture mode: [first, second]. */
   forcedDoors: [string, string] | null = null;
 
@@ -185,6 +242,7 @@ export class Game {
       idleT: 0, wokeReason: null, dwell: new Map(), pending: new Map(), tint: null, doors: null, ring: null, blinkT: 0, blinkHold: 0,
       gazeObj: -1, gazeT: 0, stickyObj: -1, stickyT: 0, souvenir: null, souvenirsTonight: new Set(), interact: null,
       quietT: 0, quietDone: false, stillT: 0, climbDone: false, spawnY: 0, chart: [0, 0], lastNotice: null,
+      vision: null, hand: -1, interactTick: -999, interactHoldT: 0, pullTo: -1,
     };
     this.dreamers.push(d);
     return d;
@@ -217,6 +275,7 @@ export class Game {
   layoutFor(realm: string, seed: number): Layout {
     const key = `${realm}:${seed}`;
     let l = this.layoutCache.get(key);
+    if (!l && (SPECIAL_REALMS as readonly string[]).includes(realm)) return buildSpecialLayout(realm as SpecialRealm);
     if (!l) {
       l = generateLayout(REALM_DATA[realm], seed).layout;
       this.layoutCache.set(key, l);
@@ -267,8 +326,41 @@ export class Game {
 
   // ------------------------------------------------------------------ night flow
 
+  snapshot(): NightSnapshot {
+    return {
+      version: 1, tick: this.tick, household: structuredClone(this.household), lucidity: this.dreamers.map((d) => d.lucidity),
+      players: this.dreamers.length, eventCooldown: [...this.eventCooldown.entries()], diaryKeywords: [...this.diaryKeywords],
+      drift: this.drift, instant: this.instant, startRealm: this.startRealmOverride, code: this.codeNight ? { ...this.codeNight, laws: [...this.codeNight.laws] } : null,
+    };
+  }
+
+  /** Build a game positioned exactly at a recorded night start (call startNight() next). */
+  static fromSnapshot(s: NightSnapshot): Game {
+    const g = new Game({ runSeed: s.household.runSeed, players: s.players, household: structuredClone(s.household), drift: s.drift, instantTransitions: s.instant, startRealm: s.startRealm });
+    g.tick = s.tick;
+    s.lucidity.forEach((l, i) => { if (g.dreamers[i]) g.dreamers[i].lucidity = l; });
+    g.eventCooldown = new Map(s.eventCooldown);
+    g.diaryKeywords = [...s.diaryKeywords];
+    g.codeNight = s.code ? { ...s.code, laws: [...s.code.laws] } : null;
+    return g;
+  }
+
   startNight(): void {
-    const plan = planNight(this.household, this.dreamers.length, this.startRealmOverride);
+    this.nightSnapshot = this.snapshot();
+    this.inputLog = [];
+    this.linkOffset = this.linkLog.length;
+    this.tagsTonight = {};
+    this.noticeOffset = this.noticeLog.length;
+    this.afterimageErased = false;
+    let planHousehold = this.household;
+    if (this.codeNight) {
+      // a dream code / Daily Dream: its own seed + grammar, this household's room
+      planHousehold = { ...structuredClone(this.household), runSeed: this.codeNight.runSeed, night: this.codeNight.night };
+      this.savedGrammar = this.grammar;
+      this.grammar = rollGrammar(this.codeNight.runSeed, DREAM_REALMS.map((id) => ({ id, tags: META.get(id)?.tags ?? [] })), tuning.link.grammarFavoured as [number, number], tuning.link.grammarFavouredShare);
+    }
+    const plan = planNight(planHousehold, this.dreamers.length, this.startRealmOverride);
+    if (this.codeNight) plan.laws = [...this.codeNight.laws];
     this.plan = plan;
     this.mode = 'night';
     this.linkIndex = 0;
@@ -292,6 +384,9 @@ export class Game {
       d.lawNoticed = false;
       d.souvenirsTonight.clear();
       d.chart = [...plan.startPos];
+      // transient per-dreamer state starts fresh every night (Afterimage replays begin from here)
+      d.idleT = 0; d.stillT = 0; d.blinkT = 0; d.blinkHold = 0; d.interactHoldT = 0; d.interactTick = -999;
+      d.lieHold = 0; d.prevButtons = 0; d.hand = -1; d.pullTo = -1; d.vision = null; d.lastNotice = null;
       d.transition = { kind: 'sleep', t: 0, dur: 1.2, from: 'lantern-flat', to: realm };
       d.wokeReason = null;
     });
@@ -308,6 +403,16 @@ export class Game {
     if (this.mode !== 'night') return;
     const h = this.household;
     const durationS = this.nightTicks * DT;
+    // group souvenir: everyone woke holding souvenirs from different realms -> a constellation piece
+    const held = this.dreamers.filter((d) => d.souvenir && d.wokeReason !== 'watcher');
+    if (this.dreamers.length > 1 && held.length === this.dreamers.length && new Set(held.map((d) => d.visit.realm)).size === held.length) {
+      h.constellation = (h.constellation ?? 0) + 1;
+      telemetry.track('coop_action', { type: 'group_souvenir' });
+    }
+    for (const d of this.dreamers) if (d.souvenir && !h.box.includes(d.souvenir)) h.box.push(d.souvenir);
+    this.watchers.clear();
+    this.watcherTonight = false;
+    for (const d of this.dreamers) { d.vision = null; d.hand = -1; d.pullTo = -1; }
     this.events.emit('nightEnd', { night: this.night, reason });
     telemetry.track('night_end', { night: this.night, reason, durationS, maxLucidity: this.dreamers.map((d) => d.maxLucidity) });
     // wake in the realm you started in: Still +1
@@ -320,8 +425,18 @@ export class Game {
     h.lastStart = this.plan?.startPos ?? [0, 0];
     h.nightHistory.push([...this.visitCounts.keys()]);
     if (h.nightHistory.length > 400) h.nightHistory.shift();
+    if (this.nightSnapshot) {
+      this.lastNight = {
+        snapshot: this.nightSnapshot, log: this.inputLog, linkLog: this.linkLog.slice(this.linkOffset), noticeLog: this.noticeLog.slice(this.noticeOffset),
+        finalHash: this.nightHash(), erased: this.afterimageErased,
+      };
+    }
     this.mode = 'morning';
-    h.night++;
+    if (this.codeNight) {
+      this.codeNight = null;
+      if (this.savedGrammar) this.grammar = this.savedGrammar;
+      this.savedGrammar = null;
+    } else h.night++;
     this.dreamers.forEach((d, i) => {
       this.placeDreamer(d, this.flat, i);
       const f = FUTONS[i];
@@ -387,6 +502,10 @@ export class Game {
       const share = o.visit === d.visit ? tuning.lucidity.gain.sharedSameRealm : tuning.lucidity.gain.sharedOtherRealm;
       this.gainLucidity(o, value * share);
     }
+    if (kind === 'echo') {
+      const partner = this.dreamers[Number(a.label.split(':')[1])];
+      if (partner) this.gainLucidity(partner, tuning.lucidity.gain.echo);
+    }
     if (kind === 'event') {
       const vd = this.directors.get(d.visit.id);
       vd?.watchers.set(a.id, (vd.watchers.get(a.id) ?? 0) | (1 << d.index));
@@ -413,12 +532,32 @@ export class Game {
     }, rng);
   }
 
-  linkDreamer(d: Dreamer, objectId: number, dest: string, mode: string): void {
+  linkDreamer(d: Dreamer, objectId: number, dest: string, mode: string, intoVisit?: Visit): void {
     const from = d.visit;
     const obj = objectId >= 0 ? from.objects[objectId] : null;
+    // pull (Clear partner): this link goes into the puller's realm
+    if (!intoVisit && d.pullTo >= 0) {
+      const pv = this.visits.get(d.pullTo);
+      d.pullTo = -1;
+      if (pv) { intoVisit = pv; dest = pv.realm; mode = 'pull'; }
+    }
+    // Visions: 1 in 40 links (1 in 25 from night 100); steering never overrides a Vision roll
+    const visionChance = this.night >= tuning.director.visionLateNight ? tuning.director.visionChanceLate : tuning.director.visionChance;
+    const vrng = new PCG32(hash(this.visitSeed(this.linkIndex), 0x515), 0x515);
+    if (!intoVisit && mode !== 'vision-end' && dest !== 'vision' && !(SPECIAL_REALMS as readonly string[]).includes(dest) && (this.forceVision || vrng.chance(visionChance))) {
+      const def: VisionDef = VISIONS.find((v) => v.id === this.forceVision) ?? VISIONS[vrng.int(VISIONS.length)];
+      this.forceVision = null;
+      const then = dest;
+      this.linkDreamer(d, objectId, 'vision', 'vision');
+      d.vision = { id: def.id, t: 0, dur: def.durationS, dest: then };
+      d.chart = push(d.chart, tuning.resonance.push.vision);
+      telemetry.track('vision', { id: def.id });
+      return;
+    }
     const leftBefore = (this.visitCounts.get(dest) ?? 0) >= 2;
     const firstTonight = !this.visitCounts.has(dest);
-    const to = this.createVisit(dest);
+    const to = intoVisit ?? this.createVisit(dest);
+    if (obj) { this.linkMemo.set(`${from.id}:${objectId}`, { visit: to.id, tick: this.tick }); for (const t of obj.tags) this.tagsTonight[t] = (this.tagsTonight[t] ?? 0) + 1; }
     const count = this.visitCounts.get(dest)!;
     if (firstTonight) this.addBreath(tuning.breath.firstVisit);
     if (count === 3) this.addBreath(tuning.breath.thirdVisit);
@@ -436,6 +575,16 @@ export class Game {
     d.state = 'linking';
     d.transition = { kind, t: 0, dur: kind === 'instant' ? tuning.link.instantS : tuning.link.transitionS, from: from.realm, to: dest };
     this.events.emit('link', { dreamer: d.index, from, to, kind, object: objectId, mode });
+    // holding hands: links carry both
+    if (d.hand >= 0) {
+      const o = this.dreamers[d.hand];
+      if (o && o.visit === from && o.state === 'dreaming') {
+        const keep = o.hand;
+        o.hand = -1; // avoid recursion
+        this.linkDreamer(o, -1, dest, 'hands', to);
+        o.hand = keep;
+      }
+    }
   }
 
   addBreath(s: number): void {
@@ -479,14 +628,19 @@ export class Game {
 
   // ------------------------------------------------------------------ tick
 
-  step(inputs: readonly InputFrame[]): void {
+  step(rawInputs: readonly InputFrame[]): void {
+    // canonical quantised inputs: live play, bots and Afterimage replays feed identical numbers
+    const inputs = rawInputs.map((f) => quantiseFrame(f ?? EMPTY_FRAME));
     this.tick++;
     const dt = DT;
     for (const d of this.dreamers) {
       d.prev.x = d.body.x; d.prev.y = d.body.y; d.prev.z = d.body.z;
       d.prev.yaw = d.body.yaw; d.prev.pitch = d.body.pitch; d.prev.roll = d.body.roll;
     }
-    if (this.mode === 'night') this.nightTicks++;
+    if (this.mode === 'night') {
+      this.nightTicks++;
+      for (let i = 0; i < this.dreamers.length; i++) this.inputLog.push(...packFrame(inputs[i] ?? EMPTY_FRAME));
+    }
 
     let anyIdle = false;
     for (const d of this.dreamers) {
@@ -533,6 +687,7 @@ export class Game {
         if (!v || v === this.flat) return;
         this.directVisitTick(v, vd);
       });
+      this.coopTick();
       // live Resonance = mean of dreamers' chart positions
       let x = 0, y = 0;
       for (const d of this.dreamers) { x += d.chart[0]; y += d.chart[1]; }
@@ -559,7 +714,113 @@ export class Game {
     // "watched to the end" bonus for events about to expire
     for (const a of vd.anomalies) if (a.kind === 'event' && a.until === this.tick + 1 && (vd.watchers.get(a.id) ?? 0)) this.addBreath(tuning.breath.eventWatched);
     directVisit(v, vd, ctx);
-    stepLanternfolk(v, this.ecs, this.tick, slow);
+    stepLanternfolk(v, this.ecs, this.tick, slow * (this.hasLaw('backwards') ? -1 : 1));
+    this.watcherTick(v, slow);
+    this.echoTick(v, vd);
+  }
+
+  /** Co-op echo: when a partner dreams elsewhere, their silhouette sometimes appears here. */
+  private echoTick(v: Visit, vd: VisitDirector): void {
+    if (this.dreamers.length < 2 || this.tick % 600 !== 0) return;
+    const here = this.dreamers.filter((d) => d.visit === v && d.state === 'dreaming');
+    const away = this.dreamers.filter((d) => d.visit !== v && d.state === 'dreaming');
+    if (!here.length || !away.length || vd.anomalies.some((a) => a.kind === 'echo')) return;
+    const w = here[vd.rng.int(here.length)], partner = away[vd.rng.int(away.length)];
+    const [fx, , fz] = this.forward(w);
+    const x = w.body.x + fx * 14, z = w.body.z + fz * 14;
+    const g = v.walk;
+    const i = Math.floor(Math.min(v.size - 1, Math.max(0, z)) / g.res) * g.size + Math.floor(Math.min(v.size - 1, Math.max(0, x)) / g.res);
+    if (g.blocked[i]) return;
+    const eid = spawn(this.ecs, v.id, x, g.height[i], z, Echo);
+    Echo.partner[eid] = partner.index;
+    const a = { id: vd.nextId++, kind: 'echo' as const, obj: -1, eid, x, y: g.height[i] + 1.2, z, born: this.tick, until: this.tick + 60 * 40, noticed: 0, visibleTo: -1, activeFrom: this.tick, label: `echo:${partner.index}` };
+    vd.anomalies.push(a);
+    Echo.anomaly[eid] = a.id;
+  }
+
+  // ------------------------------------------------------------------ the Watcher
+
+  private watcherTick(v: Visit, slow: number): void {
+    if ((SPECIAL_REALMS as readonly string[]).includes(v.realm)) return;
+    const here = this.dreamers.filter((d) => d.visit === v && d.state !== 'awake' && d.state !== 'flat');
+    let w = this.watchers.get(v.id);
+    if (!w && !this.watcherTonight && here.length && this.tick - v.createdTick === 30 && this.nightTicks * DT >= tuning.watcher.noSpawnFirstS) {
+      const rng = new PCG32(hash(v.seed, 0x3a7), 0x3a7);
+      if (rng.chance(watcherChance(depthOf(this.resonance))) || this.forceWatcher) {
+        this.forceWatcher = false;
+        const ww = spawnWatcher(v, here.map((d) => ({ index: d.index, x: d.body.x, z: d.body.z, lucidity: d.lucidity, awake: false })), v.seed);
+        if (ww) { this.watchers.set(v.id, ww); this.watcherTonight = true; w = ww; telemetry.track('watcher', { state: 'walking' }); }
+      }
+    }
+    if (!w || w.state === 'gone') return;
+    const prevState = w.state;
+    const r = stepWatcher(w, v, here.map((d) => ({ index: d.index, x: d.body.x, z: d.body.z, lucidity: d.lucidity, awake: d.state !== 'dreaming' })), slow);
+    for (const i of r.firstMet) this.dreamers[i].chart = push(this.dreamers[i].chart, tuning.resonance.push.watcher);
+    for (const i of r.near) { const d = this.dreamers[i]; d.lucidity = clampL(d.lucidity - tuning.lucidity.loss.watcherPerS * DT); this.updateLevel(d); }
+    for (const i of r.contact) {
+      const d = this.dreamers[i];
+      d.lucidity = 0; this.updateLevel(d);
+      if (d.souvenir) d.souvenir = null; // lost
+      this.afterimageErased = true;
+      w.state = 'gone';
+      this.wakeDreamer(d, 'watcher');
+    }
+    if (r.doorway) {
+      // he walks through a wall that becomes a doorway into a hidden room
+      v.objects.push({
+        id: v.objects.length, kind: 'prop', defId: 'veil-door', src: -1, x: r.doorway.x, y: w.y, z: r.doorway.z, cy: w.y + 1.2,
+        radius: 0.6, height: 2.4, rot: Math.atan2(w.dirX, w.dirZ), tags: ['light'], components: { linkable: true, veiled: true }, hidden: false, variant: 0, carriedBy: -1,
+      });
+      v.linkables.push(v.objects.length - 1);
+    }
+    if (w.state !== prevState) telemetry.track('watcher', { state: w.state });
+  }
+  forceWatcher = false;
+
+  /** Dreamers within this distance of the Watcher (view: static + low-pass). */
+  watcherNear(d: Dreamer): number {
+    const w = this.watchers.get(d.visit.id);
+    if (!w || w.state === 'gone') return Infinity;
+    return Math.hypot(w.x - d.body.x, w.z - d.body.z);
+  }
+
+  // ------------------------------------------------------------------ co-op (§3.11)
+
+  private coopTick(): void {
+    if (this.dreamers.length < 2 || this.mode !== 'night') return;
+    for (let i = 0; i < this.dreamers.length; i++) for (let j = i + 1; j < this.dreamers.length; j++) {
+      const a = this.dreamers[i], b = this.dreamers[j];
+      if (a.state === 'awake' || b.state === 'awake') continue;
+      const key = `${i}:${j}`;
+      const together = a.visit === b.visit && Math.hypot(a.body.x - b.body.x, a.body.z - b.body.z) < tuning.coop.reunionM;
+      const apart = a.visit !== b.visit || Math.hypot(a.body.x - b.body.x, a.body.z - b.body.z) > 30;
+      if (apart) { if (!this.apartSince.has(key)) this.apartSince.set(key, this.tick); }
+      else if (together) {
+        const since = this.apartSince.get(key);
+        if (since !== undefined && this.tick - since >= tuning.coop.reunionApartS * 60) {
+          this.gainLucidity(a, tuning.lucidity.gain.reunion);
+          this.gainLucidity(b, tuning.lucidity.gain.reunion);
+          this.events.emit('reunion', { a: i, b: j });
+          telemetry.track('coop_action', { type: 'reunion' });
+        }
+        this.apartSince.delete(key);
+      }
+      // hand tether: 2 m spring; lower lucidity rises to higher - 5
+      if (a.hand === j && b.hand === i) {
+        if (a.visit !== b.visit) { a.hand = -1; b.hand = -1; continue; }
+        const dx = b.body.x - a.body.x, dz = b.body.z - a.body.z;
+        const dist = Math.hypot(dx, dz);
+        if (dist > tuning.coop.tetherM) {
+          const k = (dist - tuning.coop.tetherM) * 0.5;
+          a.visit.physics.move(a.ch, (dx / dist) * k * 0.5, 0, (dz / dist) * k * 0.5);
+          b.visit.physics.move(b.ch, (-dx / dist) * k * 0.5, 0, (-dz / dist) * k * 0.5);
+          a.body.x = a.ch.x; a.body.z = a.ch.z; b.body.x = b.ch.x; b.body.z = b.ch.z;
+        }
+        if (dist > 6) { a.hand = -1; b.hand = -1; }
+        const lo = a.lucidity < b.lucidity ? a : b, hi = lo === a ? b : a;
+        if (lo.lucidity < hi.lucidity - tuning.coop.handsLucidityGap) { lo.lucidity = hi.lucidity - tuning.coop.handsLucidityGap; this.updateLevel(lo); }
+      }
+    }
   }
 
   // ------------------------------------------------------------------ morning (Lantern Flat)
@@ -609,6 +870,15 @@ export class Game {
   private dreamingDreamer(d: Dreamer, input: InputFrame, pressed: number): void {
     const dt = DT;
     if (d.lieHold >= tuning.lieDownS) { this.wakeDreamer(d, 'lie_down'); return; }
+    if (d.vision) {
+      d.vision.t += dt;
+      if (d.vision.t >= d.vision.dur) {
+        const dest = d.vision.dest;
+        d.vision = null;
+        this.linkDreamer(d, -1, dest, 'vision-end');
+      }
+      return; // the Vision plays; the dreamer can only look
+    }
     const v = d.visit;
     const vd = this.directors.get(v.id);
     const [ex, ey, ez] = this.eye(d);
@@ -682,6 +952,7 @@ export class Game {
     let best = -1, bestScore = Infinity;
     for (const o of v.objects) {
       if (!o.components.carryable || o.hidden || o.carriedBy >= 0) continue;
+      if (o.components.veiled && d.lucidity < tuning.lucidity.veiledAt) continue;
       const { angle, dist } = this.aim(d, o.x, o.cy, o.z);
       if (dist > 6) continue;
       const score = angle / (tuning.interact.angleDeg * DEG) + dist / tuning.interact.distM;
@@ -689,7 +960,12 @@ export class Game {
     }
     if (best >= 0 && bestScore < tuning.interact.maxScore && this.los(d, v.objects[best].x, v.objects[best].cy, v.objects[best].z)) d.interact = { kind: 'object', id: best };
     else d.interact = null;
-    if (pressed & BTN.INTERACT) {
+    // co-op + phones: nearest dreamer or phone in reach takes priority when facing it
+    const coopTarget = this.coopInteractTarget(d);
+    if (pressed & BTN.INTERACT) d.interactTick = this.tick;
+    if (input.buttons & BTN.INTERACT) d.interactHoldT += dt; else d.interactHoldT = 0;
+    if ((pressed & BTN.INTERACT) && coopTarget && this.coopInteract(d, coopTarget)) { /* handled */ }
+    else if (pressed & BTN.INTERACT) {
       if (!d.souvenir && d.interact) {
         const o = v.objects[d.interact.id];
         o.carriedBy = d.index;
@@ -713,6 +989,12 @@ export class Game {
     }
 
     const level = d.level;
+    if (level >= 3 && d.interactHoldT >= tuning.coop.pullHoldS && vd) {
+      for (const a of vd.anomalies) {
+        if (a.kind !== 'echo') continue;
+        if (this.aim(d, a.x, a.y, a.z).angle < 10 * DEG) { this.pull(d, Number(a.label.split(':')[1])); d.interactHoldT = -999; break; }
+      }
+    }
     // ---- ghost doors (Lucid) ----
     if (d.doors) {
       d.doors.t += dt;
@@ -818,6 +1100,28 @@ export class Game {
       if (d.stickyObj === id) d.stickyT += dt; else { d.stickyObj = id; d.stickyT = 0; }
       if (d.stickyT < tuning.touch.stickyS) return;
     }
+    const tobj = v.objects[id];
+    if (tobj.defId === 'veil-door') { this.linkDreamer(d, id, 'veiled-room', 'veiled'); return; }
+    // follow: touching the object a partner linked through within 10 s joins their visit
+    const memo = this.linkMemo.get(`${v.id}:${id}`);
+    if (memo && this.tick - memo.tick <= tuning.link.followWindowS * 60) {
+      const tv = this.visits.get(memo.visit);
+      if (tv) { this.linkDreamer(d, id, tv.realm, 'follow', tv); return; }
+    }
+    // chorus link: 2-4 dreamers touch a chorus object within 1 s -> all touchers go to a co-op room
+    if (tobj.components.chorus && this.dreamers.length > 1) {
+      const key = `${v.id}:${id}`;
+      this.chorusTouches = this.chorusTouches.filter((c) => this.tick - c.tick <= tuning.coop.chorusS * 60);
+      if (!this.chorusTouches.some((c) => c.key === key && c.dreamer === d.index)) this.chorusTouches.push({ key, dreamer: d.index, tick: this.tick });
+      const group = this.chorusTouches.filter((c) => c.key === key);
+      if (group.length >= 2) {
+        this.chorusTouches = this.chorusTouches.filter((c) => c.key !== key);
+        const room = this.createVisit('chorus-room');
+        for (const c of group) this.linkDreamer(this.dreamers[c.dreamer], id, 'chorus-room', 'chorus', room);
+        telemetry.track('coop_action', { type: 'chorus' });
+      }
+      return; // chorus objects ignore steering and wait for company
+    }
     const roll = d.pending.get(id) ?? this.rollFor(d, id);
     if (!this.drift && level >= 2) {
       // ghost doors rise 2 m ahead showing the rolled realm and the next-best
@@ -840,6 +1144,90 @@ export class Game {
       return;
     }
     this.linkDreamer(d, id, roll.dest, 'touch');
+  }
+
+  /** What co-op / phone interaction is in front of the dreamer, if any. */
+  private coopInteractTarget(d: Dreamer): { kind: 'dreamer'; index: number } | { kind: 'phone'; obj: number } | { kind: 'echo'; index: number } | null {
+    const reach = tuning.coop.handsM;
+    for (const o of this.dreamers) {
+      if (o === d || o.visit !== d.visit || o.state !== 'dreaming') continue;
+      const { angle, dist } = this.aim(d, o.body.x, o.body.y + 1.2, o.body.z);
+      if (dist < reach + 0.5 && angle < 35 * DEG) return { kind: 'dreamer', index: o.index };
+    }
+    for (const o of d.visit.objects) {
+      if (!o.components.phone || o.hidden) continue;
+      const { angle, dist } = this.aim(d, o.x, o.cy, o.z);
+      if (dist < 2.5 && angle < 25 * DEG) return { kind: 'phone', obj: o.id };
+    }
+    return null;
+  }
+
+  private coopInteract(d: Dreamer, t: NonNullable<ReturnType<Game['coopInteractTarget']>>): boolean {
+    if (t.kind === 'dreamer') {
+      const o = this.dreamers[t.index];
+      // pass the lantern: hand over a light souvenir, +3 lucidity both
+      if (d.souvenir && SOUVENIR.get(d.souvenir)?.tag === 'light' && !o.souvenir) {
+        o.souvenir = d.souvenir; d.souvenir = null;
+        this.gainLucidity(d, tuning.coop.lanternBonus); this.gainLucidity(o, tuning.coop.lanternBonus);
+        this.events.emit('lantern', { from: d.index, to: o.index });
+        telemetry.track('coop_action', { type: 'lantern' });
+        return true;
+      }
+      // hold hands: both press Interact facing each other within ~0.5 s
+      if (this.tick - o.interactTick <= 30 && this.coopInteractTarget(o)?.kind === 'dreamer') {
+        if (d.hand === o.index) { d.hand = -1; o.hand = -1; return true; }
+        d.hand = o.index; o.hand = d.index;
+        this.events.emit('hands', { a: d.index, b: o.index });
+        telemetry.track('coop_action', { type: 'hands' });
+        return true;
+      }
+      return true; // first half of the handshake
+    }
+    if (t.kind === 'phone') {
+      const obj = d.visit.objects[t.obj];
+      if (obj.variant === 1 && obj.callFrom !== undefined && obj.callFrom !== d.index) {
+        // answering links to the caller
+        const caller = this.dreamers[obj.callFrom];
+        obj.variant = 0; obj.callFrom = undefined;
+        if (caller && caller.state === 'dreaming') { this.linkDreamer(d, t.obj, caller.visit.realm, 'call', caller.visit); return true; }
+      }
+      if (obj.variant === 0) {
+        // call: phones ring in every other dreamer's realm
+        for (const o of this.dreamers) {
+          if (o === d || o.state !== 'dreaming') continue;
+          const phone = o.visit.objects.find((x) => x.components.phone && !x.hidden);
+          if (phone) { phone.variant = 1; phone.callFrom = d.index; }
+        }
+        this.household.lastPhoneRealm = d.visit.realm;
+        this.events.emit('call', { from: d.index });
+        telemetry.track('coop_action', { type: 'call' });
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /** Pull (Clear): hold Interact 1 s on a partner's echo -> their next link comes to this visit. */
+  pull(d: Dreamer, partner: number): void {
+    const o = this.dreamers[partner];
+    if (!o || d.level < 3) return;
+    o.pullTo = d.visit.id;
+    telemetry.track('coop_action', { type: 'pull' });
+  }
+
+  /** Hash of tonight's state only (Afterimage comparisons). */
+  nightHash(): number {
+    let h = hash(this.nightTicks, this.linkIndex);
+    h = hash(h, Math.round(this.breath * 1000));
+    for (const d of this.dreamers) {
+      h = hash(h, hashString(d.visit.realm));
+      h = hash(h, Math.round(d.body.x * 1000)); h = hash(h, Math.round(d.body.z * 1000));
+      h = hash(h, Math.round(d.lucidity * 1000));
+      h = hash(h, hashString(d.souvenir ?? '-'));
+    }
+    for (const l of this.linkLog.slice(this.linkOffset)) h = hash(h, hash(l.tick, hashString(l.to)));
+    for (const n of this.noticeLog.slice(this.noticeOffset)) h = hash(h, hash(n.tick, hashString(n.kind)));
+    return h >>> 0;
   }
 
   /** Stable hash of the sim state (determinism tests). */

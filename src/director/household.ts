@@ -35,6 +35,8 @@ export interface Household {
   /** Realms visited at least once this run (free-link ring). */
   runRealms: string[];
   lastPhoneRealm: string | null;
+  /** Group souvenir pieces earned in co-op (constellation in the Flat). */
+  constellation?: number;
 }
 
 export function newHousehold(runSeed: number): Household {

@@ -122,11 +122,13 @@ export class PanePipeline {
     accent: uniform(new THREE.Color('#ffffff')),
     motes: uniform(0),
     flash: uniform(0),
+    insetOn: uniform(0),
   };
   readonly palette = uniformArray(new Array(32).fill(0).map(() => new THREE.Color(1, 1, 1)), 'color');
   readonly glyphAtlas: THREE.Texture;
   readonly glyph: GlyphSuite;
   private glyphTex: N;
+  private insetTex: N;
   private lastTime = 0;
 
   private renderer: THREE.WebGPURenderer;
@@ -147,6 +149,7 @@ export class PanePipeline {
 
     this.glyph = new GlyphSuite(renderer, { colour: this.loRT.texture, depth: this.sceneRT.depthTexture!, normal: this.sceneRT.textures[2], palette: this.palette });
     this.glyphTex = texture(this.glyph.output);
+    this.insetTex = texture(this.glyph.output);
     this.quant = new THREE.QuadMesh(this.makeQuantMaterial());
     this.blurH = new THREE.QuadMesh(this.makeBlur(this.sceneRT.textures[1], true, 1));
     this.blurV = new THREE.QuadMesh(this.makeBlur(this.bloomA.texture, false, 0));
@@ -351,6 +354,12 @@ export class PanePipeline {
 
       // dawn dissolve into motes in the last seconds
       col.assign(mix(col, vec3(1.0, 0.95, 0.88), u.motes.mul(step(0.6, hash21(floor(px.div(4)).add(floor(u.time.mul(8))))))));
+      // sleeping window: a small framed pane showing a partner who is still dreaming
+      const ir: N = vec2(0.56, 0.12), is: N = vec2(0.38, 0.38);
+      const il: N = q.sub(ir).div(is);
+      const inR: N = il.x.greaterThan(0).and(il.x.lessThan(1)).and(il.y.greaterThan(0)).and(il.y.lessThan(1)).and(u.insetOn.greaterThan(0.5));
+      const frame: N = il.x.lessThan(0.02).or(il.x.greaterThan(0.98)).or(il.y.lessThan(0.03)).or(il.y.greaterThan(0.97));
+      col.assign(select(inR, select(frame, vec3(0.95, 0.85, 0.7), this.insetTex.sample(il).rgb), col));
       // blink: warm black
       col.assign(mix(col, warmBlack, u.blink));
       // photosensitivity guard: clamp overall brightness (flashes handled by easing upstream)
@@ -359,6 +368,11 @@ export class PanePipeline {
       return vec4(col, 1);
     })();
     return m;
+  }
+
+  setInset(tex: THREE.Texture | null): void {
+    this.u.insetOn.value = tex ? 1 : 0;
+    if (tex) this.insetTex.value = tex;
   }
 
   /** Current composited output (after render()). */

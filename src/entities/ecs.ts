@@ -15,6 +15,8 @@ export const Wander = { phase: [] as number[], speed: [] as number[], homeX: [] 
 export const Touched = { mask: [] as number[] };
 export const Lanternfolk = { hue: [] as number[], size: [] as number[] };
 export const Motif = { kind: [] as number[], t: [] as number[], anomaly: [] as number[] };
+/** A partner's silhouette appearing in this realm (co-op echo). */
+export const Echo = { partner: [] as number[], anomaly: [] as number[] };
 export const Actor = { script: [] as number[], t: [] as number[], dur: [] as number[], anomaly: [] as number[] };
 
 export const MOTIF_KINDS = ['kite', 'phone', 'lantern-woman', 'train', 'moons'] as const;

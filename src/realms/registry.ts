@@ -11,6 +11,7 @@ import gdKit from './glyph-desert/kit.json' with { type: 'json' };
 import gdRules from './glyph-desert/rules.json' with { type: 'json' };
 import gdFixed from './glyph-desert/fixed.json' with { type: 'json' };
 import { flatData } from './lantern-flat/flat.ts';
+import { specialData, SPECIAL_REALMS } from './special/special.ts';
 
 export interface RealmMeta {
   id: string; index: number; name: string; quadrant: string; chart: [number, number]; tags: string[]; key: string; implemented: boolean;
@@ -23,10 +24,12 @@ export const REALM_DATA: Record<string, RealmData> = {
   'prism-cathedral': { kit: pcKit, rules: pcRules, fixed: pcFixed } as unknown as RealmData,
   'glyph-desert': { kit: gdKit, rules: gdRules, fixed: gdFixed } as unknown as RealmData,
   'lantern-flat': flatData,
+  ...Object.fromEntries(SPECIAL_REALMS.map((r) => [r, specialData])),
 };
 
 /** Realms a dream can link into (have kits). The Flat is not a destination. */
-export const DREAM_REALMS: string[] = Object.keys(REALM_DATA).filter((r) => r !== 'lantern-flat');
+export const DREAM_REALMS: string[] = Object.keys(REALM_DATA).filter((r) => r !== 'lantern-flat' && !(SPECIAL_REALMS as readonly string[]).includes(r));
+export { SPECIAL_REALMS };
 
 export const QUADRANT_START = realmsJson.quadrantStart as Record<string, string>;
 export const SLICE_FALLBACK = realmsJson.sliceFallback as Record<string, string>;

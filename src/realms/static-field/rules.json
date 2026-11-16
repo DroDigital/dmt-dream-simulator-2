@@ -1,0 +1,46 @@
+{
+ "realm": "static-field",
+ "compatible": [
+  [
+   "s0",
+   "s1"
+  ],
+  [
+   "lip",
+   "s0"
+  ],
+  [
+   "lip",
+   "s1"
+  ],
+  [
+   "lip",
+   "lip"
+  ]
+ ],
+ "weightJitter": {
+  "high": [
+   0.2,
+   3
+  ],
+  "rise": [
+   0.4,
+   2
+  ],
+  "tv-mound": [
+   0.3,
+   2.4
+  ],
+  "antenna": [
+   0.3,
+   2.4
+  ]
+ },
+ "density": [],
+ "spawnCount": 4,
+ "border": "static-hedge",
+ "extent": [
+  0.62,
+  1.0
+ ]
+}

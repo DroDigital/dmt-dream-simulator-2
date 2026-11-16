@@ -1,0 +1,348 @@
+{
+ "realm": "cloud-orchard",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "light",
+  "glass"
+ ],
+ "tiles": [
+  {
+   "id": "ground",
+   "weight": 6,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "cloud"
+   }
+  },
+  {
+   "id": "high",
+   "weight": 1.8,
+   "sockets": [
+    "s1",
+    "s1",
+    "s1",
+    "s1"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 1
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "cloud",
+    "params": {
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "rise",
+   "weight": 0.8,
+   "sockets": [
+    "s1",
+    "lip",
+    "s0",
+    "lip"
+   ],
+   "floor": {
+    "kind": "ramp",
+    "from": 0,
+    "to": 1,
+    "low": "S"
+   },
+   "rotations": 4,
+   "mesh": {
+    "proc": "cloudramp"
+   }
+  },
+  {
+   "id": "orchard-tree",
+   "weight": 1.6,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      1.5,
+      1.5,
+      2.5,
+      2.5
+     ],
+     "height": 5
+    }
+   ],
+   "tags": [
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "planettree"
+   },
+   "rotations": 2
+  },
+  {
+   "id": "glass-arch",
+   "weight": 0.4,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      0.2,
+      1.6,
+      1.0,
+      2.4
+     ],
+     "height": 4
+    }
+   ],
+   "tags": [
+    "glass"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "glassarch"
+   },
+   "rotations": 2
+  },
+  {
+   "id": "landmark-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "cloud"
+   }
+  },
+  {
+   "id": "quiet-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "cloud"
+   }
+  },
+  {
+   "id": "cloud-wall",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 5
+   },
+   "tags": [
+    "light",
+    "glass"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "cloudwall"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "ringed-planet",
+   "tags": [
+    "glass",
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.5,
+   "height": 1.6,
+   "spacing": 9,
+   "density": 0.06,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "ringedplanet"
+   }
+  },
+  {
+   "id": "ladder",
+   "tags": [
+    "light"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.3,
+   "height": 2.6,
+   "spacing": 10,
+   "density": 0.05,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "ladder"
+   }
+  },
+  {
+   "id": "cloud-sheep",
+   "tags": [
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.6,
+   "height": 1.0,
+   "spacing": 14,
+   "density": 0.03,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "cloudsheep"
+   }
+  },
+  {
+   "id": "planet-fruit",
+   "tags": [
+    "light",
+    "glass"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "bead"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "star-seed",
+   "tags": [
+    "light"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.005,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "candlestub"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "sky-well",
+   "tags": [
+    "glass",
+    "water"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 1.6,
+   "height": 6,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "skywell"
+   }
+  },
+  {
+   "id": "hammock",
+   "tags": [
+    "light"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 1.0,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

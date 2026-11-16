@@ -13,7 +13,7 @@ import { MOTIF_KINDS, type MotifKind } from '../entities/ecs.ts';
 import { clampMove, depthOf, quadrantOf, type Dot, type Vec2 } from './resonance.ts';
 
 export interface SouvenirDef {
-  id: string; name: string; tag: Tag; influence: ('bright' | 'deep' | 'still' | 'alive')[]; motif: string | null; special: string | null;
+  id: string; name: string; tag: Tag; influence: ('bright' | 'deep' | 'still' | 'alive')[]; motif: string | null; special: string | null; realms: string[];
 }
 export const SOUVENIRS: SouvenirDef[] = souvenirsJson.souvenirs as SouvenirDef[];
 export const SOUVENIR = new Map(SOUVENIRS.map((s) => [s.id, s]));
@@ -37,6 +37,14 @@ export interface Household {
   lastPhoneRealm: string | null;
   /** Group souvenir pieces earned in co-op (constellation in the Flat). */
   constellation?: number;
+  /** Atlas discoveries by category. */
+  atlas?: Record<string, string[]>;
+  /** The chart secret was traced: next night opens the 13th realm. */
+  secretPending?: boolean;
+  secretFound?: boolean;
+  /** Finished a run: Endless mode unlocked. */
+  endless?: boolean;
+  runs?: number;
 }
 
 export function newHousehold(runSeed: number): Household {
@@ -146,7 +154,8 @@ export function planNight(h: Household, players: number, overrideStart?: string)
   // motif: the wall hook's motif appears twice as often
   const hook = h.room['hook'] ? SOUVENIR.get(h.room['hook']!)?.motif : null;
   const motifW = MOTIF_KINDS.map((m) => (hook && hook.includes(m.split('-')[0]) ? 2 : 1));
-  const motif = MOTIF_KINDS[rng.weighted(motifW)];
+  let motif = MOTIF_KINDS[rng.weighted(motifW)];
+  for (const id of laws) { const m = (LAW.get(id)?.effects as Record<string, unknown> | undefined)?.motif; if (typeof m === 'string' && (MOTIF_KINDS as readonly string[]).includes(m)) motif = m as MotifKind; }
   const hueDeg = rng.range(-25, 25);
   // OKLCH-ish accent: random hue at high chroma, converted crudely to RGB
   const ah = rng.range(0, Math.PI * 2);

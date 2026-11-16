@@ -10,7 +10,7 @@ import rules from './rules.json' with { type: 'json' };
 import fixed from './fixed.json' with { type: 'json' };
 
 export const specialData = { kit, rules, fixed } as unknown as RealmData;
-export const SPECIAL_REALMS = ['veiled-room', 'chorus-room', 'vision'] as const;
+export const SPECIAL_REALMS = ['veiled-room', 'chorus-room', 'vision', 'threshold', 'the-thirteenth'] as const;
 export type SpecialRealm = (typeof SPECIAL_REALMS)[number];
 
 function room(realm: SpecialRealm, floorVariant: number, walls: boolean, props: PlacedProp[]): Layout {
@@ -43,5 +43,7 @@ export function buildSpecialLayout(realm: SpecialRealm): Layout {
     ]);
   }
   if (realm === 'chorus-room') return room(realm, 0, true, [p('chorus-bell', 8, 6)]);
+  if (realm === 'threshold') return room(realm, 2, false, [p('threshold-door', 8, 4)]);
+  if (realm === 'the-thirteenth') return room(realm, 0, true, [p('star-orrery', 8, 6), p('pedestal', 5, 7), p('pedestal', 11, 7), p('constellation-piece', 5, 7), p('constellation-piece', 11, 7)]);
   return room(realm, 2, false, []);
 }

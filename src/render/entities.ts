@@ -83,6 +83,34 @@ export function motifMesh(kind: string): THREE.Object3D {
   return new THREE.Object3D();
 }
 
+/** Drifter: a tall, slow, faceless silhouette. */
+export function drifterMesh(tone: number): THREE.Object3D {
+  return new THREE.Mesh(cached(`drifter:${Math.round(tone * 4)}`, (b) => {
+    const c = hueColor(0.7 + tone * 0.2, 0.05);
+    const body: RGBA = [c[0] * 0.25, c[1] * 0.25, c[2] * 0.3, 0.05];
+    b.cyl(0, 0, 0, 0.32, 0.22, 1.8, 7, body);
+    b.sphere(0, 2.05, 0, 0.2, 8, body, 1.2);
+  }), plainMaterial());
+}
+
+/** Book-fish: a small open book that swims. */
+export function bookFishMesh(hue: number): THREE.Object3D {
+  return new THREE.Mesh(cached(`bookfish:${Math.round(hue * 6)}`, (b) => {
+    const cover = hueColor(hue, 0.15);
+    b.tri([0, 0, -0.2], [-0.25, 0.12, 0], [0, 0, 0.2], cover, [0, 0], [1, 0], [0, 1]);
+    b.tri([0, 0, -0.2], [0, 0, 0.2], [0.25, 0.12, 0], cover, [0, 0], [1, 0], [0, 1]);
+    b.tri([0, 0.01, -0.18], [-0.2, 0.1, 0], [0.2, 0.1, 0], hex('#F6EBD8', 0.4), [0, 0], [1, 0], [0, 1]);
+  }), plainMaterial());
+}
+
+/** Moth of the Moth Choir. */
+export function mothMesh(): THREE.Object3D {
+  return new THREE.Mesh(cached('moth', (b) => {
+    b.tri([0, 0, 0], [-0.12, 0.02, -0.06], [-0.1, 0.02, 0.08], hex('#F2E6C9', 0.6), [0, 0], [1, 0], [0, 1]);
+    b.tri([0, 0, 0], [0.1, 0.02, 0.08], [0.12, 0.02, -0.06], hex('#F2E6C9', 0.6), [0, 0], [1, 0], [0, 1]);
+  }), plainMaterial());
+}
+
 /** Event actor visuals by script name. */
 export function actorMesh(script: string): THREE.Object3D {
   if (script === 'bus') {

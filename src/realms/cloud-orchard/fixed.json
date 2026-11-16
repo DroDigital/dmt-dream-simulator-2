@@ -1,0 +1,21 @@
+{
+ "realm": "cloud-orchard",
+ "landmark": {
+  "tile": "landmark-ground",
+  "cell": [
+   25,
+   25
+  ],
+  "clear": 1,
+  "clearTile": "ground",
+  "prop": "sky-well"
+ },
+ "quiet": {
+  "tile": "quiet-ground",
+  "cell": [
+   15,
+   33
+  ],
+  "prop": "hammock"
+ }
+}

@@ -1,5 +1,5 @@
 {
- "$comment": "Dream Laws. Never announced in game; the morning journal names them.",
+ "$comment": "Dream Laws (40). Never announced in game; the morning journal names them.",
  "laws": [
   {
    "id": "feather",
@@ -132,6 +132,276 @@
     "rain": true
    },
    "weight": 1,
+   "deep": false
+  },
+  {
+   "id": "heavy",
+   "name": "Heavy",
+   "journal": "Gravity is doubled.",
+   "effects": {
+    "gravity": 2
+   },
+   "weight": 0.7,
+   "deep": true
+  },
+  {
+   "id": "slow-walk",
+   "name": "Slow walk",
+   "journal": "Every step takes longer.",
+   "effects": {
+    "speedMul": 0.7
+   },
+   "weight": 0.8,
+   "deep": false
+  },
+  {
+   "id": "quick-feet",
+   "name": "Quick feet",
+   "journal": "You walk as if late.",
+   "effects": {
+    "speedMul": 1.35
+   },
+   "weight": 0.8,
+   "deep": false
+  },
+  {
+   "id": "thick-fog",
+   "name": "Thick fog",
+   "journal": "The fog comes close.",
+   "effects": {
+    "fogMul": 0.45
+   },
+   "weight": 1,
+   "deep": true
+  },
+  {
+   "id": "clear-air",
+   "name": "Clear air",
+   "journal": "You can see too far.",
+   "effects": {
+    "fogMul": 2.2
+   },
+   "weight": 1,
+   "deep": false
+  },
+  {
+   "id": "colourless",
+   "name": "Colourless",
+   "journal": "The colours have gone out.",
+   "effects": {
+    "satMul": 0.25
+   },
+   "weight": 0.7,
+   "deep": true
+  },
+  {
+   "id": "vivid",
+   "name": "Vivid",
+   "journal": "Colours are louder than usual.",
+   "effects": {
+    "satMul": 1.5
+   },
+   "weight": 0.8,
+   "deep": false
+  },
+  {
+   "id": "wide-eyes",
+   "name": "Wide eyes",
+   "journal": "Your view is wide.",
+   "effects": {
+    "fovAdd": 15
+   },
+   "weight": 0.8,
+   "deep": false
+  },
+  {
+   "id": "narrow",
+   "name": "Narrow",
+   "journal": "Your view is a tunnel.",
+   "effects": {
+    "fovAdd": -15
+   },
+   "weight": 0.6,
+   "deep": true
+  },
+  {
+   "id": "wobble",
+   "name": "Wobble",
+   "journal": "Nothing will hold still.",
+   "effects": {
+    "jitterMul": 2.5
+   },
+   "weight": 0.8,
+   "deep": true
+  },
+  {
+   "id": "crisp",
+   "name": "Crisp",
+   "journal": "Edges are very sure of themselves.",
+   "effects": {
+    "jitterMul": 0
+   },
+   "weight": 0.8,
+   "deep": false
+  },
+  {
+   "id": "crowded",
+   "name": "Crowded",
+   "journal": "The lantern-folk are everywhere.",
+   "effects": {
+    "folkMul": 3
+   },
+   "weight": 0.8,
+   "deep": false
+  },
+  {
+   "id": "empty",
+   "name": "Empty",
+   "journal": "Nobody is here.",
+   "effects": {
+    "folkMul": 0
+   },
+   "weight": 0.8,
+   "deep": true
+  },
+  {
+   "id": "restless",
+   "name": "Restless",
+   "journal": "Things change when you look away.",
+   "effects": {
+    "mutationMul": 2
+   },
+   "weight": 0.9,
+   "deep": true
+  },
+  {
+   "id": "steady",
+   "name": "Steady",
+   "journal": "Things stay where you left them.",
+   "effects": {
+    "mutationMul": 0
+   },
+   "weight": 0.7,
+   "deep": false
+  },
+  {
+   "id": "kites",
+   "name": "Kites",
+   "journal": "Kites are in every sky.",
+   "effects": {
+    "motif": "kite"
+   },
+   "weight": 0.6,
+   "deep": false
+  },
+  {
+   "id": "trains",
+   "name": "Trains",
+   "journal": "Trains pass overhead.",
+   "effects": {
+    "motif": "train"
+   },
+   "weight": 0.6,
+   "deep": true
+  },
+  {
+   "id": "phones",
+   "name": "Phones",
+   "journal": "Phones ring.",
+   "effects": {
+    "motif": "phone"
+   },
+   "weight": 0.6,
+   "deep": false
+  },
+  {
+   "id": "moons",
+   "name": "Moons",
+   "journal": "There are more moons than usual.",
+   "effects": {
+    "motif": "moons"
+   },
+   "weight": 0.6,
+   "deep": false
+  },
+  {
+   "id": "lantern-lady",
+   "name": "Lantern lady",
+   "journal": "Someone with a lantern is waiting.",
+   "effects": {
+    "motif": "lantern-woman"
+   },
+   "weight": 0.6,
+   "deep": true
+  },
+  {
+   "id": "short-breath",
+   "name": "Short breath",
+   "journal": "The night is shorter.",
+   "effects": {
+    "breathMul": 0.75
+   },
+   "weight": 0.6,
+   "deep": true
+  },
+  {
+   "id": "light-sleeper",
+   "name": "Light sleeper",
+   "journal": "Links come easily.",
+   "effects": {
+    "touchCooldown": 0.1
+   },
+   "weight": 0.7,
+   "deep": false
+  },
+  {
+   "id": "deep-sleeper",
+   "name": "Deep sleeper",
+   "journal": "Links take a moment to settle.",
+   "effects": {
+    "touchCooldown": 1.2
+   },
+   "weight": 0.7,
+   "deep": true
+  },
+  {
+   "id": "water-night",
+   "name": "Water night",
+   "journal": "Water is everywhere.",
+   "effects": {
+    "tagBias": "water"
+   },
+   "weight": 0.8,
+   "deep": false
+  },
+  {
+   "id": "machine-night",
+   "name": "Machine night",
+   "journal": "Machines hum to you.",
+   "effects": {
+    "tagBias": "machine"
+   },
+   "weight": 0.8,
+   "deep": false
+  },
+  {
+   "id": "flesh-night",
+   "name": "Warm night",
+   "journal": "The world is warm and soft.",
+   "effects": {
+    "tagBias": "flesh"
+   },
+   "weight": 0.6,
+   "deep": true
+  },
+  {
+   "id": "light-night",
+   "name": "Light night",
+   "journal": "Lights lean toward you.",
+   "effects": {
+    "tagBias": "light"
+   },
+   "weight": 0.8,
    "deep": false
   }
  ]

@@ -1,0 +1,330 @@
+{
+ "realm": "static-field",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "machine",
+  "glyph"
+ ],
+ "tiles": [
+  {
+   "id": "ground",
+   "weight": 6,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "meadow"
+   }
+  },
+  {
+   "id": "high",
+   "weight": 1.8,
+   "sockets": [
+    "s1",
+    "s1",
+    "s1",
+    "s1"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 1
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "meadow",
+    "params": {
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "rise",
+   "weight": 0.8,
+   "sockets": [
+    "s1",
+    "lip",
+    "s0",
+    "lip"
+   ],
+   "floor": {
+    "kind": "ramp",
+    "from": 0,
+    "to": 1,
+    "low": "S"
+   },
+   "rotations": 4,
+   "mesh": {
+    "proc": "meadowramp"
+   }
+  },
+  {
+   "id": "tv-mound",
+   "weight": 1.4,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      1.0,
+      1.0,
+      3.0,
+      3.0
+     ],
+     "height": 1.6
+    }
+   ],
+   "tags": [
+    "machine",
+    "glyph"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "tvmound"
+   },
+   "rotations": 2
+  },
+  {
+   "id": "antenna",
+   "weight": 0.5,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      1.6,
+      1.6,
+      2.4,
+      2.4
+     ],
+     "height": 8
+    }
+   ],
+   "tags": [
+    "machine"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "antenna"
+   },
+   "rotations": 2
+  },
+  {
+   "id": "landmark-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "meadow"
+   }
+  },
+  {
+   "id": "quiet-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "meadow"
+   }
+  },
+  {
+   "id": "static-hedge",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 3
+   },
+   "tags": [
+    "machine"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "statichedge"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "tv-flower",
+   "tags": [
+    "machine",
+    "glyph"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.35,
+   "height": 1.3,
+   "spacing": 4,
+   "density": 0.18,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "tvflower"
+   }
+  },
+  {
+   "id": "phone-booth",
+   "tags": [
+    "machine"
+   ],
+   "components": {
+    "linkable": true,
+    "phone": true,
+    "anomaly": true
+   },
+   "radius": 0.7,
+   "height": 2.4,
+   "spacing": 40,
+   "density": 0.006,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "phonebooth"
+   }
+  },
+  {
+   "id": "vhs-tape",
+   "tags": [
+    "machine"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "scroll"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "remote",
+   "tags": [
+    "machine",
+    "glyph"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.005,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "bell"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "great-screen",
+   "tags": [
+    "machine",
+    "glyph"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 2.0,
+   "height": 7,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "greatscreen"
+   }
+  },
+  {
+   "id": "armchair",
+   "tags": [
+    "machine"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 1.0,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

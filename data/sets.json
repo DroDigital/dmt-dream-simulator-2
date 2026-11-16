@@ -32,6 +32,77 @@
     "vhs-tape"
    ],
    "night": "rerun-night"
+  },
+  {
+   "id": "two-moons",
+   "members": [
+    "moon-pebble",
+    "twin-moon-coin"
+   ],
+   "night": "double-moon"
+  },
+  {
+   "id": "tea-ceremony",
+   "members": [
+    "tea-leaf",
+    "paper-fan",
+    "sugar-moon"
+   ],
+   "night": "market-feast"
+  },
+  {
+   "id": "school-day",
+   "members": [
+    "chalk",
+    "eraser",
+    "gold-star"
+   ],
+   "night": "last-bell"
+  },
+  {
+   "id": "reef-garden",
+   "members": [
+    "pearl",
+    "coral-branch",
+    "spiral-shell"
+   ],
+   "night": "tide-bloom"
+  },
+  {
+   "id": "night-train",
+   "members": [
+    "ticket-stub",
+    "folded-train",
+    "timetable"
+   ],
+   "night": "endless-line"
+  },
+  {
+   "id": "library-hours",
+   "members": [
+    "library-card",
+    "bookmark",
+    "wet-page"
+   ],
+   "night": "dry-shelves"
+  },
+  {
+   "id": "warm-machine",
+   "members": [
+    "brass-key",
+    "heart-cog",
+    "warm-stone"
+   ],
+   "night": "heartbeat"
+  },
+  {
+   "id": "prism-light",
+   "members": [
+    "glass-bead",
+    "prism-chip",
+    "rainbow-jar"
+   ],
+   "night": "white-noon"
   }
  ]
 }

@@ -1,0 +1,38 @@
+{
+ "realm": "lantern-market",
+ "compatible": [
+  [
+   "lane",
+   "lane"
+  ],
+  [
+   "edge",
+   "yard"
+  ],
+  [
+   "edge",
+   "edge"
+  ]
+ ],
+ "weightJitter": {
+  "stall": [
+   0.2,
+   2.6
+  ],
+  "tea-house": [
+   0.2,
+   2.6
+  ],
+  "lane-s": [
+   0.6,
+   1.8
+  ]
+ },
+ "density": [],
+ "spawnCount": 4,
+ "border": "market-wall",
+ "extent": [
+  0.62,
+  1.0
+ ]
+}

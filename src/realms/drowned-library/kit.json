@@ -1,0 +1,417 @@
+{
+ "realm": "drowned-library",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "water",
+  "paper"
+ ],
+ "tiles": [
+  {
+   "id": "lane-x",
+   "weight": 0.6,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "aisle",
+    "params": {
+     "lines": "x"
+    }
+   }
+  },
+  {
+   "id": "lane-s",
+   "weight": 3,
+   "sockets": [
+    "lane",
+    "edge",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 2,
+   "spawnable": true,
+   "mesh": {
+    "proc": "aisle",
+    "params": {
+     "lines": "s"
+    }
+   }
+  },
+  {
+   "id": "lane-t",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "aisle",
+    "params": {
+     "lines": "t"
+    }
+   }
+  },
+  {
+   "id": "lane-l",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "aisle",
+    "params": {
+     "lines": "l"
+    }
+   }
+  },
+  {
+   "id": "lane-end",
+   "weight": 0.15,
+   "sockets": [
+    "lane",
+    "edge",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "aisle",
+    "params": {
+     "lines": "end"
+    }
+   }
+  },
+  {
+   "id": "yard",
+   "weight": 2.5,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "floodfloor"
+   }
+  },
+  {
+   "id": "stack",
+   "weight": 2.8,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.3,
+      1.2,
+      3.7,
+      2.8
+     ],
+     "height": 4.5
+    }
+   ],
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "bookstack"
+   }
+  },
+  {
+   "id": "reading-pool",
+   "weight": 0.7,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.5,
+      0.5,
+      3.5,
+      3.5
+     ],
+     "height": 0.3
+    }
+   ],
+   "tags": [
+    "water"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "readingpool"
+   }
+  },
+  {
+   "id": "plaza",
+   "weight": 0.01,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "aisle",
+    "params": {
+     "lines": "none"
+    }
+   }
+  },
+  {
+   "id": "quiet-yard",
+   "weight": 0.01,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "floodfloor"
+   }
+  },
+  {
+   "id": "deep-shelves",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 7
+   },
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "deepshelves"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "reading-desk",
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.6,
+   "height": 0.9,
+   "spacing": 8,
+   "density": 0.07,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "lowtable"
+   }
+  },
+  {
+   "id": "drowned-lamp",
+   "tags": [
+    "light",
+    "water"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.25,
+   "height": 2.4,
+   "spacing": 10,
+   "density": 0.06,
+   "on": [
+    "lane-s",
+    "yard"
+   ],
+   "mesh": {
+    "proc": "lamp"
+   }
+  },
+  {
+   "id": "globe",
+   "tags": [
+    "water",
+    "glass"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.4,
+   "height": 1.3,
+   "spacing": 16,
+   "density": 0.03,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "font"
+   }
+  },
+  {
+   "id": "wet-page",
+   "tags": [
+    "paper",
+    "water"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "yard",
+    "lane-s"
+   ],
+   "mesh": {
+    "proc": "scroll"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "bookmark",
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.005,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "crane"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "drowned-index",
+   "tags": [
+    "paper",
+    "water"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 1.8,
+   "height": 6,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "greattablet"
+   }
+  },
+  {
+   "id": "bench",
+   "tags": [
+    "paper"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 0.8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

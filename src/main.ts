@@ -18,6 +18,7 @@ import { JournalUI, polaroidFromPixels } from './ui/journal.ts';
 import { MorningMenu, encodeDreamCode } from './ui/morning.ts';
 import { diaryFragment, makePoem } from './ui/poem.ts';
 import { AfterimagePlayer } from './director/afterimage.ts';
+import { AtlasUI } from './ui/atlas.ts';
 import { tuning as tuningLive } from './core/tuning.ts';
 import type { InputFrame } from './core/input.ts';
 
@@ -105,6 +106,7 @@ async function boot() {
 
   // ---- journal, morning menu, saves ----
   const journalUI = new JournalUI(ui);
+  const atlasUI = new AtlasUI(ui);
   const morning = new MorningMenu(ui, {
     code: (c) => { game.codeNight = c; telemetry.track('dream_code_entered', {}); },
     afterimage: () => { location.search = `?afterimage&slot=${slot}`; },
@@ -137,6 +139,8 @@ async function boot() {
   game.events.on('place', () => { if (game.mode === 'morning' && !afterimage) void persist(); });
   window.addEventListener('keydown', (e) => {
     if (journalUI.open && e.code !== 'F3') { journalUI.hide(); return; }
+    if (atlasUI.open) { atlasUI.hide(); return; }
+    if (e.code === 'KeyA' && game.mode === 'morning' && e.shiftKey) { atlasUI.show(game.household.atlas ?? {}); document.exitPointerLock?.(); }
     if (e.code === 'Tab' && game.mode === 'morning') { e.preventDefault(); morning.toggle(); }
     if (e.code === 'KeyJ' && game.mode === 'morning' && journal.length) {
       const h = game.household;

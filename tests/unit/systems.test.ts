@@ -5,7 +5,7 @@ import { initPhysics } from '../../src/core/physics.ts';
 import { affinity, destinationWeights, rollDestination, rollGrammar } from '../../src/gameplay/linking.ts';
 import { levelOf, lucidityTick, noticeValue } from '../../src/gameplay/lucidity.ts';
 import { clampChart, clampMove, lutWeights, matchSecret, push, quadrantOf } from '../../src/director/resonance.ts';
-import { newHousehold, planNight, roomInfluence } from '../../src/director/household.ts';
+import { newHousehold, planNight, roomInfluence, SOUVENIR } from '../../src/director/household.ts';
 import { Game } from '../../src/director/game.ts';
 import secret from '../../data/secret.json' with { type: 'json' };
 
@@ -110,12 +110,15 @@ describe('resonance', () => {
 describe('souvenirs + room', () => {
   it('shelf influence adds vectors, floor counts a quarter', () => {
     const h = newHousehold(1);
-    h.room['shelf-0'] = 'red-kite';       // bright + alive
-    h.room['shelf-1'] = 'moon-pebble';    // deep + still
-    h.room['floor-0'] = 'sand-scroll';    // deep + still (x0.25)
+    h.room['shelf-0'] = 'red-kite';
+    h.room['floor-0'] = 'sand-scroll';
+    const V: Record<string, [number, number]> = { bright: [0, -1], deep: [0, 1], still: [-1, 0], alive: [1, 0] };
+    let ex = 0, ey = 0;
+    for (const [id, k] of [['red-kite', 1], ['sand-scroll', 0.25]] as const) for (const i of SOUVENIR.get(id)!.influence) { ex += V[i][0] * k; ey += V[i][1] * k; }
     const [x, y] = roomInfluence(h);
-    expect(x).toBeCloseTo(-0.25);
-    expect(y).toBeCloseTo(0.25);
+    expect(x).toBeCloseTo(ex);
+    expect(y).toBeCloseTo(ey);
+    expect(Math.abs(x) + Math.abs(y)).toBeGreaterThan(0);
   });
   it('bedside gives +5 starting lucidity; sill biases the first link tag', () => {
     const h = newHousehold(1);
@@ -125,9 +128,9 @@ describe('souvenirs + room', () => {
     expect(plan.startLucidityBonus).toBe(5);
     expect(plan.tagBias.paper).toBe(2);
   });
-  it('first night starts in the centre (Tidal Stair -> slice fallback)', () => {
+  it('first night starts in the centre (Tidal Stair)', () => {
     const plan = planNight(newHousehold(1), 1);
-    expect(plan.startRealms[0]).toBe('evening-suburb');
+    expect(plan.startRealms[0]).toBe('tidal-stair');
     expect(plan.laws).toEqual([]);
   });
 });
@@ -137,7 +140,7 @@ describe('breath', () => {
   it('starts at the start realm base, gains +45 s on a first visit, caps at 2x base, drains 1 s/s', () => {
     const g = new Game({ runSeed: 3, players: 1 });
     g.startNight();
-    const base = tuning.breath.base['evening-suburb'];
+    const base = tuning.breath.base['tidal-stair'];
     expect(g.breath).toBe(base);
     expect(g.breathCap).toBe(base * 2);
     for (let i = 0; i < 60; i++) g.step([{ mx: 0, mz: 0, lx: 0.001, ly: 0, buttons: 0 }]);

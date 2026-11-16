@@ -72,6 +72,7 @@ export interface DirectorCtx {
   eventCooldown: Map<string, number>;
   diaryKeywords: string[];
   timeScale: number;
+  mutationMul?: number;
 }
 
 function addAnomaly(vd: VisitDirector, a: Omit<Anomaly, 'id' | 'noticed'>): Anomaly {
@@ -101,9 +102,9 @@ function randomReachable(v: Visit, vd: VisitDirector, rng: PCG32, near?: { x: nu
 }
 
 /** Populate a fresh visit with Lanternfolk. */
-export function populateVisit(v: Visit, vd: VisitDirector, ecs: EcsWorld): void {
-  if (v.realm === 'lantern-flat') return;
-  const n = v.realm === 'lantern-market' ? 14 : 4 + vd.rng.int(4);
+export function populateVisit(v: Visit, vd: VisitDirector, ecs: EcsWorld, folkMul = 1): void {
+  if (['lantern-flat', 'veiled-room', 'chorus-room', 'vision'].includes(v.realm)) return;
+  const n = Math.round((v.realm === 'lantern-market' ? 14 : 4 + vd.rng.int(4)) * folkMul);
   for (let i = 0; i < n; i++) {
     const p = randomReachable(v, vd, vd.rng);
     if (!p) continue;
@@ -273,7 +274,8 @@ function stepActors(v: Visit, vd: VisitDirector, ctx: DirectorCtx): void {
 function peripheralMutation(v: Visit, vd: VisitDirector, ctx: DirectorCtx): Anomaly | null {
   const tick = ctx.tick;
   vd.mutationTicks = vd.mutationTicks.filter((t) => tick - t < 3600);
-  if (vd.mutationTicks.length >= tuning.director.mutationsPerMin) return null;
+  const mm = ctx.mutationMul ?? 1;
+  if (mm <= 0 || vd.mutationTicks.length >= tuning.director.mutationsPerMin * mm) return null;
   const minUnseen = tuning.director.mutationOutOfViewS * 60;
   const cands = v.objects.filter((o) => o.components.anomaly && !o.hidden && o.carriedBy < 0 && o.variant === 0 && tick - (vd.lastSeen.get(o.id) ?? tick) >= minUnseen
     && ctx.viewers.some((w) => Math.hypot(o.x - w.x, o.z - w.z) < 45));

@@ -1,0 +1,21 @@
+{
+ "realm": "static-field",
+ "landmark": {
+  "tile": "landmark-ground",
+  "cell": [
+   25,
+   25
+  ],
+  "clear": 1,
+  "clearTile": "ground",
+  "prop": "great-screen"
+ },
+ "quiet": {
+  "tile": "quiet-ground",
+  "cell": [
+   15,
+   33
+  ],
+  "prop": "armchair"
+ }
+}

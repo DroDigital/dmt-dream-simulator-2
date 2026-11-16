@@ -1,0 +1,46 @@
+{
+ "realm": "night-school",
+ "compatible": [
+  [
+   "lane",
+   "lane"
+  ],
+  [
+   "edge",
+   "yard"
+  ],
+  [
+   "edge",
+   "edge"
+  ]
+ ],
+ "weightJitter": {
+  "classroom": [
+   0.2,
+   2.6
+  ],
+  "lab-room": [
+   0.2,
+   2.6
+  ],
+  "music-room": [
+   0.2,
+   2.6
+  ],
+  "art-room": [
+   0.2,
+   2.6
+  ],
+  "lane-s": [
+   0.6,
+   1.8
+  ]
+ },
+ "density": [],
+ "spawnCount": 4,
+ "border": "school-wall",
+ "extent": [
+  0.62,
+  1.0
+ ]
+}

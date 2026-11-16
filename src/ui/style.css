@@ -32,3 +32,19 @@ html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; c
 .morning { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; pointer-events: auto; transition: opacity .5s; }
 .morning input { font-family: 'VT323', monospace; font-size: 1.4rem; background: rgba(18,14,22,.7); color: var(--ink); border: 1px solid rgba(246,239,228,.4); padding: .3rem .6rem; width: 13ch; letter-spacing: .12em; text-transform: uppercase; }
 .morning .btn { font-size: 1.15rem; padding: .3rem 1rem; background: rgba(18,14,22,.6); }
+.atlas { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(18,14,22,.8); pointer-events: auto; transition: opacity .6s; overflow: auto; }
+.atlas.hidden { opacity: 0; pointer-events: none; }
+.atlas .book { width: min(1100px, 96vw); max-height: 92vh; overflow: auto; background: #1d1824; padding: 20px; border: 1px solid rgba(246,239,228,.15); }
+.atlas section { display: flex; gap: 12px; margin-bottom: 14px; }
+.atlas .cat { flex: none; padding-top: 2px; }
+.atlas .cells { display: flex; flex-wrap: wrap; gap: 3px; }
+.settings { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(18,14,22,.86); pointer-events: auto; overflow: auto; }
+.settings.hidden { display: none; }
+.settings .panel { width: min(720px, 94vw); max-height: 92vh; overflow: auto; padding: 22px 28px; background: #1d1824; border: 1px solid rgba(246,239,228,.15); font-size: 1.1rem; }
+.settings h2 { font-style: italic; margin: 0 0 12px; }
+.settings fieldset { border: 1px solid rgba(246,239,228,.15); margin: 0 0 12px; display: grid; gap: 6px; }
+.settings label { display: flex; gap: 10px; align-items: center; }
+.settings input[type=range] { flex: 1; }
+.settings .row { display: flex; gap: 12px; justify-content: flex-end; }
+.settings pre { white-space: pre-wrap; font-family: 'VT323', monospace; opacity: .8; }
+.phone-icon { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-family: 'VT323', monospace; font-size: 1.6rem; color: var(--accent); pointer-events: none; transition: opacity .4s; }

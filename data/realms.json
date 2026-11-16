@@ -1,20 +1,227 @@
 {
-  "$comment": "Realm metadata. chart = [stillAlive, brightDeep] centre on the 9x9 Resonance chart (-4..4). Breath base lives in tuning.json.",
-  "realms": [
-    { "id": "lantern-flat", "index": 0, "name": "Lantern Flat", "quadrant": "hub", "chart": [0, 0], "tags": [], "key": "#FFD9A0", "implemented": true },
-    { "id": "cloud-orchard", "index": 1, "name": "Cloud Orchard", "quadrant": "halo", "chart": [-2.5, -2.5], "tags": ["light", "glass"], "key": "#FFC9DE", "implemented": false },
-    { "id": "lantern-market", "index": 2, "name": "Lantern Market", "quadrant": "bloom", "chart": [2.5, -2.5], "tags": ["light", "paper"], "key": "#FFB000", "implemented": false },
-    { "id": "prism-cathedral", "index": 3, "name": "Prism Cathedral", "quadrant": "halo", "chart": [-1.5, -3], "tags": ["glass", "light"], "key": "#BDE7FF", "implemented": true },
-    { "id": "evening-suburb", "index": 4, "name": "Evening Suburb", "quadrant": "bloom", "chart": [1.5, -1.5], "tags": ["paper", "machine"], "key": "#FF3D7F", "implemented": true },
-    { "id": "tidal-stair", "index": 5, "name": "Tidal Stair", "quadrant": "centre", "chart": [0, 0], "tags": ["water"], "key": "#7FE0E8", "implemented": false },
-    { "id": "origami-metro", "index": 6, "name": "Origami Metro", "quadrant": "alive", "chart": [3.5, 0], "tags": ["paper", "machine"], "key": "#F2E6D0", "implemented": false },
-    { "id": "drowned-library", "index": 7, "name": "Drowned Library", "quadrant": "hush", "chart": [-2.5, 2.5], "tags": ["water", "paper"], "key": "#2E5E6E", "implemented": false },
-    { "id": "static-field", "index": 8, "name": "Static Field", "quadrant": "hush", "chart": [-1.5, 1.5], "tags": ["machine", "glyph"], "key": "#8FB8B0", "implemented": false },
-    { "id": "fractal-reef", "index": 9, "name": "Fractal Reef", "quadrant": "undertow", "chart": [2.5, 2.5], "tags": ["flesh", "water"], "key": "#19F0FF", "implemented": false },
-    { "id": "the-veins", "index": 10, "name": "The Veins", "quadrant": "undertow", "chart": [1.5, 3], "tags": ["flesh", "machine"], "key": "#FF2E9A", "implemented": false },
-    { "id": "glyph-desert", "index": 11, "name": "Glyph Desert", "quadrant": "deep", "chart": [0, 3.5], "tags": ["glyph"], "key": "#E8C27A", "implemented": true },
-    { "id": "night-school", "index": 12, "name": "Night School", "quadrant": "still", "chart": [-3.5, 0], "tags": ["paper", "machine", "glass", "light", "water", "flesh", "glyph"], "key": "#C9D6D2", "implemented": false }
-  ],
-  "quadrantStart": { "halo": "cloud-orchard", "bloom": "lantern-market", "hush": "drowned-library", "undertow": "fractal-reef", "centre": "tidal-stair" },
-  "sliceFallback": { "cloud-orchard": "prism-cathedral", "lantern-market": "evening-suburb", "drowned-library": "glyph-desert", "fractal-reef": "glyph-desert", "tidal-stair": "evening-suburb" }
+ "$comment": "Realm metadata. chart = [stillAlive, brightDeep] centre on the 9x9 Resonance chart (-4..4). Breath base lives in tuning.json.",
+ "realms": [
+  {
+   "id": "lantern-flat",
+   "index": 0,
+   "name": "Lantern Flat",
+   "quadrant": "hub",
+   "chart": [
+    0,
+    0
+   ],
+   "tags": [],
+   "key": "#FFD9A0",
+   "implemented": true
+  },
+  {
+   "id": "cloud-orchard",
+   "index": 1,
+   "name": "Cloud Orchard",
+   "quadrant": "halo",
+   "chart": [
+    -2.5,
+    -2.5
+   ],
+   "tags": [
+    "light",
+    "glass"
+   ],
+   "key": "#FFC9DE",
+   "implemented": true
+  },
+  {
+   "id": "lantern-market",
+   "index": 2,
+   "name": "Lantern Market",
+   "quadrant": "bloom",
+   "chart": [
+    2.5,
+    -2.5
+   ],
+   "tags": [
+    "light",
+    "paper"
+   ],
+   "key": "#FFB000",
+   "implemented": true
+  },
+  {
+   "id": "prism-cathedral",
+   "index": 3,
+   "name": "Prism Cathedral",
+   "quadrant": "halo",
+   "chart": [
+    -1.5,
+    -3
+   ],
+   "tags": [
+    "glass",
+    "light"
+   ],
+   "key": "#BDE7FF",
+   "implemented": true
+  },
+  {
+   "id": "evening-suburb",
+   "index": 4,
+   "name": "Evening Suburb",
+   "quadrant": "bloom",
+   "chart": [
+    1.5,
+    -1.5
+   ],
+   "tags": [
+    "paper",
+    "machine"
+   ],
+   "key": "#FF3D7F",
+   "implemented": true
+  },
+  {
+   "id": "tidal-stair",
+   "index": 5,
+   "name": "Tidal Stair",
+   "quadrant": "centre",
+   "chart": [
+    0,
+    0
+   ],
+   "tags": [
+    "water"
+   ],
+   "key": "#7FE0E8",
+   "implemented": true
+  },
+  {
+   "id": "origami-metro",
+   "index": 6,
+   "name": "Origami Metro",
+   "quadrant": "alive",
+   "chart": [
+    3.5,
+    0
+   ],
+   "tags": [
+    "paper",
+    "machine"
+   ],
+   "key": "#F2E6D0",
+   "implemented": true
+  },
+  {
+   "id": "drowned-library",
+   "index": 7,
+   "name": "Drowned Library",
+   "quadrant": "hush",
+   "chart": [
+    -2.5,
+    2.5
+   ],
+   "tags": [
+    "water",
+    "paper"
+   ],
+   "key": "#2E5E6E",
+   "implemented": true
+  },
+  {
+   "id": "static-field",
+   "index": 8,
+   "name": "Static Field",
+   "quadrant": "hush",
+   "chart": [
+    -1.5,
+    1.5
+   ],
+   "tags": [
+    "machine",
+    "glyph"
+   ],
+   "key": "#8FB8B0",
+   "implemented": true
+  },
+  {
+   "id": "fractal-reef",
+   "index": 9,
+   "name": "Fractal Reef",
+   "quadrant": "undertow",
+   "chart": [
+    2.5,
+    2.5
+   ],
+   "tags": [
+    "flesh",
+    "water"
+   ],
+   "key": "#19F0FF",
+   "implemented": true
+  },
+  {
+   "id": "the-veins",
+   "index": 10,
+   "name": "The Veins",
+   "quadrant": "undertow",
+   "chart": [
+    1.5,
+    3
+   ],
+   "tags": [
+    "flesh",
+    "machine"
+   ],
+   "key": "#FF2E9A",
+   "implemented": true
+  },
+  {
+   "id": "glyph-desert",
+   "index": 11,
+   "name": "Glyph Desert",
+   "quadrant": "deep",
+   "chart": [
+    0,
+    3.5
+   ],
+   "tags": [
+    "glyph"
+   ],
+   "key": "#E8C27A",
+   "implemented": true
+  },
+  {
+   "id": "night-school",
+   "index": 12,
+   "name": "Night School",
+   "quadrant": "still",
+   "chart": [
+    -3.5,
+    0
+   ],
+   "tags": [
+    "paper",
+    "machine",
+    "glass",
+    "light",
+    "water",
+    "flesh",
+    "glyph"
+   ],
+   "key": "#C9D6D2",
+   "implemented": true
+  }
+ ],
+ "quadrantStart": {
+  "halo": "cloud-orchard",
+  "bloom": "lantern-market",
+  "hush": "drowned-library",
+  "undertow": "fractal-reef",
+  "centre": "tidal-stair"
+ },
+ "sliceFallback": {
+  "cloud-orchard": "prism-cathedral",
+  "lantern-market": "evening-suburb",
+  "drowned-library": "glyph-desert",
+  "fractal-reef": "glyph-desert",
+  "tidal-stair": "evening-suburb"
+ }
 }

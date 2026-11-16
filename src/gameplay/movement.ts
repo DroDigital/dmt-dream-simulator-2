@@ -51,7 +51,7 @@ export interface MoveResult {
  */
 export function stepBody(
   b: Body, input: InputFrame, prevButtons: number, dt: number, phys: PhysicsWorld, ch: CharacterHandle,
-  opts: { scale?: number; gravityMul?: number; timeScale?: number; floatLimit?: number; mirror?: boolean; lookScale?: number; frozen?: boolean } = {},
+  opts: { scale?: number; gravityMul?: number; speedMul?: number; timeScale?: number; floatLimit?: number; mirror?: boolean; lookScale?: number; frozen?: boolean } = {},
 ): MoveResult {
   const ts = opts.timeScale ?? 1;
   const sdt = dt * ts;
@@ -78,7 +78,7 @@ export function stepBody(
 
   // ---- locomotion ----
   const scale = opts.scale ?? 1;
-  const speed = (input.buttons & BTN.DRIFT ? tuning.move.drift : tuning.move.walk) * scale;
+  const speed = (input.buttons & BTN.DRIFT ? tuning.move.drift : tuning.move.walk) * scale * (opts.speedMul ?? 1);
   const frozen = opts.frozen ?? false;
   const sx = frozen ? 0 : input.mx * mirror, sz = frozen ? 0 : input.mz;
   // forward = (sin yaw, -cos yaw) in x/z (yaw 0 looks toward -z, i.e. north)

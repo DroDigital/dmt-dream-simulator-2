@@ -7,7 +7,7 @@ const LIE = 16;
 test('M1: flat -> lie down -> evening suburb renders with the lo-fi pass', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/?autostart&seed=1&webgl');
+  await page.goto('/?autostart&seed=1&webgl&fresh&realm=evening-suburb');
   await page.waitForFunction(() => window.__dmt, null, { timeout: 60_000 });
   await page.evaluate((LIE) => {
     window.__dmt.setScript((g: any) => g.dreamers.map((d: any) => (g.mode === 'morning'

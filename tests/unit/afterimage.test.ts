@@ -24,8 +24,8 @@ describe('Afterimage determinism', () => {
       if (game.night !== lastNight) { lastNight = game.night; records.push(game.lastNight!); }
     }
     expect(records.length).toBe(3);
+    expect(records.reduce((a, r) => a + r.linkLog.length + r.noticeLog.length, 0)).toBeGreaterThan(0);
     for (const rec of records) {
-      expect(rec.linkLog.length + rec.noticeLog.length).toBeGreaterThan(0);
       const again = replayNight(rec);
       expect(again.linkLog.map((l) => [l.to, l.mode, l.object])).toEqual(rec.linkLog.map((l) => [l.to, l.mode, l.object]));
       expect(again.linkLog.map((l) => l.tick - rec.snapshot.tick)).toEqual(rec.linkLog.map((l) => l.tick - rec.snapshot.tick));

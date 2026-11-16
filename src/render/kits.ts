@@ -6,6 +6,7 @@
 import type * as THREE from 'three/webgpu';
 import { MeshBuilder, hex, mixc, shade, type RGBA } from './meshkit.ts';
 import type { PropDef, TileDef } from '../realms/types.ts';
+import { PROCS2 } from './kits2.ts';
 
 type Ctx = { cell: number; lh: number; tile?: TileDef; prop?: PropDef; v: number };
 type Proc = (b: MeshBuilder, c: Ctx) => void;
@@ -362,6 +363,17 @@ const P: Record<string, Proc> = {
     const h = c.cell / 2;
     b.box(-h, -0.3, -h, h, 0, h, hex('#0E0A14', 0.02), { top: hex('#120E1A', 0.03) });
   },
+  thresholddoor(b) {
+    b.box(-1.0, 0, -0.15, -0.8, 3.2, 0.15, hex('#FFFFFF', 1));
+    b.box(0.8, 0, -0.15, 1.0, 3.2, 0.15, hex('#FFFFFF', 1));
+    b.box(-1.0, 3.0, -0.15, 1.0, 3.2, 0.15, hex('#FFFFFF', 1));
+    b.box(-0.8, 0, -0.05, 0.8, 3.0, 0.05, hex('#FFFFFF', 1));
+  },
+  orrery(b) {
+    b.cyl(0, 0, 0, 0.6, 0.4, 0.8, 10, hex('#3A2C50', 0.1));
+    b.sphere(0, 1.6, 0, 0.35, 10, hex('#FFE7A3', 1));
+    for (let i = 0; i < 9; i++) { const a = i * 0.7; b.sphere(Math.cos(a) * (0.6 + i * 0.1), 1.6 + Math.sin(i) * 0.3, Math.sin(a) * (0.6 + i * 0.1), 0.05 + (i % 3) * 0.03, 6, hex(['#BDE7FF', '#FFC9DE', '#D9C8FF'][i % 3], 0.9)); }
+  },
   pedestal(b) {
     b.cyl(0, 0, 0, 0.3, 0.22, 1.0, 8, hex('#E8E0F0', 0.1));
     b.cyl(0, 1.0, 0, 0.32, 0.32, 0.05, 8, hex('#FFD9A0', 0.8));
@@ -377,6 +389,8 @@ const P: Record<string, Proc> = {
     b.box(-0.01, 0.05, -0.02, 0.01, 0.06, 0.12, C.ink);
   },
 };
+
+Object.assign(P, PROCS2);
 
 const cache = new Map<string, THREE.BufferGeometry>();
 

@@ -18,9 +18,12 @@ import { makeBody, stepBody, type Body } from '../gameplay/movement.ts';
 import { clampL, floatLimit, levelOf, noticeValue, type LucidityLevel } from '../gameplay/lucidity.ts';
 import { createEcs, despawnVisit, Echo, inVisit, Lanternfolk, Pos, Touched, spawn, type EcsWorld } from '../entities/ecs.ts';
 import { Visit } from './visit.ts';
+import { populateCreatures, stepCreatures, Drifter, BookFish, Moth } from '../entities/creatures.ts';
+import { quadrantOf } from './resonance.ts';
 import { blinkReveal, createVisitDirector, directVisit, populateVisit, stepLanternfolk, type Anomaly, type DirectorCtx, type VisitDirector } from './director.ts';
-import { newHousehold, planNight, SOUVENIR, type Household, type NightPlan } from './household.ts';
-import { depthOf, push, type Vec2 } from './resonance.ts';
+import { LAW, newHousehold, planNight, SOUVENIR, SOUVENIRS, type Household, type NightPlan } from './household.ts';
+import { depthOf, matchSecret, push, type SecretStep, type Vec2 } from './resonance.ts';
+import secretJson from '../../data/secret.json' with { type: 'json' };
 import { spawnWatcher, stepWatcher, watcherChance, type Watcher } from '../entities/watcher.ts';
 import { buildSpecialLayout, SPECIAL_REALMS, type SpecialRealm } from '../realms/special/special.ts';
 import { VISIONS, type VisionDef } from './visions.ts';
@@ -133,6 +136,7 @@ export interface GameEvents extends Record<string, unknown> {
   hands: { a: number; b: number };
   call: { from: number };
   lantern: { from: number; to: number };
+  runEnd: { runs: number };
 }
 
 const TAG_TRANSITION: Record<Tag, TransitionKind> = {
@@ -301,11 +305,36 @@ export class Game {
     this.visits.set(v.id, v);
     const vd = createVisitDirector(v);
     this.directors.set(v.id, vd);
-    populateVisit(v, vd, this.ecs);
+    populateVisit(v, vd, this.ecs, this.lawEffect('folkMul', 1));
+    populateCreatures(v, this.ecs, this.lawEffect('folkMul', 1));
+    this.scatterSouvenirs(v);
+    if (this.mode === 'night' && !(SPECIAL_REALMS as readonly string[]).includes(realm)) {
+      const q = quadrantOf(this.resonance);
+      this.discover('realms', `${realm}|${this.era}|${q === 'centre' ? 'halo' : q}`);
+    }
     this.visitCounts.set(realm, (this.visitCounts.get(realm) ?? 0) + 1);
     if (!this.household.runRealms.includes(realm)) this.household.runRealms.push(realm);
     this.events.emit('visitCreated', { visit: v });
     return v;
+  }
+
+  /** Every realm's souvenir designs can turn up: 2-3 carryables from the realm's list per visit. */
+  private scatterSouvenirs(v: Visit): void {
+    const list = SOUVENIRS.filter((s) => s.realms.includes(v.realm));
+    if (!list.length) return;
+    const rng = new PCG32(hash(v.seed, 0x5017), 0x5017);
+    const g = v.walk;
+    const n = 2 + rng.int(2);
+    for (let k = 0; k < n; k++) {
+      const def = list[rng.int(list.length)];
+      for (let t = 0; t < 30; t++) {
+        const i = rng.int(g.size * g.size);
+        if (g.blocked[i]) continue;
+        const x = ((i % g.size) + 0.5) * g.res, z = (Math.floor(i / g.size) + 0.5) * g.res;
+        v.objects.push({ id: v.objects.length, kind: 'prop', defId: def.id, src: -1, x, y: g.height[i] + 0.9, z, cy: g.height[i] + 0.95, radius: 0, height: 0.2, rot: 0, tags: [def.tag], components: { carryable: true, anomaly: true }, hidden: false, variant: 0, carriedBy: -1 });
+        break;
+      }
+    }
   }
 
   private disposeEmptyVisits(): void {
@@ -361,6 +390,9 @@ export class Game {
     }
     const plan = planNight(planHousehold, this.dreamers.length, this.startRealmOverride);
     if (this.codeNight) plan.laws = [...this.codeNight.laws];
+    // night 365: the Threshold. The traced chart secret: the 13th realm.
+    if (!this.codeNight && !this.startRealmOverride && this.household.night >= 365 && !this.household.endless) plan.startRealms = plan.startRealms.map(() => 'threshold');
+    else if (!this.codeNight && !this.startRealmOverride && this.household.secretPending) { plan.startRealms = plan.startRealms.map(() => 'the-thirteenth'); this.household.secretPending = false; this.household.secretFound = true; }
     this.plan = plan;
     this.mode = 'night';
     this.linkIndex = 0;
@@ -390,7 +422,7 @@ export class Game {
       d.transition = { kind: 'sleep', t: 0, dur: 1.2, from: 'lantern-flat', to: realm };
       d.wokeReason = null;
     });
-    const long = this.hasLaw('long-night') ? 2 : 1;
+    const long = this.lawEffect('breathMul', 1);
     this.breathStart = breathBaseS * long;
     this.breath = this.breathStart;
     this.breathCap = this.breathStart * tuning.breath.capMul;
@@ -410,6 +442,7 @@ export class Game {
       telemetry.track('coop_action', { type: 'group_souvenir' });
     }
     for (const d of this.dreamers) if (d.souvenir && !h.box.includes(d.souvenir)) h.box.push(d.souvenir);
+    for (const l of this.laws) this.discover('laws', l);
     this.watchers.clear();
     this.watcherTonight = false;
     for (const d of this.dreamers) { d.vision = null; d.hand = -1; d.pullTo = -1; }
@@ -423,6 +456,7 @@ export class Game {
     h.groupDots.push([gx / this.dreamers.length, gy / this.dreamers.length]);
     h.dots = h.dots.filter((x) => h.night - x.night < tuning.resonance.dotFadeNights);
     h.lastStart = this.plan?.startPos ?? [0, 0];
+    if (!h.secretFound && matchSecret(h.groupDots, secretJson.pattern.steps as SecretStep[])) h.secretPending = true;
     h.nightHistory.push([...this.visitCounts.keys()]);
     if (h.nightHistory.length > 400) h.nightHistory.shift();
     if (this.nightSnapshot) {
@@ -494,6 +528,9 @@ export class Game {
     this.addBreath(gained);
     d.lastNotice = { x: a.x, y: a.y, z: a.z, tick: this.tick, kind };
     this.noticeLog.push({ tick: this.tick, dreamer: d.index, kind, label: a.label, value: Math.round(value * 100) / 100 });
+    if (kind === 'event') this.discover('events', a.label);
+    if (kind === 'motif') this.discover('entities', a.label === 'phone' ? 'kite' : a.label);
+    if (kind === 'echo') this.discover('entities', 'echo');
     this.events.emit('notice', { dreamer: d.index, kind, value, x: a.x, y: a.y, z: a.z });
     telemetry.track('notice', { kind, value });
     // co-op shared notices
@@ -528,7 +565,7 @@ export class Game {
       grammar: this.grammar, tags: obj.tags, current: d.visit.realm, recentLinks: d.links,
       realms: DREAM_REALMS.map((id) => ({ id, chart: META.get(id)!.chart })),
       resonance: this.resonance, recentNights: this.recentNightRealms(), noveltyBoost: tuning.link.noveltyBoost,
-      tagBias: { ...(firstLink ? this.plan?.tagBias : {}), ...(this.hasLaw('glass-night') ? { glass: 2 } : {}), ...(this.hasLaw('paper-night') ? { paper: 2 } : {}) },
+      tagBias: { ...(firstLink ? this.plan?.tagBias : {}), ...this.lawTagBias() },
     }, rng);
   }
 
@@ -550,6 +587,7 @@ export class Game {
       const then = dest;
       this.linkDreamer(d, objectId, 'vision', 'vision');
       d.vision = { id: def.id, t: 0, dur: def.durationS, dest: then };
+      this.discover('visions', def.id);
       d.chart = push(d.chart, tuning.resonance.push.vision);
       telemetry.track('vision', { id: def.id });
       return;
@@ -604,7 +642,7 @@ export class Game {
   }
 
   scale(): number {
-    return this.hasLaw('giant') ? 10 : this.hasLaw('tiny') ? 0.1 : 1;
+    return this.mode === 'night' ? this.lawEffect('scale', 1) : 1;
   }
 
   /** Angle (radians) between view centre and a point, plus distance. */
@@ -658,7 +696,8 @@ export class Game {
         const res = stepBody(d.body, input, d.prevButtons, dt, d.visit.physics, d.ch, {
           frozen,
           scale: this.mode === 'night' ? this.scale() : 1,
-          gravityMul: this.mode === 'night' && this.hasLaw('feather') ? 0.3 : 1,
+          gravityMul: this.mode === 'night' ? this.lawEffect('gravity', 1) : 1,
+          speedMul: this.mode === 'night' ? this.lawEffect('speedMul', 1) : 1,
           mirror: this.mode === 'night' && this.hasLaw('mirror'),
           floatLimit: floatLimit(d.level),
           lookScale: d.doors ? 0.5 : 1,
@@ -710,11 +749,14 @@ export class Game {
     const ctx: DirectorCtx = {
       tick: this.tick, night: this.night, ecs: this.ecs, laws: this.laws, motif: this.plan?.motif ?? 'kite',
       alive: this.resonance[0], viewers, eventCooldown: this.eventCooldown, diaryKeywords: this.diaryKeywords, timeScale: slow,
+      mutationMul: this.lawEffect('mutationMul', 1),
     };
     // "watched to the end" bonus for events about to expire
     for (const a of vd.anomalies) if (a.kind === 'event' && a.until === this.tick + 1 && (vd.watchers.get(a.id) ?? 0)) this.addBreath(tuning.breath.eventWatched);
     directVisit(v, vd, ctx);
     stepLanternfolk(v, this.ecs, this.tick, slow * (this.hasLaw('backwards') ? -1 : 1));
+    stepCreatures(v, this.ecs, this.tick, slow * (this.hasLaw('backwards') ? -1 : 1));
+    if (this.tick % 30 === 0) this.discoverEntities(v);
     this.watcherTick(v, slow);
     this.echoTick(v, vd);
   }
@@ -776,6 +818,16 @@ export class Game {
     if (w.state !== prevState) telemetry.track('watcher', { state: w.state });
   }
   forceWatcher = false;
+
+  private discoverEntities(v: Visit): void {
+    const here = this.dreamers.filter((d) => d.visit === v && d.state === 'dreaming');
+    if (!here.length) return;
+    const near = (comps: object[], name: string) => {
+      for (const e of inVisit(this.ecs, v.id, comps)) for (const d of here) if (Math.hypot(Pos.x[e] - d.body.x, Pos.z[e] - d.body.z) < 14) { this.discover('entities', name); return; }
+    };
+    near([Lanternfolk], 'lanternfolk'); near([Drifter], 'drifter'); near([BookFish], 'bookfish'); near([Moth], 'moth');
+    if (this.watchers.get(v.id) && here.some((d) => this.watcherNear(d) < 15)) this.discover('entities', 'watcher');
+  }
 
   /** Dreamers within this distance of the Watcher (view: static + low-pass). */
   watcherNear(d: Dreamer): number {
@@ -973,6 +1025,7 @@ export class Game {
         if (!d.souvenirsTonight.has(o.defId)) { d.souvenirsTonight.add(o.defId); this.addBreath(tuning.breath.souvenir); }
         this.events.emit('pickup', { dreamer: d.index, id: o.defId });
         telemetry.track('souvenir_pickup', { id: o.defId });
+        this.discover('souvenirs', o.defId);
         d.interact = null;
       } else if (d.souvenir) {
         // put it down in this realm, 1 m ahead
@@ -1092,7 +1145,7 @@ export class Game {
 
     // ---- touch -> link ----
     const sinceArrive = (this.tick - d.arrivedTick) * dt;
-    if (sinceArrive < tuning.touch.cooldownS) return;
+    if (sinceArrive < this.lawEffect('touchCooldown', tuning.touch.cooldownS)) return;
     const touching = v.physics.touching(d.ch).filter((id) => v.objects[id] && !v.objects[id].hidden && v.objects[id].components.linkable);
     if (!touching.length) { d.stickyObj = -1; d.stickyT = 0; return; }
     const id = touching[0];
@@ -1102,6 +1155,7 @@ export class Game {
     }
     const tobj = v.objects[id];
     if (tobj.defId === 'veil-door') { this.linkDreamer(d, id, 'veiled-room', 'veiled'); return; }
+    if (tobj.defId === 'threshold-door') { this.endRun(); return; }
     // follow: touching the object a partner linked through within 10 s joins their visit
     const memo = this.linkMemo.get(`${v.id}:${id}`);
     if (memo && this.tick - memo.tick <= tuning.link.followWindowS * 60) {
@@ -1229,6 +1283,49 @@ export class Game {
     for (const n of this.noticeLog.slice(this.noticeOffset)) h = hash(h, hash(n.tick, hashString(n.kind)));
     return h >>> 0;
   }
+
+  /** The Threshold: the run ends; a new run begins with 3 keepsakes; Endless mode unlocks. */
+  endRun(): void {
+    const h = this.household;
+    const keep = [...Object.values(h.room).filter((x): x is string => !!x), ...h.box].slice(0, 3);
+    this.events.emit('runEnd', { runs: (h.runs ?? 0) + 1 });
+    for (const d of this.dreamers) d.wokeReason = 'threshold';
+    this.endNight('threshold');
+    const fresh = newHousehold(hash(h.runSeed, 365));
+    fresh.box = keep;
+    fresh.atlas = h.atlas;
+    fresh.endless = true;
+    fresh.runs = (h.runs ?? 0) + 1;
+    this.household = fresh;
+    this.grammar = rollGrammar(fresh.runSeed, DREAM_REALMS.map((id) => ({ id, tags: META.get(id)?.tags ?? [] })), tuning.link.grammarFavoured as [number, number], tuning.link.grammarFavouredShare);
+  }
+
+  /** Record an Atlas discovery. */
+  discover(cat: string, id: string): void {
+    const book = (this.household.atlas ??= {});
+    const list = (book[cat] ??= []);
+    if (!list.includes(id)) list.push(id);
+  }
+
+  /** Numeric effect of tonight's laws (multiplicative for *Mul, additive otherwise). */
+  lawEffect(key: string, def: number): number {
+    let v = def;
+    for (const id of this.laws) {
+      const e = LAW.get(id)?.effects as Record<string, unknown> | undefined;
+      const x = e?.[key];
+      if (typeof x === 'number') v = key.endsWith('Mul') ? v * x : key.endsWith('Add') ? v + x : x;
+    }
+    return v;
+  }
+
+  private lawTagBias(): Partial<Record<Tag, number>> {
+    const out: Partial<Record<Tag, number>> = {};
+    for (const id of this.laws) { const t = (LAW.get(id)?.effects as Record<string, unknown> | undefined)?.tagBias; if (typeof t === 'string') out[t as Tag] = 2; }
+    return out;
+  }
+
+  /** Era (fresh, worn, overgrown, abstract): one step about every 90 nights. */
+  get era(): number { return Math.min(3, Math.floor((this.night - 1) / 90)); }
 
   /** Stable hash of the sim state (determinism tests). */
   stateHash(): number {

@@ -603,6 +603,4086 @@
     0
    ],
    "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-0-0",
+   "text": "A ringed planet opens and closes once.",
+   "realm": "cloud-orchard",
+   "rarity": "1-in-500",
+   "keywords": [
+    "planet",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-0-2",
+   "text": "A ringed planet turns to face you.",
+   "realm": "cloud-orchard",
+   "rarity": "uncommon",
+   "keywords": [
+    "planet",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-0-4",
+   "text": "A ringed planet hums your night's theme.",
+   "realm": "cloud-orchard",
+   "rarity": "common",
+   "keywords": [
+    "planet",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-0-6",
+   "text": "A ringed planet lets go of a letter that drifts upward.",
+   "realm": "cloud-orchard",
+   "rarity": "uncommon",
+   "keywords": [
+    "planet",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-cloud-orchard-1-1",
+   "text": "A cloud sheep glows the colour of your accent.",
+   "realm": "cloud-orchard",
+   "rarity": "common",
+   "keywords": [
+    "sheep",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-1-3",
+   "text": "A cloud sheep repeats itself, a little further away.",
+   "realm": "cloud-orchard",
+   "rarity": "uncommon",
+   "keywords": [
+    "sheep",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-1-5",
+   "text": "A cloud sheep is suddenly much older.",
+   "realm": "cloud-orchard",
+   "rarity": "rare",
+   "keywords": [
+    "sheep",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-1-7",
+   "text": "A cloud sheep casts a rainbow shadow.",
+   "realm": "cloud-orchard",
+   "rarity": "rare",
+   "keywords": [
+    "sheep",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-cloud-orchard-2-0",
+   "text": "An orchard ladder opens and closes once.",
+   "realm": "cloud-orchard",
+   "rarity": "common",
+   "keywords": [
+    "ladder",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-2-2",
+   "text": "An orchard ladder turns to face you.",
+   "realm": "cloud-orchard",
+   "rarity": "uncommon",
+   "keywords": [
+    "ladder",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-2-4",
+   "text": "An orchard ladder hums your night's theme.",
+   "realm": "cloud-orchard",
+   "rarity": "common",
+   "keywords": [
+    "ladder",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-2-6",
+   "text": "An orchard ladder lets go of a letter that drifts upward.",
+   "realm": "cloud-orchard",
+   "rarity": "uncommon",
+   "keywords": [
+    "ladder",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-cloud-orchard-3-1",
+   "text": "A pink tree glows the colour of your accent.",
+   "realm": "cloud-orchard",
+   "rarity": "common",
+   "keywords": [
+    "tree",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-3-3",
+   "text": "A pink tree repeats itself, a little further away.",
+   "realm": "cloud-orchard",
+   "rarity": "uncommon",
+   "keywords": [
+    "tree",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-3-5",
+   "text": "A pink tree is suddenly much older.",
+   "realm": "cloud-orchard",
+   "rarity": "rare",
+   "keywords": [
+    "tree",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-3-7",
+   "text": "A pink tree casts a rainbow shadow.",
+   "realm": "cloud-orchard",
+   "rarity": "rare",
+   "keywords": [
+    "tree",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-cloud-orchard-4-0",
+   "text": "A falling fruit opens and closes once.",
+   "realm": "cloud-orchard",
+   "rarity": "common",
+   "keywords": [
+    "fruit",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-4-2",
+   "text": "A falling fruit turns to face you.",
+   "realm": "cloud-orchard",
+   "rarity": "uncommon",
+   "keywords": [
+    "fruit",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-4-4",
+   "text": "A falling fruit hums your night's theme.",
+   "realm": "cloud-orchard",
+   "rarity": "common",
+   "keywords": [
+    "fruit",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-cloud-orchard-4-6",
+   "text": "A falling fruit lets go of a letter that drifts upward.",
+   "realm": "cloud-orchard",
+   "rarity": "uncommon",
+   "keywords": [
+    "fruit",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-lantern-market-0-0",
+   "text": "A paper lantern opens and closes once.",
+   "realm": "lantern-market",
+   "rarity": "1-in-500",
+   "keywords": [
+    "lantern",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-0-2",
+   "text": "A paper lantern turns to face you.",
+   "realm": "lantern-market",
+   "rarity": "uncommon",
+   "keywords": [
+    "lantern",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-0-4",
+   "text": "A paper lantern hums your night's theme.",
+   "realm": "lantern-market",
+   "rarity": "common",
+   "keywords": [
+    "lantern",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-0-6",
+   "text": "A paper lantern lets go of a letter that drifts upward.",
+   "realm": "lantern-market",
+   "rarity": "uncommon",
+   "keywords": [
+    "lantern",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-lantern-market-1-1",
+   "text": "A fan seller glows the colour of your accent.",
+   "realm": "lantern-market",
+   "rarity": "common",
+   "keywords": [
+    "seller",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-1-3",
+   "text": "A fan seller repeats itself, a little further away.",
+   "realm": "lantern-market",
+   "rarity": "uncommon",
+   "keywords": [
+    "seller",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-1-5",
+   "text": "A fan seller is suddenly much older.",
+   "realm": "lantern-market",
+   "rarity": "rare",
+   "keywords": [
+    "seller",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-1-7",
+   "text": "A fan seller casts a rainbow shadow.",
+   "realm": "lantern-market",
+   "rarity": "rare",
+   "keywords": [
+    "seller",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-lantern-market-2-0",
+   "text": "A koi kite opens and closes once.",
+   "realm": "lantern-market",
+   "rarity": "common",
+   "keywords": [
+    "kite",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-2-2",
+   "text": "A koi kite turns to face you.",
+   "realm": "lantern-market",
+   "rarity": "uncommon",
+   "keywords": [
+    "kite",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-2-4",
+   "text": "A koi kite hums your night's theme.",
+   "realm": "lantern-market",
+   "rarity": "common",
+   "keywords": [
+    "kite",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-2-6",
+   "text": "A koi kite lets go of a letter that drifts upward.",
+   "realm": "lantern-market",
+   "rarity": "uncommon",
+   "keywords": [
+    "kite",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-lantern-market-3-1",
+   "text": "A stall awning glows the colour of your accent.",
+   "realm": "lantern-market",
+   "rarity": "common",
+   "keywords": [
+    "awning",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-3-3",
+   "text": "A stall awning repeats itself, a little further away.",
+   "realm": "lantern-market",
+   "rarity": "uncommon",
+   "keywords": [
+    "awning",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-3-5",
+   "text": "A stall awning is suddenly much older.",
+   "realm": "lantern-market",
+   "rarity": "rare",
+   "keywords": [
+    "awning",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-3-7",
+   "text": "A stall awning casts a rainbow shadow.",
+   "realm": "lantern-market",
+   "rarity": "rare",
+   "keywords": [
+    "awning",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-lantern-market-4-0",
+   "text": "A tea kettle opens and closes once.",
+   "realm": "lantern-market",
+   "rarity": "common",
+   "keywords": [
+    "kettle",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-4-2",
+   "text": "A tea kettle turns to face you.",
+   "realm": "lantern-market",
+   "rarity": "uncommon",
+   "keywords": [
+    "kettle",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-4-4",
+   "text": "A tea kettle hums your night's theme.",
+   "realm": "lantern-market",
+   "rarity": "common",
+   "keywords": [
+    "kettle",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-lantern-market-4-6",
+   "text": "A tea kettle lets go of a letter that drifts upward.",
+   "realm": "lantern-market",
+   "rarity": "uncommon",
+   "keywords": [
+    "kettle",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-tidal-stair-0-0",
+   "text": "A white step opens and closes once.",
+   "realm": "tidal-stair",
+   "rarity": "1-in-500",
+   "keywords": [
+    "step",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-0-2",
+   "text": "A white step turns to face you.",
+   "realm": "tidal-stair",
+   "rarity": "uncommon",
+   "keywords": [
+    "step",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-0-4",
+   "text": "A white step hums your night's theme.",
+   "realm": "tidal-stair",
+   "rarity": "common",
+   "keywords": [
+    "step",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-0-6",
+   "text": "A white step lets go of a letter that drifts upward.",
+   "realm": "tidal-stair",
+   "rarity": "uncommon",
+   "keywords": [
+    "step",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-tidal-stair-1-1",
+   "text": "A buoy glows the colour of your accent.",
+   "realm": "tidal-stair",
+   "rarity": "common",
+   "keywords": [
+    "buoy",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-1-3",
+   "text": "A buoy repeats itself, a little further away.",
+   "realm": "tidal-stair",
+   "rarity": "uncommon",
+   "keywords": [
+    "buoy",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-1-5",
+   "text": "A buoy is suddenly much older.",
+   "realm": "tidal-stair",
+   "rarity": "rare",
+   "keywords": [
+    "buoy",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-1-7",
+   "text": "A buoy casts a rainbow shadow.",
+   "realm": "tidal-stair",
+   "rarity": "rare",
+   "keywords": [
+    "buoy",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-tidal-stair-2-0",
+   "text": "The second moon opens and closes once.",
+   "realm": "tidal-stair",
+   "rarity": "common",
+   "keywords": [
+    "moon",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-2-2",
+   "text": "The second moon turns to face you.",
+   "realm": "tidal-stair",
+   "rarity": "uncommon",
+   "keywords": [
+    "moon",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-2-4",
+   "text": "The second moon hums your night's theme.",
+   "realm": "tidal-stair",
+   "rarity": "common",
+   "keywords": [
+    "moon",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-2-6",
+   "text": "The second moon lets go of a letter that drifts upward.",
+   "realm": "tidal-stair",
+   "rarity": "uncommon",
+   "keywords": [
+    "moon",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-tidal-stair-3-1",
+   "text": "A wave glows the colour of your accent.",
+   "realm": "tidal-stair",
+   "rarity": "common",
+   "keywords": [
+    "wave",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-3-3",
+   "text": "A wave repeats itself, a little further away.",
+   "realm": "tidal-stair",
+   "rarity": "uncommon",
+   "keywords": [
+    "wave",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-3-5",
+   "text": "A wave is suddenly much older.",
+   "realm": "tidal-stair",
+   "rarity": "rare",
+   "keywords": [
+    "wave",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-3-7",
+   "text": "A wave casts a rainbow shadow.",
+   "realm": "tidal-stair",
+   "rarity": "rare",
+   "keywords": [
+    "wave",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-tidal-stair-4-0",
+   "text": "A tide pool opens and closes once.",
+   "realm": "tidal-stair",
+   "rarity": "common",
+   "keywords": [
+    "pool",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-4-2",
+   "text": "A tide pool turns to face you.",
+   "realm": "tidal-stair",
+   "rarity": "uncommon",
+   "keywords": [
+    "pool",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-4-4",
+   "text": "A tide pool hums your night's theme.",
+   "realm": "tidal-stair",
+   "rarity": "common",
+   "keywords": [
+    "pool",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-tidal-stair-4-6",
+   "text": "A tide pool lets go of a letter that drifts upward.",
+   "realm": "tidal-stair",
+   "rarity": "uncommon",
+   "keywords": [
+    "pool",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-origami-metro-0-0",
+   "text": "A paper train opens and closes once.",
+   "realm": "origami-metro",
+   "rarity": "1-in-500",
+   "keywords": [
+    "train",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-0-2",
+   "text": "A paper train turns to face you.",
+   "realm": "origami-metro",
+   "rarity": "uncommon",
+   "keywords": [
+    "train",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-0-4",
+   "text": "A paper train hums your night's theme.",
+   "realm": "origami-metro",
+   "rarity": "common",
+   "keywords": [
+    "train",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-0-6",
+   "text": "A paper train lets go of a letter that drifts upward.",
+   "realm": "origami-metro",
+   "rarity": "uncommon",
+   "keywords": [
+    "train",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-origami-metro-1-1",
+   "text": "A ticket machine glows the colour of your accent.",
+   "realm": "origami-metro",
+   "rarity": "common",
+   "keywords": [
+    "machine",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-1-3",
+   "text": "A ticket machine repeats itself, a little further away.",
+   "realm": "origami-metro",
+   "rarity": "uncommon",
+   "keywords": [
+    "machine",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-1-5",
+   "text": "A ticket machine is suddenly much older.",
+   "realm": "origami-metro",
+   "rarity": "rare",
+   "keywords": [
+    "machine",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-1-7",
+   "text": "A ticket machine casts a rainbow shadow.",
+   "realm": "origami-metro",
+   "rarity": "rare",
+   "keywords": [
+    "machine",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-origami-metro-2-0",
+   "text": "A folded tree opens and closes once.",
+   "realm": "origami-metro",
+   "rarity": "common",
+   "keywords": [
+    "tree",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-2-2",
+   "text": "A folded tree turns to face you.",
+   "realm": "origami-metro",
+   "rarity": "uncommon",
+   "keywords": [
+    "tree",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-2-4",
+   "text": "A folded tree hums your night's theme.",
+   "realm": "origami-metro",
+   "rarity": "common",
+   "keywords": [
+    "tree",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-2-6",
+   "text": "A folded tree lets go of a letter that drifts upward.",
+   "realm": "origami-metro",
+   "rarity": "uncommon",
+   "keywords": [
+    "tree",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-origami-metro-3-1",
+   "text": "A signal glows the colour of your accent.",
+   "realm": "origami-metro",
+   "rarity": "common",
+   "keywords": [
+    "signal",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-3-3",
+   "text": "A signal repeats itself, a little further away.",
+   "realm": "origami-metro",
+   "rarity": "uncommon",
+   "keywords": [
+    "signal",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-3-5",
+   "text": "A signal is suddenly much older.",
+   "realm": "origami-metro",
+   "rarity": "rare",
+   "keywords": [
+    "signal",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-3-7",
+   "text": "A signal casts a rainbow shadow.",
+   "realm": "origami-metro",
+   "rarity": "rare",
+   "keywords": [
+    "signal",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-origami-metro-4-0",
+   "text": "A crease in the sky opens and closes once.",
+   "realm": "origami-metro",
+   "rarity": "common",
+   "keywords": [
+    "sky",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-4-2",
+   "text": "A crease in the sky turns to face you.",
+   "realm": "origami-metro",
+   "rarity": "uncommon",
+   "keywords": [
+    "sky",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-4-4",
+   "text": "A crease in the sky hums your night's theme.",
+   "realm": "origami-metro",
+   "rarity": "common",
+   "keywords": [
+    "sky",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-origami-metro-4-6",
+   "text": "A crease in the sky lets go of a letter that drifts upward.",
+   "realm": "origami-metro",
+   "rarity": "uncommon",
+   "keywords": [
+    "sky",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-drowned-library-0-0",
+   "text": "A book-fish opens and closes once.",
+   "realm": "drowned-library",
+   "rarity": "1-in-500",
+   "keywords": [
+    "book-fish",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-0-2",
+   "text": "A book-fish turns to face you.",
+   "realm": "drowned-library",
+   "rarity": "uncommon",
+   "keywords": [
+    "book-fish",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-0-4",
+   "text": "A book-fish hums your night's theme.",
+   "realm": "drowned-library",
+   "rarity": "common",
+   "keywords": [
+    "book-fish",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-0-6",
+   "text": "A book-fish lets go of a letter that drifts upward.",
+   "realm": "drowned-library",
+   "rarity": "uncommon",
+   "keywords": [
+    "book-fish",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-drowned-library-1-1",
+   "text": "A reading lamp glows the colour of your accent.",
+   "realm": "drowned-library",
+   "rarity": "common",
+   "keywords": [
+    "lamp",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-1-3",
+   "text": "A reading lamp repeats itself, a little further away.",
+   "realm": "drowned-library",
+   "rarity": "uncommon",
+   "keywords": [
+    "lamp",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-1-5",
+   "text": "A reading lamp is suddenly much older.",
+   "realm": "drowned-library",
+   "rarity": "rare",
+   "keywords": [
+    "lamp",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-1-7",
+   "text": "A reading lamp casts a rainbow shadow.",
+   "realm": "drowned-library",
+   "rarity": "rare",
+   "keywords": [
+    "lamp",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-drowned-library-2-0",
+   "text": "A wet page opens and closes once.",
+   "realm": "drowned-library",
+   "rarity": "common",
+   "keywords": [
+    "page",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-2-2",
+   "text": "A wet page turns to face you.",
+   "realm": "drowned-library",
+   "rarity": "uncommon",
+   "keywords": [
+    "page",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-2-4",
+   "text": "A wet page hums your night's theme.",
+   "realm": "drowned-library",
+   "rarity": "common",
+   "keywords": [
+    "page",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-2-6",
+   "text": "A wet page lets go of a letter that drifts upward.",
+   "realm": "drowned-library",
+   "rarity": "uncommon",
+   "keywords": [
+    "page",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-drowned-library-3-1",
+   "text": "A shelf glows the colour of your accent.",
+   "realm": "drowned-library",
+   "rarity": "common",
+   "keywords": [
+    "shelf",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-3-3",
+   "text": "A shelf repeats itself, a little further away.",
+   "realm": "drowned-library",
+   "rarity": "uncommon",
+   "keywords": [
+    "shelf",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-3-5",
+   "text": "A shelf is suddenly much older.",
+   "realm": "drowned-library",
+   "rarity": "rare",
+   "keywords": [
+    "shelf",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-3-7",
+   "text": "A shelf casts a rainbow shadow.",
+   "realm": "drowned-library",
+   "rarity": "rare",
+   "keywords": [
+    "shelf",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-drowned-library-4-0",
+   "text": "A globe opens and closes once.",
+   "realm": "drowned-library",
+   "rarity": "common",
+   "keywords": [
+    "globe",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-4-2",
+   "text": "A globe turns to face you.",
+   "realm": "drowned-library",
+   "rarity": "uncommon",
+   "keywords": [
+    "globe",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-4-4",
+   "text": "A globe hums your night's theme.",
+   "realm": "drowned-library",
+   "rarity": "common",
+   "keywords": [
+    "globe",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-drowned-library-4-6",
+   "text": "A globe lets go of a letter that drifts upward.",
+   "realm": "drowned-library",
+   "rarity": "uncommon",
+   "keywords": [
+    "globe",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-static-field-0-0",
+   "text": "A television opens and closes once.",
+   "realm": "static-field",
+   "rarity": "1-in-500",
+   "keywords": [
+    "television",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-0-2",
+   "text": "A television turns to face you.",
+   "realm": "static-field",
+   "rarity": "uncommon",
+   "keywords": [
+    "television",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-0-4",
+   "text": "A television hums your night's theme.",
+   "realm": "static-field",
+   "rarity": "common",
+   "keywords": [
+    "television",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-0-6",
+   "text": "A television lets go of a letter that drifts upward.",
+   "realm": "static-field",
+   "rarity": "uncommon",
+   "keywords": [
+    "television",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-static-field-1-1",
+   "text": "An antenna glows the colour of your accent.",
+   "realm": "static-field",
+   "rarity": "common",
+   "keywords": [
+    "antenna",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-1-3",
+   "text": "An antenna repeats itself, a little further away.",
+   "realm": "static-field",
+   "rarity": "uncommon",
+   "keywords": [
+    "antenna",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-1-5",
+   "text": "An antenna is suddenly much older.",
+   "realm": "static-field",
+   "rarity": "rare",
+   "keywords": [
+    "antenna",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-1-7",
+   "text": "An antenna casts a rainbow shadow.",
+   "realm": "static-field",
+   "rarity": "rare",
+   "keywords": [
+    "antenna",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-static-field-2-0",
+   "text": "A test card opens and closes once.",
+   "realm": "static-field",
+   "rarity": "common",
+   "keywords": [
+    "card",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-2-2",
+   "text": "A test card turns to face you.",
+   "realm": "static-field",
+   "rarity": "uncommon",
+   "keywords": [
+    "card",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-2-4",
+   "text": "A test card hums your night's theme.",
+   "realm": "static-field",
+   "rarity": "common",
+   "keywords": [
+    "card",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-2-6",
+   "text": "A test card lets go of a letter that drifts upward.",
+   "realm": "static-field",
+   "rarity": "uncommon",
+   "keywords": [
+    "card",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-static-field-3-1",
+   "text": "The dusk glows the colour of your accent.",
+   "realm": "static-field",
+   "rarity": "common",
+   "keywords": [
+    "dusk",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-3-3",
+   "text": "The dusk repeats itself, a little further away.",
+   "realm": "static-field",
+   "rarity": "uncommon",
+   "keywords": [
+    "dusk",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-3-5",
+   "text": "The dusk is suddenly much older.",
+   "realm": "static-field",
+   "rarity": "rare",
+   "keywords": [
+    "dusk",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-3-7",
+   "text": "The dusk casts a rainbow shadow.",
+   "realm": "static-field",
+   "rarity": "rare",
+   "keywords": [
+    "dusk",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-static-field-4-0",
+   "text": "A telephone opens and closes once.",
+   "realm": "static-field",
+   "rarity": "common",
+   "keywords": [
+    "telephone",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-4-2",
+   "text": "A telephone turns to face you.",
+   "realm": "static-field",
+   "rarity": "uncommon",
+   "keywords": [
+    "telephone",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-4-4",
+   "text": "A telephone hums your night's theme.",
+   "realm": "static-field",
+   "rarity": "common",
+   "keywords": [
+    "telephone",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-static-field-4-6",
+   "text": "A telephone lets go of a letter that drifts upward.",
+   "realm": "static-field",
+   "rarity": "uncommon",
+   "keywords": [
+    "telephone",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-fractal-reef-0-0",
+   "text": "A coral branch opens and closes once.",
+   "realm": "fractal-reef",
+   "rarity": "1-in-500",
+   "keywords": [
+    "branch",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-0-2",
+   "text": "A coral branch turns to face you.",
+   "realm": "fractal-reef",
+   "rarity": "uncommon",
+   "keywords": [
+    "branch",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-0-4",
+   "text": "A coral branch hums your night's theme.",
+   "realm": "fractal-reef",
+   "rarity": "common",
+   "keywords": [
+    "branch",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-0-6",
+   "text": "A coral branch lets go of a letter that drifts upward.",
+   "realm": "fractal-reef",
+   "rarity": "uncommon",
+   "keywords": [
+    "branch",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-fractal-reef-1-1",
+   "text": "An anemone glows the colour of your accent.",
+   "realm": "fractal-reef",
+   "rarity": "common",
+   "keywords": [
+    "anemone",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-1-3",
+   "text": "An anemone repeats itself, a little further away.",
+   "realm": "fractal-reef",
+   "rarity": "uncommon",
+   "keywords": [
+    "anemone",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-1-5",
+   "text": "An anemone is suddenly much older.",
+   "realm": "fractal-reef",
+   "rarity": "rare",
+   "keywords": [
+    "anemone",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-1-7",
+   "text": "An anemone casts a rainbow shadow.",
+   "realm": "fractal-reef",
+   "rarity": "rare",
+   "keywords": [
+    "anemone",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-fractal-reef-2-0",
+   "text": "A pearl opens and closes once.",
+   "realm": "fractal-reef",
+   "rarity": "common",
+   "keywords": [
+    "pearl",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-2-2",
+   "text": "A pearl turns to face you.",
+   "realm": "fractal-reef",
+   "rarity": "uncommon",
+   "keywords": [
+    "pearl",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-2-4",
+   "text": "A pearl hums your night's theme.",
+   "realm": "fractal-reef",
+   "rarity": "common",
+   "keywords": [
+    "pearl",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-2-6",
+   "text": "A pearl lets go of a letter that drifts upward.",
+   "realm": "fractal-reef",
+   "rarity": "uncommon",
+   "keywords": [
+    "pearl",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-fractal-reef-3-1",
+   "text": "A glass sponge glows the colour of your accent.",
+   "realm": "fractal-reef",
+   "rarity": "common",
+   "keywords": [
+    "sponge",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-3-3",
+   "text": "A glass sponge repeats itself, a little further away.",
+   "realm": "fractal-reef",
+   "rarity": "uncommon",
+   "keywords": [
+    "sponge",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-3-5",
+   "text": "A glass sponge is suddenly much older.",
+   "realm": "fractal-reef",
+   "rarity": "rare",
+   "keywords": [
+    "sponge",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-3-7",
+   "text": "A glass sponge casts a rainbow shadow.",
+   "realm": "fractal-reef",
+   "rarity": "rare",
+   "keywords": [
+    "sponge",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-fractal-reef-4-0",
+   "text": "The heart coral opens and closes once.",
+   "realm": "fractal-reef",
+   "rarity": "common",
+   "keywords": [
+    "coral",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-4-2",
+   "text": "The heart coral turns to face you.",
+   "realm": "fractal-reef",
+   "rarity": "uncommon",
+   "keywords": [
+    "coral",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-4-4",
+   "text": "The heart coral hums your night's theme.",
+   "realm": "fractal-reef",
+   "rarity": "common",
+   "keywords": [
+    "coral",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-fractal-reef-4-6",
+   "text": "The heart coral lets go of a letter that drifts upward.",
+   "realm": "fractal-reef",
+   "rarity": "uncommon",
+   "keywords": [
+    "coral",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-the-veins-0-0",
+   "text": "A valve opens and closes once.",
+   "realm": "the-veins",
+   "rarity": "1-in-500",
+   "keywords": [
+    "valve",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-0-2",
+   "text": "A valve turns to face you.",
+   "realm": "the-veins",
+   "rarity": "uncommon",
+   "keywords": [
+    "valve",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-0-4",
+   "text": "A valve hums your night's theme.",
+   "realm": "the-veins",
+   "rarity": "common",
+   "keywords": [
+    "valve",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-0-6",
+   "text": "A valve lets go of a letter that drifts upward.",
+   "realm": "the-veins",
+   "rarity": "uncommon",
+   "keywords": [
+    "valve",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-the-veins-1-1",
+   "text": "An organ pipe glows the colour of your accent.",
+   "realm": "the-veins",
+   "rarity": "common",
+   "keywords": [
+    "pipe",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-1-3",
+   "text": "An organ pipe repeats itself, a little further away.",
+   "realm": "the-veins",
+   "rarity": "uncommon",
+   "keywords": [
+    "pipe",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-1-5",
+   "text": "An organ pipe is suddenly much older.",
+   "realm": "the-veins",
+   "rarity": "rare",
+   "keywords": [
+    "pipe",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-1-7",
+   "text": "An organ pipe casts a rainbow shadow.",
+   "realm": "the-veins",
+   "rarity": "rare",
+   "keywords": [
+    "pipe",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-the-veins-2-0",
+   "text": "A pulse opens and closes once.",
+   "realm": "the-veins",
+   "rarity": "common",
+   "keywords": [
+    "pulse",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-2-2",
+   "text": "A pulse turns to face you.",
+   "realm": "the-veins",
+   "rarity": "uncommon",
+   "keywords": [
+    "pulse",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-2-4",
+   "text": "A pulse hums your night's theme.",
+   "realm": "the-veins",
+   "rarity": "common",
+   "keywords": [
+    "pulse",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-2-6",
+   "text": "A pulse lets go of a letter that drifts upward.",
+   "realm": "the-veins",
+   "rarity": "uncommon",
+   "keywords": [
+    "pulse",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-the-veins-3-1",
+   "text": "A brass key glows the colour of your accent.",
+   "realm": "the-veins",
+   "rarity": "common",
+   "keywords": [
+    "key",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-3-3",
+   "text": "A brass key repeats itself, a little further away.",
+   "realm": "the-veins",
+   "rarity": "uncommon",
+   "keywords": [
+    "key",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-3-5",
+   "text": "A brass key is suddenly much older.",
+   "realm": "the-veins",
+   "rarity": "rare",
+   "keywords": [
+    "key",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-3-7",
+   "text": "A brass key casts a rainbow shadow.",
+   "realm": "the-veins",
+   "rarity": "rare",
+   "keywords": [
+    "key",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-the-veins-4-0",
+   "text": "The warm wall opens and closes once.",
+   "realm": "the-veins",
+   "rarity": "common",
+   "keywords": [
+    "wall",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-4-2",
+   "text": "The warm wall turns to face you.",
+   "realm": "the-veins",
+   "rarity": "uncommon",
+   "keywords": [
+    "wall",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-4-4",
+   "text": "The warm wall hums your night's theme.",
+   "realm": "the-veins",
+   "rarity": "common",
+   "keywords": [
+    "wall",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-the-veins-4-6",
+   "text": "The warm wall lets go of a letter that drifts upward.",
+   "realm": "the-veins",
+   "rarity": "uncommon",
+   "keywords": [
+    "wall",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-night-school-0-0",
+   "text": "A classroom door opens and closes once.",
+   "realm": "night-school",
+   "rarity": "1-in-500",
+   "keywords": [
+    "door",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-0-2",
+   "text": "A classroom door turns to face you.",
+   "realm": "night-school",
+   "rarity": "uncommon",
+   "keywords": [
+    "door",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-0-4",
+   "text": "A classroom door hums your night's theme.",
+   "realm": "night-school",
+   "rarity": "common",
+   "keywords": [
+    "door",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-0-6",
+   "text": "A classroom door lets go of a letter that drifts upward.",
+   "realm": "night-school",
+   "rarity": "uncommon",
+   "keywords": [
+    "door",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-night-school-1-1",
+   "text": "The bell glows the colour of your accent.",
+   "realm": "night-school",
+   "rarity": "common",
+   "keywords": [
+    "bell",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-1-3",
+   "text": "The bell repeats itself, a little further away.",
+   "realm": "night-school",
+   "rarity": "uncommon",
+   "keywords": [
+    "bell",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-1-5",
+   "text": "The bell is suddenly much older.",
+   "realm": "night-school",
+   "rarity": "rare",
+   "keywords": [
+    "bell",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-1-7",
+   "text": "The bell casts a rainbow shadow.",
+   "realm": "night-school",
+   "rarity": "rare",
+   "keywords": [
+    "bell",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-night-school-2-0",
+   "text": "A locker opens and closes once.",
+   "realm": "night-school",
+   "rarity": "common",
+   "keywords": [
+    "locker",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-2-2",
+   "text": "A locker turns to face you.",
+   "realm": "night-school",
+   "rarity": "uncommon",
+   "keywords": [
+    "locker",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-2-4",
+   "text": "A locker hums your night's theme.",
+   "realm": "night-school",
+   "rarity": "common",
+   "keywords": [
+    "locker",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-2-6",
+   "text": "A locker lets go of a letter that drifts upward.",
+   "realm": "night-school",
+   "rarity": "uncommon",
+   "keywords": [
+    "locker",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-night-school-3-1",
+   "text": "A chalkboard glows the colour of your accent.",
+   "realm": "night-school",
+   "rarity": "common",
+   "keywords": [
+    "chalkboard",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-3-3",
+   "text": "A chalkboard repeats itself, a little further away.",
+   "realm": "night-school",
+   "rarity": "uncommon",
+   "keywords": [
+    "chalkboard",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-3-5",
+   "text": "A chalkboard is suddenly much older.",
+   "realm": "night-school",
+   "rarity": "rare",
+   "keywords": [
+    "chalkboard",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-3-7",
+   "text": "A chalkboard casts a rainbow shadow.",
+   "realm": "night-school",
+   "rarity": "rare",
+   "keywords": [
+    "chalkboard",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-night-school-4-0",
+   "text": "The hall clock opens and closes once.",
+   "realm": "night-school",
+   "rarity": "common",
+   "keywords": [
+    "clock",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-4-2",
+   "text": "The hall clock turns to face you.",
+   "realm": "night-school",
+   "rarity": "uncommon",
+   "keywords": [
+    "clock",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-4-4",
+   "text": "The hall clock hums your night's theme.",
+   "realm": "night-school",
+   "rarity": "common",
+   "keywords": [
+    "clock",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-night-school-4-6",
+   "text": "The hall clock lets go of a letter that drifts upward.",
+   "realm": "night-school",
+   "rarity": "uncommon",
+   "keywords": [
+    "clock",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-evening-suburb-0-0",
+   "text": "A front door opens and closes once.",
+   "realm": "evening-suburb",
+   "rarity": "1-in-500",
+   "keywords": [
+    "door",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-0-2",
+   "text": "A front door turns to face you.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "door",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-0-4",
+   "text": "A front door hums your night's theme.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "door",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-0-6",
+   "text": "A front door lets go of a letter that drifts upward.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "door",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-evening-suburb-1-1",
+   "text": "A porch light glows the colour of your accent.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "light",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-1-3",
+   "text": "A porch light repeats itself, a little further away.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "light",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-1-5",
+   "text": "A porch light is suddenly much older.",
+   "realm": "evening-suburb",
+   "rarity": "rare",
+   "keywords": [
+    "light",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-1-7",
+   "text": "A porch light casts a rainbow shadow.",
+   "realm": "evening-suburb",
+   "rarity": "rare",
+   "keywords": [
+    "light",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-evening-suburb-2-0",
+   "text": "A bicycle opens and closes once.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "bicycle",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-2-2",
+   "text": "A bicycle turns to face you.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "bicycle",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-2-4",
+   "text": "A bicycle hums your night's theme.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "bicycle",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-2-6",
+   "text": "A bicycle lets go of a letter that drifts upward.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "bicycle",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-evening-suburb-3-1",
+   "text": "A garden hose glows the colour of your accent.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "hose",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-3-3",
+   "text": "A garden hose repeats itself, a little further away.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "hose",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-3-5",
+   "text": "A garden hose is suddenly much older.",
+   "realm": "evening-suburb",
+   "rarity": "rare",
+   "keywords": [
+    "hose",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-3-7",
+   "text": "A garden hose casts a rainbow shadow.",
+   "realm": "evening-suburb",
+   "rarity": "rare",
+   "keywords": [
+    "hose",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-evening-suburb-4-0",
+   "text": "A garage opens and closes once.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "garage",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-4-2",
+   "text": "A garage turns to face you.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "garage",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-4-4",
+   "text": "A garage hums your night's theme.",
+   "realm": "evening-suburb",
+   "rarity": "common",
+   "keywords": [
+    "garage",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-evening-suburb-4-6",
+   "text": "A garage lets go of a letter that drifts upward.",
+   "realm": "evening-suburb",
+   "rarity": "uncommon",
+   "keywords": [
+    "garage",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-prism-cathedral-0-0",
+   "text": "A stained window opens and closes once.",
+   "realm": "prism-cathedral",
+   "rarity": "1-in-500",
+   "keywords": [
+    "window",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-0-2",
+   "text": "A stained window turns to face you.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "window",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-0-4",
+   "text": "A stained window hums your night's theme.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "window",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-0-6",
+   "text": "A stained window lets go of a letter that drifts upward.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "window",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-prism-cathedral-1-1",
+   "text": "A candle glows the colour of your accent.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "candle",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-1-3",
+   "text": "A candle repeats itself, a little further away.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "candle",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-1-5",
+   "text": "A candle is suddenly much older.",
+   "realm": "prism-cathedral",
+   "rarity": "rare",
+   "keywords": [
+    "candle",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-1-7",
+   "text": "A candle casts a rainbow shadow.",
+   "realm": "prism-cathedral",
+   "rarity": "rare",
+   "keywords": [
+    "candle",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-prism-cathedral-2-0",
+   "text": "A kneeling figure opens and closes once.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "figure",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-2-2",
+   "text": "A kneeling figure turns to face you.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "figure",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-2-4",
+   "text": "A kneeling figure hums your night's theme.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "figure",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-2-6",
+   "text": "A kneeling figure lets go of a letter that drifts upward.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "figure",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-prism-cathedral-3-1",
+   "text": "The organ glows the colour of your accent.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "organ",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-3-3",
+   "text": "The organ repeats itself, a little further away.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "organ",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-3-5",
+   "text": "The organ is suddenly much older.",
+   "realm": "prism-cathedral",
+   "rarity": "rare",
+   "keywords": [
+    "organ",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-3-7",
+   "text": "The organ casts a rainbow shadow.",
+   "realm": "prism-cathedral",
+   "rarity": "rare",
+   "keywords": [
+    "organ",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-prism-cathedral-4-0",
+   "text": "A font opens and closes once.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "font",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-4-2",
+   "text": "A font turns to face you.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "font",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-4-4",
+   "text": "A font hums your night's theme.",
+   "realm": "prism-cathedral",
+   "rarity": "common",
+   "keywords": [
+    "font",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-prism-cathedral-4-6",
+   "text": "A font lets go of a letter that drifts upward.",
+   "realm": "prism-cathedral",
+   "rarity": "uncommon",
+   "keywords": [
+    "font",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-glyph-desert-0-0",
+   "text": "A dune opens and closes once.",
+   "realm": "glyph-desert",
+   "rarity": "1-in-500",
+   "keywords": [
+    "dune",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-0-2",
+   "text": "A dune turns to face you.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "dune",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-0-4",
+   "text": "A dune hums your night's theme.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "dune",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-0-6",
+   "text": "A dune lets go of a letter that drifts upward.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "dune",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-glyph-desert-1-1",
+   "text": "A cactus glows the colour of your accent.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "cactus",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-1-3",
+   "text": "A cactus repeats itself, a little further away.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "cactus",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-1-5",
+   "text": "A cactus is suddenly much older.",
+   "realm": "glyph-desert",
+   "rarity": "rare",
+   "keywords": [
+    "cactus",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-1-7",
+   "text": "A cactus casts a rainbow shadow.",
+   "realm": "glyph-desert",
+   "rarity": "rare",
+   "keywords": [
+    "cactus",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-glyph-desert-2-0",
+   "text": "The tablet opens and closes once.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "tablet",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-2-2",
+   "text": "The tablet turns to face you.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "tablet",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-2-4",
+   "text": "The tablet hums your night's theme.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "tablet",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-2-6",
+   "text": "The tablet lets go of a letter that drifts upward.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "tablet",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-glyph-desert-3-1",
+   "text": "A word glows the colour of your accent.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "word",
+    "glows"
+   ],
+   "script": "halo",
+   "durationS": 8,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-3-3",
+   "text": "A word repeats itself, a little further away.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "word",
+    "repeats"
+   ],
+   "script": "windows",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-3-5",
+   "text": "A word is suddenly much older.",
+   "realm": "glyph-desert",
+   "rarity": "rare",
+   "keywords": [
+    "word",
+    "is"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-3-7",
+   "text": "A word casts a rainbow shadow.",
+   "realm": "glyph-desert",
+   "rarity": "rare",
+   "keywords": [
+    "word",
+    "casts"
+   ],
+   "script": "rainbow",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
+  },
+  {
+   "id": "gen-glyph-desert-4-0",
+   "text": "The wind opens and closes once.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "wind",
+    "opens"
+   ],
+   "script": "chord",
+   "durationS": 10,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-4-2",
+   "text": "The wind turns to face you.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "wind",
+    "turns"
+   ],
+   "script": "turn",
+   "durationS": 12,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-4-4",
+   "text": "The wind hums your night's theme.",
+   "realm": "glyph-desert",
+   "rarity": "common",
+   "keywords": [
+    "wind",
+    "hums"
+   ],
+   "script": "chord",
+   "durationS": 14,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 1
+  },
+  {
+   "id": "gen-glyph-desert-4-6",
+   "text": "The wind lets go of a letter that drifts upward.",
+   "realm": "glyph-desert",
+   "rarity": "uncommon",
+   "keywords": [
+    "wind",
+    "lets"
+   ],
+   "script": "letters",
+   "durationS": 16,
+   "resonance": [
+    0,
+    0
+   ],
+   "minNight": 20
   }
  ]
 }

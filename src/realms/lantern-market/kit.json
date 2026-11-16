@@ -1,0 +1,420 @@
+{
+ "realm": "lantern-market",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "light",
+  "paper"
+ ],
+ "tiles": [
+  {
+   "id": "lane-x",
+   "weight": 0.6,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "boardwalk",
+    "params": {
+     "lines": "x"
+    }
+   }
+  },
+  {
+   "id": "lane-s",
+   "weight": 3,
+   "sockets": [
+    "lane",
+    "edge",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 2,
+   "spawnable": true,
+   "mesh": {
+    "proc": "boardwalk",
+    "params": {
+     "lines": "s"
+    }
+   }
+  },
+  {
+   "id": "lane-t",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "boardwalk",
+    "params": {
+     "lines": "t"
+    }
+   }
+  },
+  {
+   "id": "lane-l",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "boardwalk",
+    "params": {
+     "lines": "l"
+    }
+   }
+  },
+  {
+   "id": "lane-end",
+   "weight": 0.15,
+   "sockets": [
+    "lane",
+    "edge",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "boardwalk",
+    "params": {
+     "lines": "end"
+    }
+   }
+  },
+  {
+   "id": "yard",
+   "weight": 2.5,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "canalside"
+   }
+  },
+  {
+   "id": "stall",
+   "weight": 2.6,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.6,
+      0.6,
+      3.4,
+      3.4
+     ],
+     "height": 3
+    }
+   ],
+   "tags": [
+    "paper",
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "stall"
+   }
+  },
+  {
+   "id": "tea-house",
+   "weight": 1.0,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.4,
+      0.4,
+      3.6,
+      3.6
+     ],
+     "height": 6
+    }
+   ],
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "teahouse"
+   }
+  },
+  {
+   "id": "plaza",
+   "weight": 0.01,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "boardwalk",
+    "params": {
+     "lines": "none"
+    }
+   }
+  },
+  {
+   "id": "quiet-yard",
+   "weight": 0.01,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "canalside"
+   }
+  },
+  {
+   "id": "market-wall",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 4
+   },
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "marketwall"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "lantern-post",
+   "tags": [
+    "light",
+    "paper"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.25,
+   "height": 2.6,
+   "spacing": 4,
+   "density": 0.25,
+   "on": [
+    "lane-s",
+    "lane-t",
+    "lane-l",
+    "yard"
+   ],
+   "mesh": {
+    "proc": "lanternpost"
+   }
+  },
+  {
+   "id": "hanging-lanterns",
+   "tags": [
+    "light"
+   ],
+   "components": {
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.4,
+   "spacing": 2.5,
+   "density": 0.6,
+   "on": [
+    "lane-s",
+    "lane-x",
+    "yard"
+   ],
+   "mesh": {
+    "proc": "hanginglanterns"
+   },
+   "hover": 2.6
+  },
+  {
+   "id": "paper-crate",
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.5,
+   "height": 0.8,
+   "spacing": 6,
+   "density": 0.08,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "crate"
+   }
+  },
+  {
+   "id": "lantern-shard",
+   "tags": [
+    "light"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "yard",
+    "lane-s"
+   ],
+   "mesh": {
+    "proc": "candlestub"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "fortune-slip",
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "scroll"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "great-lantern",
+   "tags": [
+    "light",
+    "paper"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 1.8,
+   "height": 7,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "greatlantern"
+   }
+  },
+  {
+   "id": "bench",
+   "tags": [
+    "paper"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 0.8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

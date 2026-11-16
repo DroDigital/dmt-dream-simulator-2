@@ -13,10 +13,12 @@ import { Actor, Heading, Lanternfolk, Motif, MOTIF_KINDS, Pos, Vel, inVisit, typ
 const Vel_x = (e: number) => Vel.x[e];
 const Vel_z = (e: number) => Vel.z[e];
 import { SCRIPT_IDS } from '../director/director.ts';
-import { actorMesh, figureMesh, lanternfolkMesh, motifMesh, souvenirMesh } from './entities.ts';
+import { actorMesh, bookFishMesh, drifterMesh, figureMesh, lanternfolkMesh, motifMesh, mothMesh, souvenirMesh } from './entities.ts';
+import { BookFish, Drifter, Moth } from '../entities/creatures.ts';
 import { Echo } from '../entities/ecs.ts';
 import { watcherMesh } from './watcherview.ts';
 import { VisionStage } from './visions.ts';
+import { VISIONS } from '../director/visions.ts';
 import type { Watcher } from '../entities/watcher.ts';
 import { FIGURES, FIGURE_COLORS } from '../director/game.ts';
 
@@ -270,6 +272,19 @@ export class RealmView {
         m.scale.setScalar(Math.sin(Math.PI * k));
       }
     }
+    const creature = (comp: object, make: (e: number) => THREE.Object3D, flap = 0) => {
+      for (const eid of inVisit(ecs, v.id, [comp])) {
+        seen.add(eid);
+        let m = this.entityMeshes.get(eid);
+        if (!m) { m = make(eid); this.entityMeshes.set(eid, m); this.dynamic.add(m); }
+        m.position.set(Pos.x[eid], Pos.y[eid], Pos.z[eid]);
+        m.rotation.set(0, -Heading.yaw[eid], flap ? Math.sin(time * flap + eid) * 0.4 : 0);
+        if (this.faceTarget && comp === Drifter) m.rotation.y = Math.atan2(this.faceTarget.x - Pos.x[eid], this.faceTarget.z - Pos.z[eid]);
+      }
+    };
+    creature(Drifter, (e) => drifterMesh(Drifter.tone[e]));
+    creature(BookFish, (e) => bookFishMesh(BookFish.hue[e]), 9);
+    creature(Moth, () => mothMesh(), 30);
     for (const eid of inVisit(ecs, v.id, [Echo])) {
       seen.add(eid);
       let m = this.entityMeshes.get(eid);
@@ -295,7 +310,8 @@ export class RealmView {
     if (!id) { if (this.vision) this.vision.group.visible = false; return; }
     if (!this.vision) { this.vision = new VisionStage(); this.scene.add(this.vision.group); }
     this.vision.group.visible = true;
-    this.vision.update(id, t, x, y, z);
+    const def = VISIONS.find((x) => x.id === id) ?? VISIONS[0];
+    this.vision.update(def.stage, def.hue, t, x, y, z);
   }
 
   /** Write this realm's atmosphere into the shared material uniforms (call before each pane render). */

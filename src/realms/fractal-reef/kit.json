@@ -1,0 +1,328 @@
+{
+ "realm": "fractal-reef",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "flesh",
+  "water"
+ ],
+ "tiles": [
+  {
+   "id": "ground",
+   "weight": 6,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "reefsand"
+   }
+  },
+  {
+   "id": "high",
+   "weight": 1.8,
+   "sockets": [
+    "s1",
+    "s1",
+    "s1",
+    "s1"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 1
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "reefsand",
+    "params": {
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "rise",
+   "weight": 0.8,
+   "sockets": [
+    "s1",
+    "lip",
+    "s0",
+    "lip"
+   ],
+   "floor": {
+    "kind": "ramp",
+    "from": 0,
+    "to": 1,
+    "low": "S"
+   },
+   "rotations": 4,
+   "mesh": {
+    "proc": "reeframp"
+   }
+  },
+  {
+   "id": "coral-tree",
+   "weight": 1.8,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      1.0,
+      1.0,
+      3.0,
+      3.0
+     ],
+     "height": 6
+    }
+   ],
+   "tags": [
+    "flesh",
+    "water"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "coraltree"
+   },
+   "rotations": 2
+  },
+  {
+   "id": "brain-coral",
+   "weight": 0.8,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      0.6,
+      0.6,
+      3.4,
+      3.4
+     ],
+     "height": 2
+    }
+   ],
+   "tags": [
+    "flesh"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "braincoral"
+   },
+   "rotations": 2
+  },
+  {
+   "id": "landmark-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "reefsand"
+   }
+  },
+  {
+   "id": "quiet-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "reefsand"
+   }
+  },
+  {
+   "id": "reef-wall",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 6
+   },
+   "tags": [
+    "flesh"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "reefwall"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "anemone",
+   "tags": [
+    "flesh"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.4,
+   "height": 1.0,
+   "spacing": 5,
+   "density": 0.12,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "anemone"
+   }
+  },
+  {
+   "id": "glass-sponge",
+   "tags": [
+    "water",
+    "glass"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.5,
+   "height": 1.8,
+   "spacing": 9,
+   "density": 0.06,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "glasssponge"
+   }
+  },
+  {
+   "id": "pearl",
+   "tags": [
+    "water"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "bead"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "spiral-shell",
+   "tags": [
+    "flesh",
+    "water"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.005,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "bead"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "heart-coral",
+   "tags": [
+    "flesh",
+    "water"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 2.0,
+   "height": 8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "heartcoral"
+   }
+  },
+  {
+   "id": "shell-seat",
+   "tags": [
+    "water"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 0.8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

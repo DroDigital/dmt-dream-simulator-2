@@ -421,7 +421,7 @@ export class View {
     cam.aspect = p.rect.w / p.rect.h;
     const k = 1 - Math.exp(-frameDt * 2);
     p.ease.lucidity += (d.lucidity / 100 - p.ease.lucidity) * k;
-    p.ease.fov += (tuning.look.fov - p.ease.fov) * (1 - Math.exp(-frameDt * 3));
+    p.ease.fov += (tuning.look.fov + (game.mode === 'night' ? game.lawEffect('fovAdd', 0) : 0) - p.ease.fov) * (1 - Math.exp(-frameDt * 3));
     cam.fov = p.ease.fov;
     cam.updateProjectionMatrix();
     if (game.mode === 'night' && game.hasLaw('mirror')) cam.projectionMatrix.elements[0] *= -1;
@@ -434,19 +434,29 @@ export class View {
     const luc = p.ease.lucidity;
     const tr = d.transition;
     const atmos = rv.atmos;
-    if (p.lastVisit !== d.visit.id) {
+    // texture mood: the palette follows the live Resonance quadrant (4 moods per realm)
+    const moodQ = game.mode === 'night' ? quadrantOf(game.resonance) : atmos.quadrant;
+    const mood = moodQ === 'centre' ? atmos.quadrant === 'centre' ? 'halo' : atmos.quadrant : moodQ;
+    const moodKey = `${d.visit.id}|${mood}`;
+    if ((p as N).moodKey !== moodKey) {
+      (p as N).moodKey = moodKey;
       p.lastVisit = d.visit.id;
-      pipe.setPalette((palettes.quadrants as Record<string, string[]>)[atmos.quadrant === 'centre' ? 'halo' : atmos.quadrant] ?? palettes.quadrants.halo);
+      pipe.setPalette((palettes.quadrants as Record<string, string[]>)[mood] ?? palettes.quadrants.halo);
     }
     rv.applyAtmos();
     const [gw, gh] = pipe.snapGrid();
     (U.snapGrid.value as THREE.Vector2).set(gw, gh);
+    // eras: fresh -> worn -> overgrown -> abstract (one step about every 90 nights)
+    const era = game.era;
+    const isNight = game.mode === 'night';
     U.snapStrength.value = 1 - 0.5 * luc;
-    U.jitter.value = (1 - luc) * 0.9 + 0.1;
+    U.jitter.value = ((1 - luc) * 0.9 + 0.1 + [0, 0.15, 0.1, 0.9][era]) * (isNight ? game.lawEffect('jitterMul', 1) : 1);
+    U.fogNear.value = (U.fogNear.value as number) * (isNight ? game.lawEffect('fogMul', 1) : 1);
+    U.fogFar.value = (U.fogFar.value as number) * (isNight ? game.lawEffect('fogMul', 1) : 1);
 
     u.time.value = this.time;
     u.lucidity.value = luc;
-    u.saturation.value = 0.72 + 0.55 * luc;
+    u.saturation.value = (0.72 + 0.55 * luc) * [1, 0.82, 1.05, 1.25][game.era] * (game.mode === 'night' ? game.lawEffect('satMul', 1) : 1);
     u.soften.value = 1 - luc;
     u.bloom.value = atmos.bloom * tuning.render.bloomStrength;
     u.trail.value = this.gentle ? 0.04 : 0.2 + 0.18 * (1 - luc);
@@ -492,6 +502,7 @@ export class View {
       QUAD_TINT.forEach((q, i) => c.add(q.clone().multiplyScalar(w[i])));
       (u.tint.value as THREE.Color).copy(c);
       u.tintAmt.value = 0.22;
+      if (game.era === 2) { (u.tint.value as THREE.Color).lerp(new THREE.Color('#8FD08A'), 0.35); }
       u.hue.value = ((game.plan?.hueDeg ?? 0) * Math.PI) / 180;
     } else { u.tintAmt.value = 0.05; u.hue.value = 0; }
     // ghost doors: world desaturates except doors

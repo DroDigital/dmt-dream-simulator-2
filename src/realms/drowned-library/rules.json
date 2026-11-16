@@ -1,0 +1,38 @@
+{
+ "realm": "drowned-library",
+ "compatible": [
+  [
+   "lane",
+   "lane"
+  ],
+  [
+   "edge",
+   "yard"
+  ],
+  [
+   "edge",
+   "edge"
+  ]
+ ],
+ "weightJitter": {
+  "stack": [
+   0.2,
+   2.6
+  ],
+  "reading-pool": [
+   0.2,
+   2.6
+  ],
+  "lane-s": [
+   0.6,
+   1.8
+  ]
+ },
+ "density": [],
+ "spawnCount": 4,
+ "border": "deep-shelves",
+ "extent": [
+  0.62,
+  1.0
+ ]
+}

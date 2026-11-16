@@ -1,0 +1,56 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/visions.json",
+ "type": "object",
+ "required": [
+  "visions"
+ ],
+ "properties": {
+  "$comment": {
+   "type": "string"
+  },
+  "visions": {
+   "type": "array",
+   "minItems": 20,
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "stage",
+     "hue",
+     "durationS"
+    ],
+    "additionalProperties": false,
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "stage": {
+      "enum": [
+       "lanterns",
+       "doors",
+       "stars",
+       "moon",
+       "glyphstorm"
+      ]
+     },
+     "hue": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+     },
+     "durationS": {
+      "type": "number",
+      "minimum": 20,
+      "maximum": 40
+     }
+    }
+   }
+  }
+ },
+ "additionalProperties": false
+}

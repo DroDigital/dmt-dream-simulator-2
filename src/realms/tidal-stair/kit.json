@@ -1,0 +1,326 @@
+{
+ "realm": "tidal-stair",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "water"
+ ],
+ "tiles": [
+  {
+   "id": "ground",
+   "weight": 6,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "whitestone"
+   }
+  },
+  {
+   "id": "high",
+   "weight": 1.8,
+   "sockets": [
+    "s1",
+    "s1",
+    "s1",
+    "s1"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 1
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "whitestone",
+    "params": {
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "rise",
+   "weight": 0.8,
+   "sockets": [
+    "s1",
+    "lip",
+    "s0",
+    "lip"
+   ],
+   "floor": {
+    "kind": "ramp",
+    "from": 0,
+    "to": 1,
+    "low": "S"
+   },
+   "rotations": 4,
+   "mesh": {
+    "proc": "whitestairs"
+   }
+  },
+  {
+   "id": "tide-pool",
+   "weight": 1.2,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      0.5,
+      0.5,
+      3.5,
+      3.5
+     ],
+     "height": 0.3
+    }
+   ],
+   "tags": [
+    "water"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "tidepool"
+   },
+   "rotations": 2
+  },
+  {
+   "id": "stair-column",
+   "weight": 0.6,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      1.4,
+      1.4,
+      2.6,
+      2.6
+     ],
+     "height": 6
+    }
+   ],
+   "tags": [
+    "water",
+    "light"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "staircolumn"
+   },
+   "rotations": 2
+  },
+  {
+   "id": "landmark-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "whitestone"
+   }
+  },
+  {
+   "id": "quiet-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "whitestone"
+   }
+  },
+  {
+   "id": "sea",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 0.3
+   },
+   "tags": [
+    "water"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "sea"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "bollard",
+   "tags": [
+    "water"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.3,
+   "height": 0.9,
+   "spacing": 6,
+   "density": 0.08,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "bollard"
+   }
+  },
+  {
+   "id": "buoy-lantern",
+   "tags": [
+    "water",
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.4,
+   "height": 1.4,
+   "spacing": 10,
+   "density": 0.05,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "buoy"
+   }
+  },
+  {
+   "id": "shell",
+   "tags": [
+    "water"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "bead"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "moon-pebble",
+   "tags": [
+    "water"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.005,
+   "on": [
+    "ground",
+    "high"
+   ],
+   "mesh": {
+    "proc": "bead"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "two-moon-gate",
+   "tags": [
+    "water",
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 1.6,
+   "height": 7,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "moongate"
+   }
+  },
+  {
+   "id": "bench",
+   "tags": [
+    "water"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 0.8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

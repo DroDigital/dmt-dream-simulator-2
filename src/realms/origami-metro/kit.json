@@ -1,0 +1,416 @@
+{
+ "realm": "origami-metro",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "paper",
+  "machine"
+ ],
+ "tiles": [
+  {
+   "id": "lane-x",
+   "weight": 0.6,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "rail",
+    "params": {
+     "lines": "x"
+    }
+   }
+  },
+  {
+   "id": "lane-s",
+   "weight": 3,
+   "sockets": [
+    "lane",
+    "edge",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 2,
+   "spawnable": true,
+   "mesh": {
+    "proc": "rail",
+    "params": {
+     "lines": "s"
+    }
+   }
+  },
+  {
+   "id": "lane-t",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "rail",
+    "params": {
+     "lines": "t"
+    }
+   }
+  },
+  {
+   "id": "lane-l",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "rail",
+    "params": {
+     "lines": "l"
+    }
+   }
+  },
+  {
+   "id": "lane-end",
+   "weight": 0.15,
+   "sockets": [
+    "lane",
+    "edge",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "rail",
+    "params": {
+     "lines": "end"
+    }
+   }
+  },
+  {
+   "id": "yard",
+   "weight": 2.5,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "platform"
+   }
+  },
+  {
+   "id": "paper-block",
+   "weight": 2.4,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.4,
+      0.4,
+      3.6,
+      3.6
+     ],
+     "height": 8
+    }
+   ],
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "paperblock"
+   }
+  },
+  {
+   "id": "ticket-hall",
+   "weight": 0.8,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.5,
+      0.5,
+      3.5,
+      3.5
+     ],
+     "height": 4
+    }
+   ],
+   "tags": [
+    "machine",
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "tickethall"
+   }
+  },
+  {
+   "id": "plaza",
+   "weight": 0.01,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "rail",
+    "params": {
+     "lines": "none"
+    }
+   }
+  },
+  {
+   "id": "quiet-yard",
+   "weight": 0.01,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "platform"
+   }
+  },
+  {
+   "id": "paper-wall",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 6
+   },
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "paperwall"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "ticket-machine",
+   "tags": [
+    "machine"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.5,
+   "height": 1.8,
+   "spacing": 10,
+   "density": 0.07,
+   "on": [
+    "yard",
+    "lane-s"
+   ],
+   "mesh": {
+    "proc": "vending"
+   }
+  },
+  {
+   "id": "paper-tree",
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.4,
+   "height": 3,
+   "spacing": 8,
+   "density": 0.07,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "papertree"
+   }
+  },
+  {
+   "id": "signal",
+   "tags": [
+    "machine",
+    "light"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.25,
+   "height": 3.5,
+   "spacing": 12,
+   "density": 0.05,
+   "on": [
+    "lane-s",
+    "lane-l"
+   ],
+   "mesh": {
+    "proc": "lamp"
+   }
+  },
+  {
+   "id": "paper-crane",
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.3,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "crane"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "ticket-stub",
+   "tags": [
+    "paper",
+    "machine"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "scroll"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "folding-clock",
+   "tags": [
+    "paper",
+    "machine"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 1.6,
+   "height": 9,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "watertower"
+   }
+  },
+  {
+   "id": "bench",
+   "tags": [
+    "paper"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 0.8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

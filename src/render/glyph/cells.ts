@@ -57,8 +57,9 @@ export function makeCellsEdgeMaterial(src: CellSources, g: GlyphUniforms, sizeIn
     const w = (x: number, y: number): N => float(1).div(max(lin(o(x, y)), 0.01));
     const zc: N = max(lin(c), 0.01);
     const wc: N = float(1).div(zc);
-    const lap: N = abs(w(1, 0).add(w(-1, 0)).add(w(0, 1)).add(w(0, -1)).sub(wc.mul(4))).div(wc);
     const W2 = (x: number, y: number): N => float(1).div(max(lin(c.add(du.mul(vec2(x, y)).mul(2))), 0.01));
+    // keep the near-surface side only (negative Laplacian): the silhouette belongs to the closer object
+    const lap: N = max(wc.mul(4).sub(W2(1, 0).add(W2(-1, 0)).add(W2(0, 1)).add(W2(0, -1))), 0).div(wc);
     const gxd: N = W2(1, -1).add(W2(1, 0).mul(2)).add(W2(1, 1)).sub(W2(-1, -1).add(W2(-1, 0).mul(2)).add(W2(-1, 1)));
     const gyd: N = W2(-1, 1).add(W2(0, 1).mul(2)).add(W2(1, 1)).sub(W2(-1, -1).add(W2(0, -1).mul(2)).add(W2(1, -1)));
     const depthE: N = lap.mul(1.2);

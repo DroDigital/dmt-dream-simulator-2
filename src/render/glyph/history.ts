@@ -30,13 +30,22 @@ export function makeHistoryMaterial(cellsA: THREE.Texture, cellsB: THREE.Texture
     const q: N = uv();
     const a: N = A.sample(q), b: N = B.sample(q);
     const l: N = remapNode(a.w, g);
-    const edge: N = select(b.x.greaterThan(g.edgeThreshold), b.y.add(1), float(0));
     const prev: N = prevTex.sample(q);
+    // edge hysteresis: enter above the threshold, leave below 70% of it; ignore one-bin direction wobble
+    const wasEdge: N = prev.y.greaterThan(0.5);
+    const leave: N = max(float(1).sub(g.hysteresis.mul(5)), 0.5);
+    const on: N = select(wasEdge, b.x.greaterThan(g.edgeThreshold.mul(leave)), b.x.greaterThan(g.edgeThreshold));
+    const bd: N = abs(b.y.add(1).sub(prev.y));
+    const wobble: N = wasEdge.and(g.hysteresis.greaterThan(0)).and(bd.equal(1).or(bd.equal(3)));
+    const edge: N = select(on, select(wobble, prev.y, b.y.add(1)), float(0));
     const heldL: N = prev.x, prevEdge: N = prev.y, hold: N = prev.z, flips: N = prev.w;
     const n: N = g.rampN;
     const heldIdx: N = floor(heldL.mul(n));
+    // gaze settle: cells near the centre are calmer (hysteresis x2)
+    const centre: N = length(q.sub(0.5).mul(vec2(g.aspect, 1))).lessThan(g.settleRadius);
+    const hyst: N = g.hysteresis.mul(select(centre, g.settle.mul(g.gazeOn).add(1), float(1)));
     // Schmitt band: stay on the held glyph while l is within its bin widened by half the hysteresis
-    const m: N = g.hysteresis.mul(0.5);
+    const m: N = hyst;
     const inBand: N = l.greaterThan(heldIdx.div(n).sub(m)).and(l.lessThan(heldIdx.add(1).div(n).add(m)));
     const idx: N = select(inBand, heldIdx, floor(l.mul(n)));
     const cand: N = idx.add(edge.mul(16));
@@ -46,9 +55,6 @@ export function makeHistoryMaterial(cellsA: THREE.Texture, cellsB: THREE.Texture
     const pendCand: N = floor(hold.div(16));
     const pendCount: N = hold.sub(pendCand.mul(16));
     const count: N = select(changed, select(pendCand.equal(cand), min(pendCount.add(1), 15), float(1)), float(0));
-    // gaze settle: cells near the centre are calmer (hysteresis x2)
-    const centre: N = length(q.sub(0.5).mul(vec2(g.aspect, 1))).lessThan(g.settleRadius);
-    const hyst: N = g.hysteresis.mul(select(centre, g.settle.mul(g.gazeOn).add(1), float(1)));
     const big: N = abs(l.sub(heldL)).greaterThan(hyst);
     const flip: N = heldL.lessThan(0.25).and(l.greaterThan(0.75)).or(heldL.greaterThan(0.75).and(l.lessThan(0.25)));
     const accept0: N = changed.and(big.or(count.greaterThanEqual(g.holdFrames)));

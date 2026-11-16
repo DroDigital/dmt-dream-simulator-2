@@ -26,8 +26,7 @@
      "glyph",
      "machine"
     ]
-   },
-   "minItems": 1
+   }
   },
   "tiles": {
    "type": "array",

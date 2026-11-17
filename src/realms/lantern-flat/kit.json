@@ -1,0 +1,18 @@
+{
+ "realm": "lantern-flat",
+ "grid": 6, "cell": 2, "levelHeight": 2,
+ "linkTags": [],
+ "tiles": [
+  { "id": "tatami", "weight": 1, "sockets": ["in", "in", "in", "in"], "floor": { "kind": "flat", "level": 0 }, "spawnable": true, "mesh": { "proc": "tatami" } },
+  { "id": "wall", "weight": 0, "sockets": ["*", "*", "*", "*"], "floor": { "kind": "solid", "level": 0, "height": 2.8 }, "scatter": false, "mesh": { "proc": "flatwall" } },
+  { "id": "window", "weight": 0, "sockets": ["*", "*", "*", "*"], "floor": { "kind": "solid", "level": 0, "height": 2.8 }, "scatter": false, "mesh": { "proc": "flatwindow" } }
+ ],
+ "props": [
+  { "id": "futon", "tags": ["paper"], "components": {}, "radius": 0, "height": 0.2, "spacing": 1, "density": 0, "on": [], "mesh": { "proc": "futon" } },
+  { "id": "paper-lantern", "tags": ["light", "paper"], "components": {}, "radius": 0, "height": 0.6, "spacing": 1, "density": 0, "on": [], "mesh": { "proc": "lantern" } },
+  { "id": "shelf", "tags": ["paper"], "components": {}, "radius": 0, "height": 1.8, "spacing": 1, "density": 0, "on": [], "mesh": { "proc": "shelf" } },
+  { "id": "low-table", "tags": ["paper"], "components": {}, "radius": 0.5, "height": 0.4, "spacing": 1, "density": 0, "on": [], "mesh": { "proc": "lowtable" } },
+  { "id": "ceiling", "tags": [], "components": {}, "radius": 0, "height": 0.2, "spacing": 1, "density": 0, "on": [], "mesh": { "proc": "ceiling" } },
+  { "id": "clock", "tags": ["machine"], "components": {}, "radius": 0, "height": 0.3, "spacing": 1, "density": 0, "on": [], "mesh": { "proc": "clock" } }
+ ]
+}

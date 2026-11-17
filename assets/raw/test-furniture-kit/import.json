@@ -1,0 +1,15 @@
+{
+ "palette": "halo",
+ "hero": [
+  "hero-*"
+ ],
+ "tags": {
+  "paper-lantern": [
+   "light",
+   "paper"
+  ],
+  "futon": [
+   "paper"
+  ]
+ }
+}

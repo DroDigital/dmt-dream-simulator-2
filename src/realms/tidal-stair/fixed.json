@@ -1,0 +1,21 @@
+{
+ "realm": "tidal-stair",
+ "landmark": {
+  "tile": "landmark-ground",
+  "cell": [
+   25,
+   25
+  ],
+  "clear": 1,
+  "clearTile": "ground",
+  "prop": "two-moon-gate"
+ },
+ "quiet": {
+  "tile": "quiet-ground",
+  "cell": [
+   15,
+   33
+  ],
+  "prop": "bench"
+ }
+}

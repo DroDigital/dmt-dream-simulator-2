@@ -1,0 +1,21 @@
+{
+ "realm": "the-veins",
+ "landmark": {
+  "tile": "plaza",
+  "cell": [
+   25,
+   25
+  ],
+  "clear": 1,
+  "clearTile": "plaza",
+  "prop": "great-heart"
+ },
+ "quiet": {
+  "tile": "quiet-yard",
+  "cell": [
+   14,
+   34
+  ],
+  "prop": "bench"
+ }
+}

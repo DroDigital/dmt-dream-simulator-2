@@ -1,0 +1,45 @@
+{
+  "$comment": "Every tuning number from the brief. Hot-reloadable in dev via Tweakpane (F2).",
+  "sim": { "hz": 60, "maxFrameSteps": 8 },
+  "move": { "walk": 3.2, "drift": 5.1, "accelOmega": 10, "gravity": 18, "jumpless": true, "floatFallScale": 0.25, "floatTime": 1.5, "floatTimeAware": 3, "eyeHeight": 1.55, "radius": 0.3, "stepHeight": 0.5, "maxSlopeDeg": 45 },
+  "look": { "mouseSens": 0.0022, "padSens": 2.6, "springOmega": 22, "rollMaxDeg": 3, "quickTurnS": 0.25, "fov": 75 },
+  "touch": { "cooldownS": 0.3, "stickyS": 2 },
+  "notice": { "coneDeg": 6, "dwellS": 0.8, "eventDwellS": 2, "repeatFactor": 0.8, "peripheralWindowS": 20, "peripheralOutOfViewS": 8 },
+  "gaze": { "dwellS": 3, "unlockNight": 10 },
+  "blink": { "shutS": 0.4, "inS": 0.12, "outS": 0.2, "ringHoldS": 1.5 },
+  "interact": { "angleDeg": 12, "distM": 2.5, "maxScore": 2 },
+  "lieDownS": 2,
+  "lucidity": {
+    "levels": [0, 25, 50, 75],
+    "veiledAt": 30,
+    "gain": { "motif": 12, "law": 10, "event": 8, "blink": 8, "peripheral": 6, "geometry": 5, "echo": 4, "lanternfolk": 3, "quietPlace": 5, "quietPlaceS": 20, "reunion": 10, "sharedSameRealm": 0.5, "sharedOtherRealm": 0.25 },
+    "loss": { "decayAbove50": 0.5, "idleS": 30, "idlePerS": 1, "watcherPerS": 2, "watcherRadius": 10, "fall": 5, "revisit": 5 },
+    "carryOver": 0.1,
+    "bedsideBonus": 5,
+    "ringCost": 25
+  },
+  "link": {
+    "noveltyNights": 5, "noveltyBoost": 1.5,
+    "ghostDoorSlow": 0.1, "ghostDoorWindowS": 4, "ghostDoorDist": 2,
+    "ringMax": 8, "ringLookS": 1,
+    "transitionS": 0.6, "instantS": 0.15,
+    "followWindowS": 10,
+    "grammarFavoured": [2, 3], "grammarFavouredShare": 0.9
+  },
+  "breath": {
+    "base": { "night-school": 180, "lantern-market": 600, "default": 360, "evening-suburb": 420, "prism-cathedral": 390, "glyph-desert": 330, "tidal-stair": 450, "cloud-orchard": 420, "origami-metro": 360, "drowned-library": 420, "static-field": 330, "fractal-reef": 360, "the-veins": 300 },
+    "firstVisit": 45, "eventWatched": 15, "souvenir": 20, "thirdVisit": -20, "idleDrain": 2,
+    "capMul": 2, "hardCapS": 1200, "hardCapLongS": 1800,
+    "dawnAt": 0.25, "thinAtS": 30, "dissolveAtS": 5
+  },
+  "resonance": {
+    "min": -4, "max": 4,
+    "push": { "lanternfolk": [0, -1], "vision": [2, -2], "climb": [0, -0.5], "climbM": 20, "fall": [0, 1], "watcher": [0, 2], "still": [-1, 0], "stillS": 20, "linkBurst": [2, 0], "linkBurstN": 5, "linkBurstS": 60, "wakeStart": [-1, 0] },
+    "dotFadeNights": 60, "maxMove": 2, "divergentDist": 4
+  },
+  "director": { "anomaliesMin": 3, "anomaliesMax": 6, "mutationOutOfViewS": 8, "mutationsPerMin": 3, "eventCooldownNights": 30, "visionChance": 0.025, "visionChanceLate": 0.04, "visionLateNight": 100 },
+  "watcher": { "baseChance": 0.02, "depthChance": 0.06, "noSpawnFirstS": 60, "speed": 1.1, "height": 2.4, "nearM": 10, "contactM": 0.8, "followMin": 3, "followMax": 8, "followS": 30, "shieldM": 1.5, "shieldStopS": 2 },
+  "coop": { "handsM": 1.5, "tetherM": 2, "handsLucidityGap": 5, "reunionApartS": 120, "reunionM": 5, "chorusS": 1, "pullHoldS": 1, "lanternBonus": 3, "leaveHoldS": 2 },
+  "render": { "lowW": 480, "lowH": 270, "snapW": 240, "snapH": 135, "paletteSize": 32, "trailBlend": 0.85, "trailZoom": 0.004, "trailRotDeg": 0.1, "bloomStrength": 0.9, "lightScale2p": 0.75, "lightScale4p": 0.5 },
+  "rumble": { "touch": [80, 0.6], "notice": [30, 0.2], "pickup": [50, 0.2], "contact": [400, 1.0] }
+}

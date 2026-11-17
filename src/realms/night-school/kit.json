@@ -1,0 +1,498 @@
+{
+ "realm": "night-school",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "paper",
+  "machine",
+  "glass",
+  "light",
+  "water",
+  "flesh",
+  "glyph"
+ ],
+ "tiles": [
+  {
+   "id": "lane-x",
+   "weight": 0.6,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "corridor",
+    "params": {
+     "lines": "x"
+    }
+   }
+  },
+  {
+   "id": "lane-s",
+   "weight": 3,
+   "sockets": [
+    "lane",
+    "edge",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 2,
+   "spawnable": true,
+   "mesh": {
+    "proc": "corridor",
+    "params": {
+     "lines": "s"
+    }
+   }
+  },
+  {
+   "id": "lane-t",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "corridor",
+    "params": {
+     "lines": "t"
+    }
+   }
+  },
+  {
+   "id": "lane-l",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "corridor",
+    "params": {
+     "lines": "l"
+    }
+   }
+  },
+  {
+   "id": "lane-end",
+   "weight": 0.15,
+   "sockets": [
+    "lane",
+    "edge",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "corridor",
+    "params": {
+     "lines": "end"
+    }
+   }
+  },
+  {
+   "id": "yard",
+   "weight": 2.5,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "schoolyard"
+   }
+  },
+  {
+   "id": "classroom",
+   "weight": 2.8,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.3,
+      0.3,
+      3.7,
+      3.7
+     ],
+     "height": 3.4
+    }
+   ],
+   "tags": [
+    "paper",
+    "glass"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "classroom"
+   }
+  },
+  {
+   "id": "lab-room",
+   "weight": 0.8,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.3,
+      0.3,
+      3.7,
+      3.7
+     ],
+     "height": 3.4
+    }
+   ],
+   "tags": [
+    "machine",
+    "water"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "labroom"
+   }
+  },
+  {
+   "id": "music-room",
+   "weight": 0.5,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.3,
+      0.3,
+      3.7,
+      3.7
+     ],
+     "height": 3.4
+    }
+   ],
+   "tags": [
+    "light",
+    "glyph"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "musicroom"
+   }
+  },
+  {
+   "id": "art-room",
+   "weight": 0.5,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.3,
+      0.3,
+      3.7,
+      3.7
+     ],
+     "height": 3.4
+    }
+   ],
+   "tags": [
+    "flesh",
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "artroom"
+   }
+  },
+  {
+   "id": "plaza",
+   "weight": 0.01,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "corridor",
+    "params": {
+     "lines": "none"
+    }
+   }
+  },
+  {
+   "id": "quiet-yard",
+   "weight": 0.01,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "schoolyard"
+   }
+  },
+  {
+   "id": "school-wall",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 6
+   },
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "schoolwall"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "lockers",
+   "tags": [
+    "machine"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.5,
+   "height": 2.0,
+   "spacing": 8,
+   "density": 0.07,
+   "on": [
+    "lane-s",
+    "lane-t"
+   ],
+   "mesh": {
+    "proc": "lockers"
+   }
+  },
+  {
+   "id": "water-fountain",
+   "tags": [
+    "water"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.3,
+   "height": 1.0,
+   "spacing": 14,
+   "density": 0.04,
+   "on": [
+    "lane-s"
+   ],
+   "mesh": {
+    "proc": "font"
+   }
+  },
+  {
+   "id": "notice-board",
+   "tags": [
+    "paper",
+    "glyph"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.3,
+   "height": 2.0,
+   "spacing": 12,
+   "density": 0.04,
+   "on": [
+    "lane-s",
+    "yard"
+   ],
+   "mesh": {
+    "proc": "windsign"
+   }
+  },
+  {
+   "id": "chalk",
+   "tags": [
+    "glyph"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "lane-s",
+    "yard"
+   ],
+   "mesh": {
+    "proc": "candlestub"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "hall-pass",
+   "tags": [
+    "paper"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "yard",
+    "lane-s"
+   ],
+   "mesh": {
+    "proc": "scroll"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "school-clock",
+   "tags": [
+    "machine",
+    "glass"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 1.4,
+   "height": 8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "watertower"
+   }
+  },
+  {
+   "id": "bench",
+   "tags": [
+    "paper"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 0.8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

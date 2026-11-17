@@ -1,0 +1,13 @@
+{
+ "mode": "blocks",
+ "colourMode": "mono",
+ "colourA": "#C9D6D2",
+ "backdropMode": "black",
+ "scanlines": 0.6,
+ "depthCells": false,
+ "cellPx": 6,
+ "hysteresis": 0.02,
+ "holdFrames": 1,
+ "ripples": false,
+ "gazeSettle": false
+}

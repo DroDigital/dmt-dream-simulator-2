@@ -1,0 +1,92 @@
+{
+ "type": "object",
+ "properties": {
+  "$comment": {
+   "type": "string"
+  },
+  "realms": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "index": {
+      "type": "integer"
+     },
+     "name": {
+      "type": "string"
+     },
+     "quadrant": {
+      "enum": [
+       "hub",
+       "halo",
+       "bloom",
+       "hush",
+       "undertow",
+       "centre",
+       "alive",
+       "deep",
+       "still"
+      ]
+     },
+     "chart": {
+      "type": "array",
+      "items": {
+       "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+     },
+     "tags": {
+      "type": "array",
+      "items": {
+       "enum": [
+        "water",
+        "light",
+        "paper",
+        "glass",
+        "flesh",
+        "glyph",
+        "machine"
+       ]
+      }
+     },
+     "key": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$"
+     },
+     "implemented": {
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "id",
+     "index",
+     "name",
+     "quadrant",
+     "chart",
+     "tags",
+     "key",
+     "implemented"
+    ],
+    "additionalProperties": false
+   },
+   "minItems": 13
+  },
+  "quadrantStart": {
+   "type": "object"
+  },
+  "sliceFallback": {
+   "type": "object"
+  }
+ },
+ "required": [
+  "realms",
+  "quadrantStart"
+ ],
+ "additionalProperties": false,
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/realms.json"
+}

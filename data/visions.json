@@ -1,0 +1,145 @@
+{
+ "$comment": "Visions (20): real-time set pieces of 20-40 s.",
+ "visions": [
+  {
+   "id": "lantern-ascension",
+   "name": "Lantern Ascension",
+   "stage": "lanterns",
+   "hue": 0.08,
+   "durationS": 20
+  },
+  {
+   "id": "tide-of-doors",
+   "name": "Tide of Doors",
+   "stage": "doors",
+   "hue": 0.0,
+   "durationS": 27
+  },
+  {
+   "id": "falling-sky",
+   "name": "Falling Sky",
+   "stage": "stars",
+   "hue": 0.6,
+   "durationS": 34
+  },
+  {
+   "id": "moonrise",
+   "name": "Moonrise",
+   "stage": "moon",
+   "hue": 0.12,
+   "durationS": 20
+  },
+  {
+   "id": "glyph-storm",
+   "name": "Glyph Storm",
+   "stage": "glyphstorm",
+   "hue": 0.14,
+   "durationS": 27
+  },
+  {
+   "id": "blue-lanterns",
+   "name": "Blue Lanterns",
+   "stage": "lanterns",
+   "hue": 0.55,
+   "durationS": 34
+  },
+  {
+   "id": "doors-of-dusk",
+   "name": "Doors of Dusk",
+   "stage": "doors",
+   "hue": 0.05,
+   "durationS": 20
+  },
+  {
+   "id": "pink-meteors",
+   "name": "Pink Meteors",
+   "stage": "stars",
+   "hue": 0.92,
+   "durationS": 27
+  },
+  {
+   "id": "green-moon",
+   "name": "Green Moon",
+   "stage": "moon",
+   "hue": 0.33,
+   "durationS": 34
+  },
+  {
+   "id": "alphabet-rain",
+   "name": "Alphabet Rain",
+   "stage": "glyphstorm",
+   "hue": 0.5,
+   "durationS": 20
+  },
+  {
+   "id": "lantern-river",
+   "name": "Lantern River",
+   "stage": "lanterns",
+   "hue": 0.95,
+   "durationS": 27
+  },
+  {
+   "id": "white-doors",
+   "name": "White Doors",
+   "stage": "doors",
+   "hue": 0.0,
+   "durationS": 34
+  },
+  {
+   "id": "comet-tail",
+   "name": "Comet Tail",
+   "stage": "stars",
+   "hue": 0.15,
+   "durationS": 20
+  },
+  {
+   "id": "eclipse",
+   "name": "Eclipse",
+   "stage": "moon",
+   "hue": 0.75,
+   "durationS": 27
+  },
+  {
+   "id": "whisper-letters",
+   "name": "Whisper Letters",
+   "stage": "glyphstorm",
+   "hue": 0.8,
+   "durationS": 34
+  },
+  {
+   "id": "violet-lanterns",
+   "name": "Violet Lanterns",
+   "stage": "lanterns",
+   "hue": 0.75,
+   "durationS": 20
+  },
+  {
+   "id": "sea-doors",
+   "name": "Sea Doors",
+   "stage": "doors",
+   "hue": 0.5,
+   "durationS": 27
+  },
+  {
+   "id": "star-snow",
+   "name": "Star Snow",
+   "stage": "stars",
+   "hue": 0.0,
+   "durationS": 34
+  },
+  {
+   "id": "twin-moons-dance",
+   "name": "Twin Moons Dance",
+   "stage": "moon",
+   "hue": 0.05,
+   "durationS": 20
+  },
+  {
+   "id": "name-storm",
+   "name": "Name Storm",
+   "stage": "glyphstorm",
+   "hue": 0.0,
+   "durationS": 27
+  }
+ ]
+}

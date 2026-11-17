@@ -1,0 +1,443 @@
+{
+ "realm": "prism-cathedral",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "glass",
+  "light"
+ ],
+ "tiles": [
+  {
+   "id": "nave",
+   "weight": 5,
+   "sockets": [
+    "nave",
+    "nave",
+    "nave",
+    "nave"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "tilefloor"
+   }
+  },
+  {
+   "id": "pillar",
+   "weight": 1.2,
+   "sockets": [
+    "nave",
+    "nave",
+    "nave",
+    "nave"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      1.3,
+      1.3,
+      2.7,
+      2.7
+     ],
+     "height": 16
+    }
+   ],
+   "tags": [
+    "glass"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "pillar"
+   }
+  },
+  {
+   "id": "window-wall",
+   "weight": 1.0,
+   "rotations": 4,
+   "sockets": [
+    "wall",
+    "nave",
+    "wall",
+    "glasswall"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      0,
+      0,
+      1.0,
+      4
+     ],
+     "height": 18
+    }
+   ],
+   "tags": [
+    "glass",
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "glasswall"
+   }
+  },
+  {
+   "id": "pews",
+   "weight": 1.4,
+   "rotations": 2,
+   "sockets": [
+    "nave",
+    "nave",
+    "nave",
+    "nave"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      0.6,
+      0.6,
+      3.4,
+      1.2
+     ],
+     "height": 0.9
+    },
+    {
+     "rect": [
+      0.6,
+      2.4,
+      3.4,
+      3.0
+     ],
+     "height": 0.9
+    }
+   ],
+   "spawnable": false,
+   "scatter": false,
+   "mesh": {
+    "proc": "pews"
+   }
+  },
+  {
+   "id": "dais",
+   "weight": 0.6,
+   "sockets": [
+    "dais",
+    "dais",
+    "dais",
+    "dais"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 1
+   },
+   "spawnable": false,
+   "mesh": {
+    "proc": "tilefloor",
+    "params": {
+     "raised": true
+    }
+   }
+  },
+  {
+   "id": "dais-steps",
+   "weight": 0.3,
+   "rotations": 4,
+   "sockets": [
+    "dais",
+    "side",
+    "nave",
+    "side"
+   ],
+   "floor": {
+    "kind": "ramp",
+    "from": 0,
+    "to": 1,
+    "low": "S"
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "steps",
+    "params": {
+     "stone": true
+    }
+   }
+  },
+  {
+   "id": "rainbow-floor",
+   "weight": 1.0,
+   "sockets": [
+    "nave",
+    "nave",
+    "nave",
+    "nave"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "components": {
+    "anomaly": true
+   },
+   "mesh": {
+    "proc": "tilefloor",
+    "params": {
+     "rainbow": true
+    }
+   }
+  },
+  {
+   "id": "altar",
+   "weight": 0.01,
+   "sockets": [
+    "nave",
+    "nave",
+    "nave",
+    "nave"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "tilefloor",
+    "params": {
+     "rainbow": true
+    }
+   }
+  },
+  {
+   "id": "chapel",
+   "weight": 0.01,
+   "sockets": [
+    "nave",
+    "nave",
+    "nave",
+    "nave"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "tilefloor"
+   }
+  },
+  {
+   "id": "nave-wall",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 20
+   },
+   "tags": [
+    "glass",
+    "light"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "navewall"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "prism",
+   "tags": [
+    "glass",
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.5,
+   "height": 1.6,
+   "spacing": 9,
+   "density": 0.08,
+   "on": [
+    "nave",
+    "rainbow-floor",
+    "dais"
+   ],
+   "mesh": {
+    "proc": "prism"
+   }
+  },
+  {
+   "id": "candle-stand",
+   "tags": [
+    "light"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.35,
+   "height": 1.5,
+   "spacing": 7,
+   "density": 0.08,
+   "on": [
+    "nave",
+    "dais"
+   ],
+   "mesh": {
+    "proc": "candles"
+   }
+  },
+  {
+   "id": "glass-figure",
+   "tags": [
+    "glass"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.5,
+   "height": 2.2,
+   "spacing": 14,
+   "density": 0.04,
+   "on": [
+    "nave",
+    "dais"
+   ],
+   "mesh": {
+    "proc": "glassfigure"
+   }
+  },
+  {
+   "id": "font",
+   "tags": [
+    "water",
+    "glass"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.8,
+   "height": 1.0,
+   "spacing": 30,
+   "density": 0.01,
+   "on": [
+    "nave"
+   ],
+   "mesh": {
+    "proc": "font"
+   }
+  },
+  {
+   "id": "glass-bead",
+   "tags": [
+    "glass"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "nave",
+    "dais"
+   ],
+   "hover": 1.0,
+   "mesh": {
+    "proc": "bead"
+   }
+  },
+  {
+   "id": "candle-stub",
+   "tags": [
+    "light"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "nave",
+    "rainbow-floor"
+   ],
+   "hover": 0.9,
+   "mesh": {
+    "proc": "candlestub"
+   }
+  },
+  {
+   "id": "great-prism",
+   "tags": [
+    "glass",
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 1.5,
+   "height": 6,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "greatprism"
+   }
+  },
+  {
+   "id": "kneeler",
+   "tags": [
+    "glass"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 0.5,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench",
+    "params": {
+     "stone": true
+    }
+   }
+  }
+ ]
+}

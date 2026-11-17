@@ -1,0 +1,77 @@
+{
+ "realm": "evening-suburb",
+ "compatible": [
+  [
+   "road",
+   "road"
+  ],
+  [
+   "curb",
+   "yard"
+  ],
+  [
+   "curb",
+   "curb"
+  ],
+  [
+   "yard",
+   "yard1"
+  ],
+  [
+   "edge",
+   "yard"
+  ],
+  [
+   "edge",
+   "yard1"
+  ],
+  [
+   "edge",
+   "edge"
+  ],
+  [
+   "edge",
+   "curb"
+  ]
+ ],
+ "weightJitter": {
+  "house-a": [
+   0.2,
+   2.6
+  ],
+  "house-b": [
+   0.2,
+   2.6
+  ],
+  "house-c": [
+   0.1,
+   2.0
+  ],
+  "road-s": [
+   0.6,
+   1.8
+  ],
+  "terrace": [
+   0,
+   3
+  ],
+  "steps": [
+   0.5,
+   2
+  ]
+ },
+ "density": [
+  {
+   "prop": "bicycle",
+   "near": "vending-machine",
+   "radius": 8,
+   "boost": 3
+  }
+ ],
+ "spawnCount": 4,
+ "border": "hedge-wall",
+ "extent": [
+  0.62,
+  1.0
+ ]
+}

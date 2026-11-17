@@ -1,0 +1,397 @@
+{
+ "realm": "the-veins",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "flesh",
+  "machine"
+ ],
+ "tiles": [
+  {
+   "id": "lane-x",
+   "weight": 0.6,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "tube",
+    "params": {
+     "lines": "x"
+    }
+   }
+  },
+  {
+   "id": "lane-s",
+   "weight": 3,
+   "sockets": [
+    "lane",
+    "edge",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 2,
+   "spawnable": true,
+   "mesh": {
+    "proc": "tube",
+    "params": {
+     "lines": "s"
+    }
+   }
+  },
+  {
+   "id": "lane-t",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "tube",
+    "params": {
+     "lines": "t"
+    }
+   }
+  },
+  {
+   "id": "lane-l",
+   "weight": 0.8,
+   "sockets": [
+    "lane",
+    "lane",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "tube",
+    "params": {
+     "lines": "l"
+    }
+   }
+  },
+  {
+   "id": "lane-end",
+   "weight": 0.15,
+   "sockets": [
+    "lane",
+    "edge",
+    "edge",
+    "edge"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "spawnable": true,
+   "mesh": {
+    "proc": "tube",
+    "params": {
+     "lines": "end"
+    }
+   }
+  },
+  {
+   "id": "yard",
+   "weight": 2.5,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "membrane"
+   }
+  },
+  {
+   "id": "vein-wall",
+   "weight": 2.6,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.2,
+      0.2,
+      3.8,
+      3.8
+     ],
+     "height": 5
+    }
+   ],
+   "tags": [
+    "flesh"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "veinwall"
+   }
+  },
+  {
+   "id": "organ-pipes",
+   "weight": 1.0,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "rotations": 4,
+   "footprints": [
+    {
+     "rect": [
+      0.8,
+      0.8,
+      3.2,
+      3.2
+     ],
+     "height": 9
+    }
+   ],
+   "tags": [
+    "machine",
+    "flesh"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "organpipes"
+   }
+  },
+  {
+   "id": "plaza",
+   "weight": 0.01,
+   "sockets": [
+    "lane",
+    "lane",
+    "lane",
+    "lane"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "tube",
+    "params": {
+     "lines": "none"
+    }
+   }
+  },
+  {
+   "id": "quiet-yard",
+   "weight": 0.01,
+   "sockets": [
+    "yard",
+    "yard",
+    "yard",
+    "yard"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "membrane"
+   }
+  },
+  {
+   "id": "vein-border",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 6
+   },
+   "tags": [
+    "flesh"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "veinborder"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "valve",
+   "tags": [
+    "machine"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.4,
+   "height": 1.2,
+   "spacing": 8,
+   "density": 0.08,
+   "on": [
+    "yard",
+    "lane-s"
+   ],
+   "mesh": {
+    "proc": "valve"
+   }
+  },
+  {
+   "id": "pulse-node",
+   "tags": [
+    "flesh",
+    "light"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.5,
+   "height": 1.5,
+   "spacing": 9,
+   "density": 0.08,
+   "on": [
+    "yard",
+    "lane-s",
+    "lane-t"
+   ],
+   "mesh": {
+    "proc": "pulsenode"
+   }
+  },
+  {
+   "id": "warm-stone",
+   "tags": [
+    "flesh"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.006,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "bead"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "brass-key",
+   "tags": [
+    "machine"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.2,
+   "spacing": 25,
+   "density": 0.005,
+   "on": [
+    "yard"
+   ],
+   "mesh": {
+    "proc": "bell"
+   },
+   "hover": 0.9
+  },
+  {
+   "id": "great-heart",
+   "tags": [
+    "flesh",
+    "machine"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 2.0,
+   "height": 6,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "heartcoral"
+   }
+  },
+  {
+   "id": "bench",
+   "tags": [
+    "flesh"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 0.8,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "bench"
+   }
+  }
+ ]
+}

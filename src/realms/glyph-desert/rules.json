@@ -1,0 +1,65 @@
+{
+ "realm": "glyph-desert",
+ "compatible": [
+  [
+   "s0",
+   "s1"
+  ],
+  [
+   "s1",
+   "s2"
+  ],
+  [
+   "lip",
+   "s0"
+  ],
+  [
+   "lip",
+   "s1"
+  ],
+  [
+   "lip",
+   "s2"
+  ],
+  [
+   "lip",
+   "lip"
+  ]
+ ],
+ "weightJitter": {
+  "dune": [
+   0.3,
+   3
+  ],
+  "crest": [
+   0,
+   2.5
+  ],
+  "monolith": [
+   0.4,
+   2.2
+  ],
+  "ruin": [
+   0.2,
+   2
+  ],
+  "slope01": [
+   0.4,
+   2
+  ]
+ },
+ "density": [
+  {
+   "prop": "letter-cactus",
+   "near": "glyph-stone",
+   "radius": 10,
+   "boost": 2
+  }
+ ],
+ "spawnCount": 4,
+ "border": "high-dune",
+ "extent": [
+  0.62,
+  1.0
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "realm": "prism-cathedral",
+ "compatible": [
+  [
+   "wall",
+   "wall"
+  ],
+  [
+   "glasswall",
+   "nave"
+  ],
+  [
+   "glasswall",
+   "glasswall"
+  ],
+  [
+   "dais",
+   "nave"
+  ],
+  [
+   "side",
+   "nave"
+  ],
+  [
+   "side",
+   "dais"
+  ],
+  [
+   "side",
+   "side"
+  ],
+  [
+   "wall",
+   "nave"
+  ]
+ ],
+ "weightJitter": {
+  "pillar": [
+   0.4,
+   2.4
+  ],
+  "window-wall": [
+   0.2,
+   2.2
+  ],
+  "pews": [
+   0.2,
+   2.5
+  ],
+  "dais": [
+   0,
+   2.5
+  ],
+  "dais-steps": [
+   0.5,
+   2
+  ]
+ },
+ "density": [
+  {
+   "prop": "candle-stand",
+   "near": "glass-figure",
+   "radius": 8,
+   "boost": 2
+  }
+ ],
+ "spawnCount": 4,
+ "border": "nave-wall",
+ "extent": [
+  0.62,
+  1.0
+ ]
+}

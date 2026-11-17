@@ -1,0 +1,11 @@
+{
+ "mode": "ascii",
+ "colourMode": "full",
+ "backdropMode": "blurred",
+ "backdropStrength": 0.7,
+ "paper": {
+  "aberration": 0.6,
+  "flutedGlass": 0.7
+ },
+ "ripples": false
+}

@@ -1,0 +1,9 @@
+{
+ "mode": "braille",
+ "colourMode": "full",
+ "backdropMode": "blurred",
+ "paper": {
+  "aberration": 0.4,
+  "flutedGlass": 0
+ }
+}

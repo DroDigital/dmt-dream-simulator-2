@@ -1,0 +1,73 @@
+{
+ "type": "object",
+ "properties": {
+  "$comment": {
+   "type": "string"
+  },
+  "opening": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    },
+    "minItems": 1
+   }
+  },
+  "middle": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   },
+   "minItems": 1
+  },
+  "closing": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   },
+   "minItems": 1
+  },
+  "diary": {
+   "type": "object",
+   "properties": {
+    "subjects": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1
+    },
+    "verbs": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1
+    },
+    "places": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1
+    }
+   },
+   "required": [
+    "subjects",
+    "verbs",
+    "places"
+   ],
+   "additionalProperties": false
+  }
+ },
+ "required": [
+  "opening",
+  "middle",
+  "closing",
+  "diary"
+ ],
+ "additionalProperties": false,
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "dmt/phrases.json"
+}

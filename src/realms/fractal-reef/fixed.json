@@ -1,0 +1,21 @@
+{
+ "realm": "fractal-reef",
+ "landmark": {
+  "tile": "landmark-ground",
+  "cell": [
+   25,
+   25
+  ],
+  "clear": 1,
+  "clearTile": "ground",
+  "prop": "heart-coral"
+ },
+ "quiet": {
+  "tile": "quiet-ground",
+  "cell": [
+   15,
+   33
+  ],
+  "prop": "shell-seat"
+ }
+}

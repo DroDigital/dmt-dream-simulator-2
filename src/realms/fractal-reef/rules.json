@@ -1,0 +1,46 @@
+{
+ "realm": "fractal-reef",
+ "compatible": [
+  [
+   "s0",
+   "s1"
+  ],
+  [
+   "lip",
+   "s0"
+  ],
+  [
+   "lip",
+   "s1"
+  ],
+  [
+   "lip",
+   "lip"
+  ]
+ ],
+ "weightJitter": {
+  "high": [
+   0.2,
+   3
+  ],
+  "rise": [
+   0.4,
+   2
+  ],
+  "coral-tree": [
+   0.3,
+   2.4
+  ],
+  "brain-coral": [
+   0.3,
+   2.4
+  ]
+ },
+ "density": [],
+ "spawnCount": 4,
+ "border": "reef-wall",
+ "extent": [
+  0.62,
+  1.0
+ ]
+}

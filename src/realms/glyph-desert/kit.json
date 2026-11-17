@@ -1,0 +1,399 @@
+{
+ "realm": "glyph-desert",
+ "grid": 50,
+ "cell": 4,
+ "levelHeight": 2,
+ "linkTags": [
+  "glyph"
+ ],
+ "tiles": [
+  {
+   "id": "sand",
+   "weight": 6,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "sand"
+   }
+  },
+  {
+   "id": "dune",
+   "weight": 2,
+   "sockets": [
+    "s1",
+    "s1",
+    "s1",
+    "s1"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 1
+   },
+   "spawnable": true,
+   "mesh": {
+    "proc": "sand",
+    "params": {
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "crest",
+   "weight": 0.6,
+   "sockets": [
+    "s2",
+    "s2",
+    "s2",
+    "s2"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 2
+   },
+   "spawnable": false,
+   "mesh": {
+    "proc": "sand",
+    "params": {
+     "level": 2
+    }
+   }
+  },
+  {
+   "id": "slope01",
+   "weight": 0.8,
+   "rotations": 4,
+   "sockets": [
+    "s1",
+    "lip",
+    "s0",
+    "lip"
+   ],
+   "floor": {
+    "kind": "ramp",
+    "from": 0,
+    "to": 1,
+    "low": "S"
+   },
+   "mesh": {
+    "proc": "sandramp"
+   }
+  },
+  {
+   "id": "slope12",
+   "weight": 0.4,
+   "rotations": 4,
+   "sockets": [
+    "s2",
+    "lip",
+    "s1",
+    "lip"
+   ],
+   "floor": {
+    "kind": "ramp",
+    "from": 1,
+    "to": 2,
+    "low": "S"
+   },
+   "mesh": {
+    "proc": "sandramp"
+   }
+  },
+  {
+   "id": "monolith",
+   "weight": 0.9,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      1.4,
+      1.4,
+      2.6,
+      2.6
+     ],
+     "height": 7
+    }
+   ],
+   "tags": [
+    "glyph"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "monolith"
+   }
+  },
+  {
+   "id": "ruin",
+   "weight": 0.5,
+   "rotations": 2,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "footprints": [
+    {
+     "rect": [
+      0.2,
+      1.6,
+      1.0,
+      2.4
+     ],
+     "height": 4
+    },
+    {
+     "rect": [
+      3.0,
+      1.6,
+      3.8,
+      2.4
+     ],
+     "height": 4
+    }
+   ],
+   "tags": [
+    "glyph"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "arch"
+   }
+  },
+  {
+   "id": "tablet-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "sand"
+   }
+  },
+  {
+   "id": "tent-ground",
+   "weight": 0.01,
+   "sockets": [
+    "s0",
+    "s0",
+    "s0",
+    "s0"
+   ],
+   "floor": {
+    "kind": "flat",
+    "level": 0
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "sand"
+   }
+  },
+  {
+   "id": "high-dune",
+   "weight": 0,
+   "sockets": [
+    "*",
+    "*",
+    "*",
+    "*"
+   ],
+   "floor": {
+    "kind": "solid",
+    "level": 0,
+    "height": 7
+   },
+   "tags": [
+    "glyph"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "scatter": false,
+   "mesh": {
+    "proc": "highdune"
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "glyph-stone",
+   "tags": [
+    "glyph"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.6,
+   "height": 1.4,
+   "spacing": 8,
+   "density": 0.06,
+   "on": [
+    "sand",
+    "dune",
+    "crest"
+   ],
+   "mesh": {
+    "proc": "glyphstone"
+   }
+  },
+  {
+   "id": "letter-cactus",
+   "tags": [
+    "glyph",
+    "flesh"
+   ],
+   "components": {
+    "linkable": true
+   },
+   "radius": 0.4,
+   "height": 2.4,
+   "spacing": 7,
+   "density": 0.07,
+   "on": [
+    "sand",
+    "dune"
+   ],
+   "mesh": {
+    "proc": "lettercactus"
+   }
+  },
+  {
+   "id": "wind-sign",
+   "tags": [
+    "glyph",
+    "machine"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 0.3,
+   "height": 3,
+   "spacing": 16,
+   "density": 0.025,
+   "on": [
+    "sand",
+    "dune",
+    "crest"
+   ],
+   "mesh": {
+    "proc": "windsign"
+   }
+  },
+  {
+   "id": "sand-scroll",
+   "tags": [
+    "glyph",
+    "paper"
+   ],
+   "components": {
+    "carryable": true,
+    "anomaly": true
+   },
+   "radius": 0,
+   "height": 0.3,
+   "spacing": 30,
+   "density": 0.005,
+   "on": [
+    "sand",
+    "dune"
+   ],
+   "hover": 0.9,
+   "mesh": {
+    "proc": "scroll"
+   }
+  },
+  {
+   "id": "ink-bottle",
+   "tags": [
+    "glyph",
+    "glass"
+   ],
+   "components": {
+    "carryable": true
+   },
+   "radius": 0,
+   "height": 0.25,
+   "spacing": 30,
+   "density": 0.005,
+   "on": [
+    "sand",
+    "dune"
+   ],
+   "hover": 0.9,
+   "mesh": {
+    "proc": "inkbottle"
+   }
+  },
+  {
+   "id": "great-tablet",
+   "tags": [
+    "glyph"
+   ],
+   "components": {
+    "linkable": true,
+    "anomaly": true
+   },
+   "radius": 1.8,
+   "height": 10,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "greattablet"
+   }
+  },
+  {
+   "id": "shade-tent",
+   "tags": [
+    "paper"
+   ],
+   "components": {},
+   "radius": 0,
+   "height": 2.5,
+   "spacing": 100,
+   "density": 0,
+   "on": [],
+   "mesh": {
+    "proc": "tent"
+   }
+  }
+ ]
+}

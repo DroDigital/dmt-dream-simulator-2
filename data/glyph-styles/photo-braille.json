@@ -1,0 +1,8 @@
+{
+ "mode": "braille",
+ "colourMode": "full",
+ "backdropMode": "black",
+ "depthCells": false,
+ "cellPx": 6,
+ "ripples": false
+}

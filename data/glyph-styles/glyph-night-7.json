@@ -1,0 +1,11 @@
+{
+ "mode": "ascii",
+ "colourMode": "duotone",
+ "colourA": "#2E5E6E",
+ "colourB": "#E8C27A",
+ "backdropMode": "blurred",
+ "paper": {
+  "aberration": 0,
+  "flutedGlass": 0.5
+ }
+}
